@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import SiteHeader from "@/components/layout/SiteHeader";
 import SiteFooter from "@/components/layout/SiteFooter";
 import FooterCtaStrip from "@/components/layout/FooterCtaStrip";
+import RoutePrefetcher from "@/components/layout/RoutePrefetcher";
 import AnimatedBackground from "@/components/ui/AnimatedBackground";
 
 const SITE_NAME = "Sophrion";
@@ -70,6 +71,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   return (
     <div className="min-h-screen flex flex-col">
       <AnimatedBackground />
+      <RoutePrefetcher />
 
       <SiteHeader />
       <main className="mx-auto w-full flex-1">{children}</main>

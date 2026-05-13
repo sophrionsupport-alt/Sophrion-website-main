@@ -9,7 +9,6 @@ import {
   Palette, 
   Settings, 
   Activity,
-  Layers,
   ChevronRight,
   Terminal,
   Zap
