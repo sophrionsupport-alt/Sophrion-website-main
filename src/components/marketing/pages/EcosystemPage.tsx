@@ -229,7 +229,7 @@ export default function EcosystemPage() {
               { title: "For Students", items: outcomesStudents, glow: "glow-blue" },
               { title: "For Institutions", items: outcomesInst, glow: "glow-indigo" },
               { title: "For Industry", items: outcomesIndustry, glow: "glow-purple" },
-            ].map((section, idx) => (
+            ].map((section) => (
               <div
                 key={section.title}
                 className={cn(

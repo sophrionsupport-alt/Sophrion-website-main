@@ -3,7 +3,7 @@
 import * as React from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import FeatureGrid from "@/components/marketing/FeatureGrid";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
 import { MARKETING } from "@/lib/marketing/links";
@@ -173,22 +173,13 @@ export default function Page() {
               transition={{ duration: 0.5 }}
             >
               <p className="text-sm font-semibold tracking-wide text-foreground/70">FOUNDER & VISION ARCHITECT</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Srikanth Molugu</h2>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Team Sophrion</h2>
               <p className="mt-5 leading-relaxed text-foreground/75">
-                Srikanth Molugu is an entrepreneur and ecosystem builder focused on creating future-ready systems at the intersection of education, artificial intelligence, innovation, and execution-driven workforce development.
+                Our team is an entrepreneur and ecosystem builder focused on creating future-ready systems at the intersection of education, artificial intelligence, innovation, and execution-driven workforce development.
               </p>
               <p className="mt-4 leading-relaxed text-foreground/75">
-                As the founder of Sophrion, he is building an AI-native ecosystem designed to help students transition from passive learning into real execution environments through production systems, collaborative workflows, and future-oriented career acceleration pathways.
+                As the team of Sophrion, we are building an AI-native ecosystem designed to help students transition from passive learning into real execution environments through production systems, collaborative workflows, and future-oriented career acceleration pathways.
               </p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 14 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="flex min-h-[220px] items-center justify-center rounded-3xl border border-border bg-white/3 p-8 backdrop-blur"
-            >
-              <Sparkles className="h-14 w-14 text-[hsl(var(--cyan-500))]" aria-hidden />
             </motion.div>
           </div>
         </div>

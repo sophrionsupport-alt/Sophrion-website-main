@@ -306,7 +306,7 @@ export default function PhaseOneExpanded() {
               Tangible Outputs
             </h6>
             <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {["GitHub Profile", "LinkedIn Profile", "Resume Foundation", "Portfolio Website", "Deployed Mini Project", "Collaborative Team Project", "AI-Assisted Workflow", "Sprint Execution", "Professional Presentation"].map((out, i) => (
+              {["GitHub Profile", "LinkedIn Profile", "Resume Foundation", "Portfolio Website", "Deployed Mini Project", "Collaborative Team Project", "AI-Assisted Workflow", "Sprint Execution", "Professional Presentation"].map((out) => (
                 <div key={out} className="flex items-center gap-3 rounded-xl bg-white/[0.03] p-3 ring-1 ring-white/5">
                   <div className="h-1.5 w-1.5 rounded-full bg-cyan-500" />
                   <span className="text-xs text-foreground/80">{out}</span>
@@ -331,7 +331,7 @@ export default function PhaseOneExpanded() {
                 "Deploy and manage basic digital projects",
                 "Present technical work confidently to peers",
                 "Build and maintain a professional online presence"
-              ].map((item, i) => (
+              ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <div className="mt-1 h-4 w-4 shrink-0 text-purple-500/60">
                     <CheckCircle2 className="h-full w-full" />

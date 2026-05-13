@@ -109,7 +109,7 @@ export default function PhaseThreeExpanded() {
               { label: "Contribute", desc: "Advanced learning" },
               { label: "Qualify", desc: "Mentor reviews" },
               { label: "Deploy", desc: "Production output" }
-            ].map((step, i) => (
+            ].map((step) => (
               <div key={step.label} className="flex flex-col items-center">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-400 ring-1 ring-cyan-500/20">
                   <span className="text-xs font-bold">→</span>
@@ -205,7 +205,7 @@ export default function PhaseThreeExpanded() {
         <section>
           <SectionTitle title="Advanced Learning Layer" />
           <div className="space-y-4">
-            {advancedLearning.map((item, i) => (
+            {advancedLearning.map((item) => (
               <div key={item.path} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6">
                 <div className="flex items-center gap-3">
                   <item.icon className="h-5 w-5 text-cyan-400" />
@@ -226,7 +226,7 @@ export default function PhaseThreeExpanded() {
         <section>
           <SectionTitle title="Production Output Categories" />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {productionOutputs.map((out, i) => (
+            {productionOutputs.map((out) => (
               <div key={out.category} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6">
                 <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/[0.05] text-cyan-400">
                   <out.icon className="h-5 w-5" />
@@ -286,7 +286,7 @@ export default function PhaseThreeExpanded() {
               { asset: "Residency metrics", value: "Hiring signals", icon: BarChart3 },
               { asset: "Mentor reviews", value: "Qualification credibility", icon: CheckCircle2 },
               { asset: "Production repositories", value: "Portfolio ecosystem", icon: Database },
-            ].map((item, i) => (
+            ].map((item) => (
               <div key={item.asset} className="flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
                 <div className="flex items-center gap-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400">

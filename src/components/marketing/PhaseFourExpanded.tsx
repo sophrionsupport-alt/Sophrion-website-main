@@ -187,7 +187,7 @@ export default function PhaseFourExpanded() {
         <section>
           <SectionTitle title="Pathway Hiring Challenges" subtitle="Day 2 Technical Benchmarks" />
           <div className="space-y-3">
-            {hiringChallenges.map((item, i) => (
+            {hiringChallenges.map((item) => (
               <div key={item.path} className="flex items-center gap-4 rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/5 text-cyan-400">
                   <item.icon className="h-5 w-5" />
@@ -205,7 +205,7 @@ export default function PhaseFourExpanded() {
         <section>
           <SectionTitle title="Final Output Categories" subtitle="The result of the Launch Week ecosystem." />
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {outputTypes.map((out, i) => (
+            {outputTypes.map((out) => (
               <div key={out.type} className="group flex items-start gap-4 rounded-xl bg-white/[0.03] p-4 ring-1 ring-white/5 transition-all hover:bg-white/[0.06] hover:ring-white/10">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-500/10 text-purple-400 transition-colors group-hover:bg-purple-500/20">
                   <out.icon className="h-5 w-5" />
@@ -225,7 +225,7 @@ export default function PhaseFourExpanded() {
         <Trophy className="mx-auto h-10 w-10 text-yellow-500" />
         <h5 className="mt-6 text-2xl font-bold text-white">Acceleration Ecosystem</h5>
         <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-foreground/50">
-          The Career Launch Week doesn't just provide interviews—it validates capability and creates direct pathways for top performers into the industry's most innovative companies.
+          The Career Launch Week doesn&apos;t just provide interviews—it validates capability and creates direct pathways for top performers into the industry&apos;s most innovative companies.
         </p>
       </section>
     </div>

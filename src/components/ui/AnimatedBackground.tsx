@@ -51,24 +51,29 @@ export default function AnimatedBackground() {
   const rafRef = React.useRef<number>(0);
 
   React.useEffect(() => {
-    const onMouseMove = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (prefersReducedMotion.matches) return;
+
+    const updateSpotlight = () => {
+      rafRef.current = 0;
+      if (!spotlightRef.current) return;
+
+      const { x, y } = mouseRef.current;
+      spotlightRef.current.style.transform = `translate3d(${x - 300}px, ${y - 300}px, 0)`;
     };
 
-    const animate = () => {
-      if (spotlightRef.current) {
-        const { x, y } = mouseRef.current;
-        spotlightRef.current.style.transform = `translate(${x - 300}px, ${y - 300}px)`;
+    const onMouseMove = (e: MouseEvent) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY };
+      if (!rafRef.current) {
+        rafRef.current = requestAnimationFrame(updateSpotlight);
       }
-      rafRef.current = requestAnimationFrame(animate);
     };
 
     window.addEventListener("mousemove", onMouseMove, { passive: true });
-    rafRef.current = requestAnimationFrame(animate);
 
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
-      cancelAnimationFrame(rafRef.current);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
