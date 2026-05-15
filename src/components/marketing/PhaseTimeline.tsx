@@ -3,7 +3,7 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils/cn";
-import { Plus, X } from "lucide-react";
+import { Download, Plus, X } from "lucide-react";
 
 export type PhaseStep = {
   title: string;
@@ -21,11 +21,45 @@ const GLOW_VARIANTS = [
 export default function PhaseTimeline({
   steps,
   className,
+  brochureDownloadHref,
 }: {
   steps: PhaseStep[];
   className?: string;
+  /** When set, shows a download button in the phase modal (e.g. institutions brochure API). */
+  brochureDownloadHref?: string;
 }) {
   const [selectedPhase, setSelectedPhase] = React.useState<number | null>(null);
+  const [downloadingBrochure, setDownloadingBrochure] = React.useState(false);
+
+  async function handleDownloadBrochure() {
+    if (!brochureDownloadHref || downloadingBrochure) return;
+
+    setDownloadingBrochure(true);
+    try {
+      const response = await fetch(brochureDownloadHref);
+      if (!response.ok) {
+        throw new Error("Brochure download failed");
+      }
+
+      const blob = await response.blob();
+      const disposition = response.headers.get("Content-Disposition") ?? "";
+      const filenameMatch = disposition.match(/filename="?([^"]+)"?/i);
+      const filename = filenameMatch?.[1] ?? "Sophrion-brochure.png";
+
+      const objectUrl = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = objectUrl;
+      anchor.download = filename;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      URL.revokeObjectURL(objectUrl);
+    } catch (error) {
+      console.error("[PhaseTimeline] brochure download failed:", error);
+    } finally {
+      setDownloadingBrochure(false);
+    }
+  }
 
   React.useEffect(() => {
     if (selectedPhase !== null) {
@@ -132,17 +166,21 @@ export default function PhaseTimeline({
                 </div>
               </div>
 
-              {/* Brochure Button - Fixed at bottom right */}
-              <div className="absolute bottom-10 right-10 z-20">
+              {brochureDownloadHref ? (
+              <motion.div className="absolute bottom-10 right-10 z-20">
                 <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="group flex items-center gap-3 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-6 py-3 text-sm font-bold text-cyan-400 backdrop-blur-xl transition-all hover:border-cyan-500/50 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_-5px_rgba(6,182,212,0.5)]"
+                  type="button"
+                  onClick={handleDownloadBrochure}
+                  disabled={downloadingBrochure}
+                  whileHover={{ scale: downloadingBrochure ? 1 : 1.05 }}
+                  whileTap={{ scale: downloadingBrochure ? 1 : 0.95 }}
+                  className="group flex items-center gap-3 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-6 py-3 text-sm font-bold text-cyan-400 backdrop-blur-xl transition-all hover:border-cyan-500/50 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_-5px_rgba(6,182,212,0.5)] disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  <Plus className="h-4 w-4 rotate-45 transition-transform group-hover:rotate-0" />
-                  <span>Download Brochure</span>
+                  <Download className="h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
+                  <span>{downloadingBrochure ? "Downloading…" : "Download Brochure"}</span>
                 </motion.button>
-              </div>
+              </motion.div>
+              ) : null}
 
               {/* Decorative side glow */}
               <div className="pointer-events-none absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-white/[0.03] to-transparent" />

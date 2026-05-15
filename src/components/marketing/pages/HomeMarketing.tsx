@@ -1,59 +1,14 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
 import { motion } from "motion/react";
-import { ArrowRight } from "lucide-react";
+import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
 import MarketingShell from "@/components/marketing/MarketingShell";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
 import FeatureGrid from "@/components/marketing/FeatureGrid";
 import TwoColumnCompare from "@/components/marketing/TwoColumnCompare";
 import { MARKETING } from "@/lib/marketing/links";
 import { cn } from "@/lib/utils/cn";
-
-function CtaButton({
-  href,
-  children,
-  variant = "primary",
-  className,
-}: {
-  href: string;
-  children: React.ReactNode;
-  variant?: "primary" | "secondary";
-  className?: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className={cn(
-        "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        variant === "primary"
-          ? "text-white shadow-[0_10px_30px_-12px_hsl(var(--cyan-500)/0.45)] hover:scale-[1.03] hover:shadow-[0_0_24px_-4px_hsl(var(--cyan-500)/0.45),0_0_12px_-2px_hsl(var(--brand-600)/0.3)]"
-          : "border border-white/10 bg-white/[0.03] text-foreground/85 backdrop-blur-sm hover:border-white/[0.15] hover:bg-white/[0.05] hover:text-foreground hover:scale-[1.02]",
-        className
-      )}
-      style={
-        variant === "primary"
-          ? {
-              background:
-                "linear-gradient(90deg, hsl(var(--brand-600)), hsl(var(--cyan-500)))",
-            }
-          : undefined
-      }
-    >
-      <span className="relative z-10 inline-flex items-center gap-2">
-        {children}
-        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-      </span>
-      {variant === "primary" && (
-        <span
-          aria-hidden="true"
-          className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.12] to-transparent transition-transform duration-700 group-hover:translate-x-full"
-        />
-      )}
-    </Link>
-  );
-}
 
 export default function HomeMarketing() {
   const modelPhases = [
@@ -199,7 +154,7 @@ export default function HomeMarketing() {
             </p>
             <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
               <span className="bg-linear-to-l from-[hsl(var(--brand-600))] to-[hsl(var(--cyan-500))] bg-clip-text text-transparent">
-                AI-Native Execution Ecosystem For Future-Ready Talent
+                Sophrion-Execution Ecosystem
               </span>
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-foreground/75 sm:text-xl">
@@ -208,10 +163,10 @@ export default function HomeMarketing() {
               and deployable proof-of-work systems.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <CtaButton href={MARKETING.ecosystem}>Explore Ecosystem</CtaButton>
-              <CtaButton href={MARKETING.institutions} variant="secondary">
+              <MarketingCtaLink href={MARKETING.ecosystem}>Explore Ecosystem</MarketingCtaLink>
+              <MarketingCtaLink href={MARKETING.institutions} primary={false}>
                 Partner With Sophrion
-              </CtaButton>
+              </MarketingCtaLink>
             </div>
             <p className="mt-6 text-sm text-foreground/55">
               Built for students, institutions, innovation ecosystems, and the future workforce.
@@ -291,9 +246,9 @@ export default function HomeMarketing() {
             })}
           </div>
           <div className="mt-8 flex justify-center">
-            <CtaButton href={MARKETING.ecosystem} variant="secondary">
+            <MarketingCtaLink href={MARKETING.ecosystem} primary={false}>
               See full architecture
-            </CtaButton>
+            </MarketingCtaLink>
           </div>
         </div>
       </section>
@@ -310,7 +265,7 @@ export default function HomeMarketing() {
             <FeatureGrid items={pathwayCards} columns={3} />
           </div>
           <div className="mt-10 flex justify-center">
-            <CtaButton href={MARKETING.pathways}>Explore All Pathways</CtaButton>
+            <MarketingCtaLink href={MARKETING.pathways}>Explore All Pathways</MarketingCtaLink>
           </div>
         </div>
       </section>
@@ -328,9 +283,9 @@ export default function HomeMarketing() {
             <FeatureGrid items={residencyFeatures} columns={3} />
           </div>
           <div className="mt-10 flex justify-center">
-            <CtaButton href={MARKETING.residency} variant="secondary">
+            <MarketingCtaLink href={MARKETING.residency} primary={false}>
               How residency works
-            </CtaButton>
+            </MarketingCtaLink>
           </div>
         </div>
       </section>
@@ -362,10 +317,10 @@ export default function HomeMarketing() {
             <FeatureGrid items={institutionBenefits} columns={3} />
           </div>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <CtaButton href={MARKETING.institutions}>Partner With Sophrion</CtaButton>
-            <CtaButton href={MARKETING.ecosystem} variant="secondary">
+            <MarketingCtaLink href={MARKETING.institutions}>Partner With Sophrion</MarketingCtaLink>
+            <MarketingCtaLink href={MARKETING.ecosystem} primary={false}>
               Explore Ecosystem
-            </CtaButton>
+            </MarketingCtaLink>
           </div>
         </div>
       </section>
@@ -379,10 +334,10 @@ export default function HomeMarketing() {
             subtitle="Enter an AI-native execution ecosystem designed for the future workforce, intelligent systems, and innovation-driven careers."
           />
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <CtaButton href={MARKETING.join}>Join Ecosystem</CtaButton>
-            <CtaButton href={MARKETING.institutions} variant="secondary">
+            <MarketingCtaLink href={MARKETING.join}>Join Ecosystem</MarketingCtaLink>
+            <MarketingCtaLink href={MARKETING.institutions} primary={false}>
               Start Institutional Pilot
-            </CtaButton>
+            </MarketingCtaLink>
           </div>
           <p className="mt-8 text-sm text-foreground/55">
             Sophrion is building the next generation of execution-ready talent through AI-native,

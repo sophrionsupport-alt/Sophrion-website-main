@@ -100,6 +100,65 @@ export function contactInboxEmail(payload: ContactPayload) {
   return { subject: title, html, text };
 }
 
+export function joinAutoReplyEmail(input: {
+  name: string;
+  pathwayLabel: string;
+}) {
+  const title = "We received your join application";
+  const html = wrapHtml(
+    title,
+    `<p>Hi ${escapeHtml(input.name)},</p>
+     <p>Thanks for your interest in joining the ${escapeHtml(appConfig.siteName)} execution ecosystem.</p>
+     <p>We received your application for <strong>${escapeHtml(input.pathwayLabel)}</strong> and our team will review it shortly.</p>
+     <p style="font-size:12px;color:#6b7280;margin-top:14px;">If you did not submit this application, you can ignore this email.</p>`
+  );
+
+  const text =
+    `Hi ${input.name},\n\n` +
+    `Thanks for your interest in joining ${appConfig.siteName}.\n` +
+    `We received your application for ${input.pathwayLabel} and will be in touch soon.\n`;
+
+  return { subject: `${appConfig.siteName}: ${title}`, html, text };
+}
+
+export function joinInboxEmail(input: {
+  name: string;
+  email: string;
+  college: string;
+  yearLabel: string;
+  pathwayLabel: string;
+  phone?: string;
+  message: string;
+  subject: string;
+}) {
+  const title = `[Sophrion Join] ${input.subject}`;
+  const html = wrapHtml(
+    "New join application",
+    `<p><strong>Name:</strong> ${escapeHtml(input.name)}</p>
+     <p><strong>Email:</strong> ${escapeHtml(input.email)}</p>
+     <p><strong>College:</strong> ${escapeHtml(input.college)}</p>
+     <p><strong>Year:</strong> ${escapeHtml(input.yearLabel)}</p>
+     <p><strong>Pathway:</strong> ${escapeHtml(input.pathwayLabel)}</p>
+     ${input.phone ? `<p><strong>Phone:</strong> ${escapeHtml(input.phone)}</p>` : ""}
+     <p><strong>Message:</strong></p>
+     <div style="white-space:pre-wrap;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:12px;">${escapeHtml(
+       input.message
+     )}</div>`
+  );
+
+  const text =
+    `New join application\n\n` +
+    `Name: ${input.name}\n` +
+    `Email: ${input.email}\n` +
+    `College: ${input.college}\n` +
+    `Year: ${input.yearLabel}\n` +
+    `Pathway: ${input.pathwayLabel}\n` +
+    (input.phone ? `Phone: ${input.phone}\n` : "") +
+    `\n${input.message}\n`;
+
+  return { subject: title, html, text };
+}
+
 export function contactAutoReplyEmail(payload: ContactPayload) {
   const title = `We received your message`;
   const html = wrapHtml(

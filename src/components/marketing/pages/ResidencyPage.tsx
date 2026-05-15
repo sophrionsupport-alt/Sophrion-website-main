@@ -1,40 +1,13 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
 import MarketingShell from "@/components/marketing/MarketingShell";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
 import FeatureGrid from "@/components/marketing/FeatureGrid";
 import PhaseTimeline from "@/components/marketing/PhaseTimeline";
 import { MARKETING } from "@/lib/marketing/links";
 import { cn } from "@/lib/utils/cn";
-
-function Cta({ href, children, primary = true }: { href: string; children: React.ReactNode; primary?: boolean }) {
-  return (
-    <Link
-      href={href}
-      className={cn(
-        "group relative inline-flex items-center gap-2 overflow-hidden rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-300",
-        primary
-          ? "text-white shadow-[0_10px_30px_-12px_hsl(var(--cyan-500)/0.45)] hover:scale-[1.03] hover:shadow-[0_0_24px_-4px_hsl(var(--cyan-500)/0.45),0_0_12px_-2px_hsl(var(--brand-600)/0.3)]"
-          : "border border-white/10 bg-white/[0.03] text-foreground/85 backdrop-blur-sm hover:border-white/[0.15] hover:bg-white/[0.05] hover:text-foreground hover:scale-[1.02]"
-      )}
-      style={primary ? { background: "linear-gradient(90deg, hsl(var(--brand-600)), hsl(var(--cyan-500)))" } : undefined}
-    >
-      <span className="relative z-10 inline-flex items-center gap-2">
-        {children}
-        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-      </span>
-      {primary && (
-        <span
-          aria-hidden="true"
-          className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.12] to-transparent transition-transform duration-700 group-hover:translate-x-full"
-        />
-      )}
-    </Link>
-  );
-}
 
 const squadRoles = [
   { role: "AI Engineer", desc: "Build AI systems, intelligent workflows, and automation environments." },
@@ -226,10 +199,10 @@ export default function ResidencyPage() {
         <div className="mx-auto max-w-3xl px-4 text-center">
           <MarketingSectionHeader align="center" title="Enter A Real Execution Environment" subtitle="Sophrion residency systems combine startup-style execution, AI-native workflows, collaborative production systems, and deployable proof-of-work into a unified future-ready ecosystem." />
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Cta href={MARKETING.join}>Join Ecosystem</Cta>
-            <Cta href={MARKETING.institutions} primary={false}>
+            <MarketingCtaLink href={MARKETING.join}>Join Ecosystem</MarketingCtaLink>
+            <MarketingCtaLink href={MARKETING.institutions} primary={false}>
               Partner With Sophrion
-            </Cta>
+            </MarketingCtaLink>
           </div>
           <p className="mt-6 text-xs text-foreground/50">
             Built for students, institutions, innovation ecosystems, and the future of intelligent workforce development.

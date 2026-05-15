@@ -3,6 +3,7 @@ import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { ok, fail } from "@/lib/utils/http";
 import { JoinApplicationSchema } from "@/lib/validators/join";
 import { sendEmail } from "@/lib/email/send";
+import { joinAutoReplyEmail, joinInboxEmail } from "@/lib/email/templates";
 import { serverEnv } from "@/lib/env";
 
 export const runtime = "nodejs";
@@ -38,11 +39,13 @@ export async function POST(request: NextRequest) {
       return ok({ ok: true, id: "honeypot" });
     }
 
-    const subject = `Join application — ${PATHWAY_LABEL[p.pathway] ?? p.pathway}`;
+    const pathwayLabel = PATHWAY_LABEL[p.pathway] ?? p.pathway;
+    const yearLabel = YEAR_LABEL[p.year] ?? p.year;
+    const subject = `Join application — ${pathwayLabel}`;
     const body =
-      `Year: ${YEAR_LABEL[p.year] ?? p.year}\n` +
+      `Year: ${yearLabel}\n` +
       `College: ${p.college}\n` +
-      `Pathway: ${PATHWAY_LABEL[p.pathway] ?? p.pathway}\n` +
+      `Pathway: ${pathwayLabel}\n` +
       (p.phone ? `Phone: ${p.phone}\n` : "") +
       `\n${p.message}\n`;
 
@@ -68,21 +71,44 @@ export async function POST(request: NextRequest) {
 
     if (serverEnv) {
       try {
+        const inbox = joinInboxEmail({
+          name: p.name,
+          email: p.email,
+          college: p.college,
+          yearLabel,
+          pathwayLabel,
+          phone: p.phone,
+          message: p.message,
+          subject,
+        });
+
         await sendEmail({
           to: serverEnv.CONTACT_INBOX,
-          subject: `[Sophrion Join] ${subject} — ${p.name}`,
-          html: `<p><strong>New join interest</strong></p>
-            <p><strong>Name:</strong> ${escape(p.name)}</p>
-            <p><strong>Email:</strong> ${escape(p.email)}</p>
-            <p><strong>College:</strong> ${escape(p.college)}</p>
-            <p><strong>Year:</strong> ${escape(YEAR_LABEL[p.year] ?? p.year)}</p>
-            <p><strong>Pathway:</strong> ${escape(PATHWAY_LABEL[p.pathway] ?? p.pathway)}</p>
-            ${p.phone ? `<p><strong>Phone:</strong> ${escape(p.phone)}</p>` : ""}
-            <pre style="white-space:pre-wrap">${escape(p.message)}</pre>`,
-          text: `${subject}\n\n${body}`,
+          subject: inbox.subject,
+          html: inbox.html,
+          text: inbox.text,
+          from: "contact",
         });
       } catch (e) {
-        console.error("[join] email failed", e);
+        console.error("[join] inbox email failed", e);
+      }
+
+      try {
+        const autoReply = joinAutoReplyEmail({
+          name: p.name,
+          pathwayLabel,
+        });
+
+        await sendEmail({
+          to: p.email,
+          subject: autoReply.subject,
+          html: autoReply.html,
+          text: autoReply.text,
+          from: "contact",
+          replyTo: serverEnv.CONTACT_INBOX,
+        });
+      } catch (e) {
+        console.error("[join] customer auto-reply failed", e);
       }
     }
 
@@ -91,11 +117,4 @@ export async function POST(request: NextRequest) {
     const msg = e instanceof Error ? e.message : "Unexpected error";
     return fail(msg, 500);
   }
-}
-
-function escape(s: string) {
-  return s
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;");
 }

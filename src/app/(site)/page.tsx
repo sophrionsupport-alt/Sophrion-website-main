@@ -6,13 +6,13 @@ import HomeMarketing from "@/components/marketing/pages/HomeMarketing";
 const SITE_NAME = "Sophrion";
 const SITE_URL = "https://sophrion.in";
 
-const PAGE_TITLE = "AI-Native Execution Ecosystem For Future-Ready Talent";
+const PAGE_TITLE = "Sophrion-Execution Ecosystem";
 
 const PAGE_DESCRIPTION =
   "Sophrion transforms students into execution-ready professionals through production-oriented learning, startup-style collaboration, AI-native workflows, and deployable proof-of-work systems.";
 
 export const metadata: Metadata = {
-  title: PAGE_TITLE,
+  title: { absolute: PAGE_TITLE },
   description: PAGE_DESCRIPTION,
   alternates: { canonical: "/" },
   openGraph: {

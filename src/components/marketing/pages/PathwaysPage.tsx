@@ -2,38 +2,12 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
 import MarketingShell from "@/components/marketing/MarketingShell";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
 import FeatureGrid from "@/components/marketing/FeatureGrid";
 import { MARKETING, PATHWAY_ANCHORS } from "@/lib/marketing/links";
 import { cn } from "@/lib/utils/cn";
-
-function Cta({ href, children, primary = true }: { href: string; children: React.ReactNode; primary?: boolean }) {
-  return (
-    <Link
-      href={href}
-      className={cn(
-        "group relative inline-flex items-center gap-2 overflow-hidden rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-300",
-        primary
-          ? "text-white shadow-[0_10px_30px_-12px_hsl(var(--cyan-500)/0.45)] hover:scale-[1.03] hover:shadow-[0_0_24px_-4px_hsl(var(--cyan-500)/0.45),0_0_12px_-2px_hsl(var(--brand-600)/0.3)]"
-          : "border border-white/10 bg-white/[0.03] text-foreground/85 backdrop-blur-sm hover:border-white/[0.15] hover:bg-white/[0.05] hover:text-foreground hover:scale-[1.02]"
-      )}
-      style={primary ? { background: "linear-gradient(90deg, hsl(var(--brand-600)), hsl(var(--cyan-500)))" } : undefined}
-    >
-      <span className="relative z-10 inline-flex items-center gap-2">
-        {children}
-        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-      </span>
-      {primary && (
-        <span
-          aria-hidden="true"
-          className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.12] to-transparent transition-transform duration-700 group-hover:translate-x-full"
-        />
-      )}
-    </Link>
-  );
-}
 
 function DeepDive({
   id,
@@ -200,10 +174,10 @@ export default function PathwaysPage() {
         <div className="mx-auto max-w-3xl px-4 text-center">
           <MarketingSectionHeader align="center" title="Enter A Future-Ready Learning Ecosystem" subtitle="Explore AI-native pathways designed around intelligent systems, collaborative execution, production environments, and modern workforce transformation." />
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Cta href={MARKETING.join}>Join Ecosystem</Cta>
-            <Cta href={MARKETING.residency} primary={false}>
+            <MarketingCtaLink href={MARKETING.join}>Join Ecosystem</MarketingCtaLink>
+            <MarketingCtaLink href={MARKETING.residency} primary={false}>
               Explore Residency
-            </Cta>
+            </MarketingCtaLink>
           </div>
           <p className="mt-6 text-xs text-foreground/50">
             Pathways combine learning, execution, AI-native workflows, production systems, and visible proof-of-work into unified future-ready ecosystems.
