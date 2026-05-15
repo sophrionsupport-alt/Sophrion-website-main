@@ -8,7 +8,6 @@ import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeade
 import FeatureGrid from "@/components/marketing/FeatureGrid";
 import JoinForm from "@/components/forms/JoinForm";
 import { MARKETING } from "@/lib/marketing/links";
-import { cn } from "@/lib/utils/cn";
 
 export default function JoinMarketing() {
   const who = [
