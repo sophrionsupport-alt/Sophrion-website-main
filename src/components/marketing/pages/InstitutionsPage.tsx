@@ -1,8 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
 import MarketingShell from "@/components/marketing/MarketingShell";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
 import FeatureGrid from "@/components/marketing/FeatureGrid";
@@ -12,33 +11,6 @@ import PhaseTwoExpanded from "@/components/marketing/PhaseTwoExpanded";
 import PhaseThreeExpanded from "@/components/marketing/PhaseThreeExpanded";
 import PhaseFourExpanded from "@/components/marketing/PhaseFourExpanded";
 import { MARKETING } from "@/lib/marketing/links";
-import { cn } from "@/lib/utils/cn";
-
-function Cta({ href, children, primary = true }: { href: string; children: React.ReactNode; primary?: boolean }) {
-  return (
-    <Link
-      href={href}
-      className={cn(
-        "group relative inline-flex items-center gap-2 overflow-hidden rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-300",
-        primary
-          ? "text-white shadow-[0_10px_30px_-12px_hsl(var(--cyan-500)/0.45)] hover:scale-[1.03] hover:shadow-[0_0_24px_-4px_hsl(var(--cyan-500)/0.45),0_0_12px_-2px_hsl(var(--brand-600)/0.3)]"
-          : "border border-white/10 bg-white/[0.03] text-foreground/85 backdrop-blur-sm hover:border-white/[0.15] hover:bg-white/[0.05] hover:text-foreground hover:scale-[1.02]"
-      )}
-      style={primary ? { background: "linear-gradient(90deg, hsl(var(--brand-600)), hsl(var(--cyan-500)))" } : undefined}
-    >
-      <span className="relative z-10 inline-flex items-center gap-2">
-        {children}
-        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-      </span>
-      {primary && (
-        <span
-          aria-hidden="true"
-          className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.12] to-transparent transition-transform duration-700 group-hover:translate-x-full"
-        />
-      )}
-    </Link>
-  );
-}
 
 export default function InstitutionsPage() {
   const challenges = [
@@ -131,10 +103,10 @@ export default function InstitutionsPage() {
             Built for colleges, universities, innovation ecosystems, and future workforce transformation.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Cta href={MARKETING.contact}>Partner With Sophrion</Cta>
-            <Cta href={MARKETING.ecosystem} primary={false}>
+            <MarketingCtaLink href={MARKETING.contact}>Partner With Sophrion</MarketingCtaLink>
+            <MarketingCtaLink href={MARKETING.ecosystem} primary={false}>
               Explore Ecosystem
-            </Cta>
+            </MarketingCtaLink>
           </div>
         </div>
       </section>
@@ -163,7 +135,11 @@ export default function InstitutionsPage() {
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <MarketingSectionHeader eyebrow="PROGRAM ARCHITECTURE" title="A Structured Multi-Layer Learning & Execution Ecosystem" subtitle="Students progress through structured transformation systems designed around execution capability, AI-native workflows, collaborative learning, and production-oriented environments." align="center" />
-          <PhaseTimeline className="mt-10" steps={programFlow} />
+          <PhaseTimeline
+            className="mt-10"
+            steps={programFlow}
+            brochureDownloadHref={MARKETING.institutionsBrochure}
+          />
         </div>
       </section>
 
@@ -198,10 +174,10 @@ export default function InstitutionsPage() {
         <div className="mx-auto max-w-3xl px-4 text-center">
           <MarketingSectionHeader align="center" title="Build A Future-Ready Institutional Ecosystem" subtitle="Partner with Sophrion to enable AI-native learning systems, production-oriented execution environments, collaborative innovation culture, and future-ready workforce transformation." />
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Cta href={MARKETING.contact}>Partner With Sophrion</Cta>
-            <Cta href={MARKETING.contact} primary={false}>
+            <MarketingCtaLink href={MARKETING.contact}>Partner With Sophrion</MarketingCtaLink>
+            <MarketingCtaLink href={MARKETING.contact} primary={false}>
               Contact Us
-            </Cta>
+            </MarketingCtaLink>
           </div>
           <p className="mt-6 text-xs text-foreground/50">
             Sophrion combines AI-native workflows, execution systems, collaborative production environments, and innovation ecosystems into a unified future-ready institutional framework.

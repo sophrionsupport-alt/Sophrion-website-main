@@ -87,6 +87,7 @@ export async function POST(request: NextRequest) {
           subject: built.subject,
           html: built.html,
           text: built.text,
+          from: "contact",
         });
       } catch (mailError) {
         console.error("[contact] inbox email failed:", mailError);
@@ -99,6 +100,8 @@ export async function POST(request: NextRequest) {
           subject: built.subject,
           html: built.html,
           text: built.text,
+          from: "contact",
+          replyTo: serverEnv.CONTACT_INBOX,
         });
       } catch (mailError) {
         console.error("[contact] auto-reply email failed:", mailError);
@@ -147,6 +150,7 @@ export async function POST(request: NextRequest) {
         subject: built.subject,
         html: built.html,
         text: built.text,
+        from: "contact",
       });
     } catch (mailError) {
       console.error("[contact] inbox email failed:", mailError);
@@ -160,6 +164,8 @@ export async function POST(request: NextRequest) {
         subject: built.subject,
         html: built.html,
         text: built.text,
+        from: "contact",
+        replyTo: serverEnv.CONTACT_INBOX,
       });
     } catch (mailError) {
       console.error("[contact] auto-reply email failed:", mailError);

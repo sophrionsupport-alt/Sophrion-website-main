@@ -10,6 +10,7 @@ export const MARKETING = {
   contact: "/contact",
   privacy: "/privacy",
   blog: "/blog",
+  institutionsBrochure: "/api/public/institutions/brochure",
 } as const;
 
 export const PATHWAY_ANCHORS = {

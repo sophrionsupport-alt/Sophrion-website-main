@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import SiteHeader from "@/components/layout/SiteHeader";
 import SiteFooter from "@/components/layout/SiteFooter";
-import FooterCtaStrip from "@/components/layout/FooterCtaStrip";
 import RoutePrefetcher from "@/components/layout/RoutePrefetcher";
 import AnimatedBackground from "@/components/ui/AnimatedBackground";
 
@@ -75,7 +74,6 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
 
       <SiteHeader />
       <main className="mx-auto w-full flex-1">{children}</main>
-      <FooterCtaStrip />
       <SiteFooter />
     </div>
   );

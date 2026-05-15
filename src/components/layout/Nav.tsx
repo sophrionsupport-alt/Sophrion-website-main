@@ -7,6 +7,7 @@ import { Menu, X, Plus, RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import SignOutButton from "@/components/auth/SignOutButton";
 import { MARKETING } from "@/lib/marketing/links";
+import { marketingCtaShimmer } from "@/components/marketing/MarketingCtaLink";
 
 type NavLink = { label: string; href: string };
 
@@ -259,7 +260,8 @@ export default function Nav({
             className={cn(
               "group relative shrink-0 overflow-hidden rounded-xl px-3.5 py-1.5 text-xs font-semibold xl:px-4 xl:py-2 xl:text-sm",
               "text-white transition-all duration-300",
-              "hover:scale-[1.03] hover:shadow-[0_0_24px_-4px_hsl(var(--cyan-500)/0.45),0_0_12px_-2px_hsl(var(--brand-600)/0.3)]"
+              "hover:scale-[1.03] hover:shadow-[0_0_24px_-4px_hsl(var(--cyan-500)/0.45),0_0_12px_-2px_hsl(var(--brand-600)/0.3)]",
+              marketingCtaShimmer
             )}
             style={{
               background:
@@ -267,10 +269,6 @@ export default function Nav({
             }}
           >
             <span className="relative z-10">Join Ecosystem</span>
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.12] to-transparent transition-transform duration-700 group-hover:translate-x-full"
-            />
           </Link>
         </div>
       </div>

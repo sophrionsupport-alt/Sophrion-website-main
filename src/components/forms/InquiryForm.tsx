@@ -57,6 +57,14 @@ export default function InquiryForm() {
     setForm((f) => ({ ...f, inquiryType: initialType }));
   }, [initialType]);
 
+  React.useEffect(() => {
+    if (!topic) return;
+    const el = document.getElementById("inquiry-form");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [topic]);
+
   const [errors, setErrors] = React.useState<Partial<Record<keyof Form, string>>>({});
   const [loading, setLoading] = React.useState(false);
   const [result, setResult] = React.useState<{ ok: boolean; message: string } | null>(null);

@@ -73,7 +73,7 @@ export default function ContactPage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
-              href={`${MARKETING.contact}?topic=partnership`}
+              href={`${MARKETING.contact}?topic=partnership#inquiry-form`}
               className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-95"
               style={{ background: "linear-gradient(90deg, hsl(var(--brand-600)), hsl(var(--cyan-500)))" }}
             >
@@ -94,31 +94,31 @@ export default function ContactPage() {
             <ContactCard
               title="Institutional Partnerships"
               body="For colleges, universities, innovation cells, incubation centers, and ecosystem collaborations."
-              href={`${MARKETING.contact}?topic=partnership`}
+              href={`${MARKETING.contact}?topic=partnership#inquiry-form`}
               label="Partnership Inquiry →"
             />
             <ContactCard
               title="Student Ecosystem"
               body="For students interested in pathways, projects, residencies, and execution-focused learning."
-              href={`${MARKETING.contact}?topic=student`}
+              href={`${MARKETING.contact}?topic=student#inquiry-form`}
               label="Student Inquiry →"
             />
             <ContactCard
               title="Mentors & Collaborators"
               body="For mentors, technical experts, industry professionals, and ecosystem contributors."
-              href={`${MARKETING.contact}?topic=mentor`}
+              href={`${MARKETING.contact}?topic=mentor#inquiry-form`}
               label="Collaborate With Us →"
             />
             <ContactCard
               title="Industry & Recruiters"
               body="For hiring collaborations, showcase opportunities, and talent ecosystem partnerships."
-              href={`${MARKETING.contact}?topic=industry`}
+              href={`${MARKETING.contact}?topic=industry#inquiry-form`}
               label="Industry Inquiry →"
             />
           </div>
         </section>
 
-        <section className="mt-20 grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <section id="inquiry-form" className="mt-20 scroll-mt-28 grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
             <MarketingSectionHeader eyebrow="SEND AN INQUIRY" title="Start The Conversation" />
             <div className="mt-6 rounded-3xl border border-white/10 bg-white/3 p-5 backdrop-blur sm:p-7">
