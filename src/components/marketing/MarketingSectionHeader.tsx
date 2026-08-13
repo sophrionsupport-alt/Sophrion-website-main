@@ -19,30 +19,33 @@ export default function MarketingSectionHeader({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
         align === "center" && "mx-auto max-w-3xl text-center",
         className
       )}
     >
       {eyebrow ? (
-        <p className="text-sm font-semibold tracking-wide text-foreground/70">
-          {eyebrow}
-        </p>
+        <div className={cn("mb-4 inline-flex", align === "center" && "justify-center w-full")}>
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-xs font-bold tracking-[0.15em] text-[hsl(var(--brand-400))] uppercase backdrop-blur-sm">
+            <span className="h-1 w-1 rounded-full bg-[hsl(var(--brand-400))] animate-pulse" />
+            {eyebrow}
+          </span>
+        </div>
       ) : null}
       <h2
         className={cn(
-          "mt-2 text-3xl font-semibold tracking-tight sm:text-4xl",
+          "text-3xl font-bold tracking-tight sm:text-4xl leading-[1.1]",
           align === "center" && "mx-auto"
         )}
       >
         {title}
       </h2>
       {subtitle ? (
-        <div className="mt-4 text-base leading-relaxed text-foreground/70 sm:text-lg">
+        <div className={cn("mt-5 text-base leading-relaxed text-foreground/65 sm:text-lg max-w-2xl", align === "center" && "mx-auto")}>
           {subtitle}
         </div>
       ) : null}

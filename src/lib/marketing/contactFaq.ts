@@ -1,70 +1,42 @@
 export const CONTACT_FAQ = [
   {
-    q: "What exactly is Sophrion?",
-    a: "Sophrion is an AI-native career acceleration ecosystem focused on practical learning, execution systems, collaborative workflows, and future-ready skill development.",
+    q: "What is Sophrion?",
+    a: "Sophrion is an Industry-Integrated Active Learning Ecosystem connecting learners with people, problems, knowledge, projects, industry, community and feedback.",
   },
   {
-    q: "Is Sophrion a traditional edtech platform?",
-    a: "No. Sophrion focuses more on execution, projects, collaboration, and production-oriented learning rather than only courses and certificates.",
+    q: "Is Sophrion a training company?",
+    a: "Sophrion is not limited to training sessions. It provides an ecosystem and operating layer around active learning, projects, mentorship, industry exposure and continuous assessment.",
   },
   {
-    q: "Who can join Sophrion?",
-    a: "Students, institutions, innovation cells, mentors, collaborators, and ecosystem partners can connect with Sophrion.",
+    q: "Does Sophrion replace the college curriculum?",
+    a: "No. Sophrion is designed to operate alongside the institution's existing academic environment and add an industry-integrated execution layer.",
   },
   {
-    q: "Is Sophrion only for Computer Science students?",
-    a: "No. Sophrion supports pathways across AI, analytics, design, infrastructure, IoT, automation, engineering, and interdisciplinary systems.",
+    q: "Who can participate?",
+    a: "Participation depends on the specific Sophrion program. Institutional pilots use an agreed nomination and selection process.",
   },
   {
-    q: "What kind of projects do students build?",
-    a: "Students may build AI systems, dashboards, SaaS products, automation tools, smart systems, IoT projects, design systems, and operational platforms.",
+    q: "How are students selected?",
+    a: "Students may be nominated by the institution and selected using factors such as commitment, availability, interests, learning orientation, collaboration and relevant capability.",
   },
   {
-    q: "Do students work in teams?",
-    a: "Yes. Students work in collaborative squads designed to simulate real startup and production environments.",
+    q: "How are teams formed?",
+    a: "Teams are formed dynamically around problems, student interests, complementary capabilities and project requirements.",
   },
   {
-    q: "Is AI integrated into the ecosystem?",
-    a: "Yes. AI-native workflows, automation systems, intelligent productivity, and AI-assisted execution are integrated throughout the ecosystem.",
+    q: "How are students assessed?",
+    a: "Sophrion uses continuous evidence including participation, mentor observations, project contribution, feedback, reviews, presentations and other agreed evidence sources.",
   },
   {
-    q: "Does Sophrion replace college curriculum?",
-    a: "No. Sophrion is designed to complement institutional learning through practical execution and innovation ecosystems.",
+    q: "What is the Industry Readiness Score?",
+    a: "It is an evidence-based development measure used to understand student growth across agreed dimensions during the program. It is not an academic grade or employment guarantee.",
   },
   {
-    q: "Can colleges partner with Sophrion?",
-    a: "Yes. Sophrion supports institutional partnerships, pilot programs, innovation initiatives, residency systems, and AI readiness ecosystems.",
+    q: "Does Sophrion guarantee placements or internships?",
+    a: "No. Sophrion provides structured experiences, mentorship, projects, feedback and opportunities. Employment and internship outcomes depend on student performance and external opportunities.",
   },
   {
-    q: "What is the Residency System?",
-    a: "The residency system is a startup-style execution environment where students collaborate in squads, participate in sprint workflows, and build deployable systems.",
-  },
-  {
-    q: "How are students evaluated?",
-    a: "Students are evaluated through project execution, collaboration, sprint participation, production outputs, and practical capability.",
-  },
-  {
-    q: "What is proof-of-work?",
-    a: "Proof-of-work includes visible outputs like GitHub repositories, deployed projects, dashboards, portfolios, and project systems.",
-  },
-  {
-    q: "How does Sophrion improve employability?",
-    a: "The ecosystem focuses on practical capability, collaborative execution, AI-native workflows, and visible portfolio development aligned with industry expectations.",
-  },
-  {
-    q: "Are mentorship systems included?",
-    a: "Yes. Students receive guidance through mentors, reviewers, coordinators, and collaborative support systems.",
-  },
-  {
-    q: "Is Sophrion online or offline?",
-    a: "Sophrion supports online, hybrid, and institution-integrated ecosystem models.",
-  },
-  {
-    q: "Can mentors or industry professionals collaborate?",
-    a: "Yes. Sophrion welcomes mentors, reviewers, industry professionals, and innovation ecosystem collaborators.",
-  },
-  {
-    q: "What is Sophrion’s long-term vision?",
-    a: "Sophrion aims to build a scalable AI-native ecosystem focused on intelligent workforce development, execution-oriented learning, and future-ready innovation systems.",
+    q: "Are industry or client projects guaranteed?",
+    a: "No. Industry and client participation depends on suitability, availability, approval and agreed scope.",
   },
 ] as const;

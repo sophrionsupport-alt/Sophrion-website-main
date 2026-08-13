@@ -8,22 +8,32 @@ type Props = {
   className?: string;
 };
 
-const ecosystemLinks = [
-  { href: MARKETING.about, label: "About" },
-  { href: MARKETING.ecosystem, label: "Ecosystem" },
+const exploreLinks = [
+  { href: MARKETING.experiences, label: "Experiences" },
   { href: MARKETING.pathways, label: "Pathways" },
   { href: MARKETING.residency, label: "Residency" },
-  { href: MARKETING.institutions, label: "Institutions" },
-  { href: MARKETING.join, label: "Join Ecosystem" },
+  { href: MARKETING.projects, label: "Projects / Showcase" },
+  { href: MARKETING.community, label: "Community" },
+  { href: MARKETING.mentors, label: "Mentors & Experts" },
+  { href: MARKETING.industry, label: "Industry" },
+];
+
+const institutionLinks = [
+  { href: MARKETING.institutions, label: "For Institutions" },
+  { href: MARKETING.institutionalPilot, label: "Institutional Pilot" },
+  { href: MARKETING.evidence, label: "Evidence & Impact" },
   { href: MARKETING.contact, label: "Contact" },
 ];
 
-const pathwayLinks = [
-  { href: PATHWAY_ANCHORS.ai, label: "AI Systems" },
-  { href: PATHWAY_ANCHORS.data, label: "Data Intelligence" },
-  { href: PATHWAY_ANCHORS.creative, label: "Creative AI" },
-  { href: PATHWAY_ANCHORS.cloud, label: "Cloud & Cyber" },
-  { href: PATHWAY_ANCHORS.engineering, label: "Smart Engineering" },
+const companyLinks = [
+  { href: MARKETING.about, label: "Why Sophrion" },
+  { href: MARKETING.faq, label: "FAQ" },
+  { href: MARKETING.contact, label: "Contact" },
+];
+
+const legalLinks = [
+  { href: MARKETING.privacy, label: "Privacy Policy" },
+  { href: MARKETING.terms, label: "Terms" },
 ];
 
 export default function SiteFooter({ className }: Props) {
@@ -39,10 +49,35 @@ export default function SiteFooter({ className }: Props) {
         }}
       />
 
-      <div className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <div className="flex items-center gap-3">
+      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6">
+        {/* Footer Institutional CTA */}
+        <div className="mb-16 rounded-3xl border border-[hsl(var(--brand-500))/0.2] bg-[hsl(var(--brand-500))/0.02] p-8 sm:p-12 text-center backdrop-blur-md">
+          <h2 className="text-2xl font-bold text-foreground sm:text-3xl mb-8">
+            Ready to explore a Sophrion institutional pilot?
+          </h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link
+              href={MARKETING.contact}
+              className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold text-white transition-all hover:scale-[1.02] hover:shadow-[0_0_20px_-4px_hsl(var(--cyan-500)/0.4)]"
+              style={{
+                background: "linear-gradient(90deg, hsl(var(--brand-600)), hsl(var(--cyan-500)))",
+              }}
+            >
+              Discuss an Institutional Pilot
+            </Link>
+            <Link
+              href={MARKETING.institutionalPilot}
+              className="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-foreground/90 transition-all hover:bg-white/10"
+            >
+              View Pilot
+            </Link>
+          </div>
+        </div>
+
+        <div className="grid gap-12 lg:grid-cols-12">
+          {/* Brand Block */}
+          <div className="lg:col-span-4 pr-8">
+            <div className="flex items-center gap-3 mb-6">
               <Image
                 src="/images/brand/symbol-logo.png"
                 alt="Sophrion"
@@ -50,97 +85,84 @@ export default function SiteFooter({ className }: Props) {
                 height={40}
                 className="h-10 w-10 object-contain"
               />
-              <span className="text-sm font-semibold text-foreground">Sophrion</span>
+              <span className="text-lg font-bold tracking-wide text-foreground">SOPHRION</span>
             </div>
-            <p className="mt-4 text-sm leading-relaxed text-foreground/70">
-              AI-native career acceleration and innovation ecosystem focused on execution-oriented learning,
-              collaborative systems, and future-ready workforce transformation.
+            <p className="text-sm font-semibold text-[hsl(var(--brand-400))] uppercase tracking-widest mb-4">
+              Future Within
             </p>
-            <p className="mt-3 text-xs text-foreground/55">
-              Built for students, institutions, innovation ecosystems, and the intelligent economy.
+            <p className="text-sm leading-relaxed text-foreground/80 font-medium mb-8">
+              Building Future-Ready Students Through Industry-Aligned Cohort Experiences.
             </p>
+            <div className="space-y-1 text-sm text-foreground/70">
+              <p className="font-semibold text-foreground/90">Srikanth Molugu</p>
+              <p>Founder & CEO</p>
+              <p>8500711655</p>
+              <a href="mailto:ceo@sophrion.in" className="block hover:text-[hsl(var(--cyan-400))]">ceo@sophrion.in</a>
+              <a href="https://sophrion.co.in" className="block hover:text-[hsl(var(--cyan-400))]">sophrion.co.in</a>
+            </div>
           </div>
 
-          <div>
-            <p className="text-sm font-semibold text-foreground mb-3">Ecosystem</p>
-            {ecosystemLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="block text-sm text-foreground/70 hover:text-[hsl(var(--cyan-500))]"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
+          {/* Links Block */}
+          <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div>
+              <p className="text-sm font-bold text-foreground mb-4 uppercase tracking-wider">Explore</p>
+              <ul className="space-y-3">
+                {exploreLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="text-sm text-foreground/70 hover:text-[hsl(var(--cyan-400))]">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div>
+              <p className="text-sm font-bold text-foreground mb-4 uppercase tracking-wider">Institutions</p>
+              <ul className="space-y-3">
+                {institutionLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="text-sm text-foreground/70 hover:text-[hsl(var(--cyan-400))]">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div>
+              <p className="text-sm font-bold text-foreground mb-4 uppercase tracking-wider">Company</p>
+              <ul className="space-y-3">
+                {companyLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="text-sm text-foreground/70 hover:text-[hsl(var(--cyan-400))]">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div>
-            <p className="text-sm font-semibold text-foreground mb-3">Pathways</p>
-            {pathwayLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="block text-sm text-foreground/70 hover:text-[hsl(var(--cyan-500))]"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Link href={MARKETING.blog} className="mt-2 block text-sm text-foreground/70 hover:text-[hsl(var(--cyan-500))]">
-              Blog
-            </Link>
-            <Link href={MARKETING.privacy} className="mt-2 block text-sm text-foreground/70 hover:text-[hsl(var(--cyan-500))]">
-              Privacy
-            </Link>
-          </div>
-
-          <div>
-            <p className="text-sm font-semibold text-foreground mb-3">Connect</p>
-            <a
-              href="https://www.linkedin.com/in/sophrion/"
-              target="_blank"
-              rel="noreferrer"
-              className="block text-sm text-foreground/70 hover:text-[hsl(var(--cyan-500))]"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://www.instagram.com/sophrion_private_limited/"
-              target="_blank"
-              rel="noreferrer"
-              className="mt-2 block text-sm text-foreground/70 hover:text-[hsl(var(--cyan-500))]"
-            >
-              Instagram
-            </a>
-            <a
-              href="https://github.com/sophrion-in"
-              target="_blank"
-              rel="noreferrer"
-              className="mt-2 block text-sm text-foreground/70 hover:text-[hsl(var(--cyan-500))]"
-            >
-              GitHub
-            </a>
-            <a
-              href="mailto:contact@sophrion.in"
-              className="mt-2 block text-sm text-foreground/70 hover:text-[hsl(var(--cyan-500))]"
-            >
-              Email
-            </a>
-
-            <p className="mt-6 text-sm font-semibold text-foreground mb-3">Stay Updated</p>
-            <div className="rounded-xl border border-white/10 bg-white/3 p-3 backdrop-blur">
-              <NewsletterForm source="footer" />
-              <p className="mt-2 text-xs text-foreground/60">
-                Product updates and ecosystem news from Sophrion.
-              </p>
+            <div>
+              <p className="text-sm font-bold text-foreground mb-4 uppercase tracking-wider">Legal</p>
+              <ul className="space-y-3">
+                {legalLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="text-sm text-foreground/70 hover:text-[hsl(var(--cyan-400))]">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-5 text-xs text-foreground/60 sm:px-6 md:flex-row md:items-center md:justify-between">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-6 text-xs text-foreground/50 sm:px-6 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} Sophrion. All rights reserved.</p>
-          <p className="text-foreground/50">Building future-ready execution ecosystems.</p>
+          <p className="font-medium tracking-wide">Industry-Integrated Active Learning Ecosystem</p>
         </div>
       </div>
     </footer>

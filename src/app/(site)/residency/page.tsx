@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import ResidencyPage from "@/components/marketing/pages/ResidencyPage";
 
 export const metadata: Metadata = {
-  title: "Residency",
+  title: "Residency — Deep Execution Environment",
   description:
-    "Startup simulation and production residency — squads, sprint workflows, mentor architecture, deployable outputs, and career launch systems.",
+    "Residency is an immersive Sophrion experience where learners spend sustained time working on meaningful problems in collaborative squads with agile sprints, layered mentorship, and public proof-of-work.",
 };
 
 export default function Page() {

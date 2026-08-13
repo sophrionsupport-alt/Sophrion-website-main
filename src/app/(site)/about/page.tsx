@@ -2,240 +2,308 @@
 
 import * as React from "react";
 import { motion } from "motion/react";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
 import FeatureGrid from "@/components/marketing/FeatureGrid";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
+import TwoColumnCompare from "@/components/marketing/TwoColumnCompare";
+import MarketingShell from "@/components/marketing/MarketingShell";
 import { MARKETING } from "@/lib/marketing/links";
+import { cn } from "@/lib/utils/cn";
+
+const NETWORK_NODES = [
+  "Experiences", "People", "Problems", "Knowledge",
+  "Projects", "Industry", "Community", "Feedback", "Opportunities"
+];
+
+const PHILOSOPHY = [
+  { title: "Experience Over Consumption", body: "Learning becomes meaningful when knowledge is used, not just stored." },
+  { title: "Discovery Before Solution", body: "Understand the problem before rushing toward an answer.", accent: "cyan" as const },
+  { title: "Learning On Demand", body: "Learn what the situation requires, when it becomes necessary.", accent: "blue" as const },
+  { title: "People Matter", body: "Mentors, peers, experts, faculty and industry expand what a learner can access.", accent: "indigo" as const },
+  { title: "Feedback Is Part of Learning", body: "Capability grows through observation, criticism, reflection and iteration.", accent: "emerald" as const },
+  { title: "Evidence Over Claims", body: "What students demonstrate matters more than what they say they know.", accent: "cyan" as const },
+  { title: "Opportunity Through Participation", body: "New opportunities emerge from meaningful contribution and demonstrated capability.", accent: "blue" as const },
+];
+
+const ECOSYSTEM_CHAIN = ["Learner", "Experiences", "People", "Knowledge", "Projects", "Feedback", "Opportunities"];
 
 export default function Page() {
-  const problemGrid = [
-    { title: "Weak Practical Exposure", body: "Students often graduate without production experience or deployable project systems." },
-    { title: "Limited Portfolio Visibility", body: "Traditional systems rarely help students build visible proof-of-work ecosystems." },
-    { title: "Outdated Workflow Systems", body: "Modern industry workflows evolve rapidly while curriculum systems adapt slowly." },
-    { title: "AI Transformation Pressure", body: "Artificial intelligence is reshaping every major industry and workforce category." },
-    { title: "Execution Readiness Gap", body: "Companies increasingly seek contributors capable of building, collaborating, and adapting quickly." },
-    { title: "Innovation Infrastructure Gap", body: "Institutions require future-ready ecosystems capable of supporting modern workforce transformation." },
-  ];
-
-  const philosophy = [
-    { title: "Production-Oriented Learning", body: "Students build real systems instead of relying only on theoretical exercises." },
-    { title: "AI-Native Workflows", body: "Intelligent productivity systems, automation tools, and AI-assisted workflows." },
-    { title: "Startup-Style Execution", body: "Sprint systems, collaborative squads, accountability workflows, and execution culture." },
-    { title: "Public Proof-Of-Work", body: "Projects, GitHub repositories, deployed systems, portfolios, and visible contribution history." },
-    { title: "Interdisciplinary Collaboration", body: "Students work across AI, engineering, analytics, design, operations, and infrastructure systems." },
-    { title: "Continuous Adaptability", body: "Preparation for rapidly evolving intelligent workforce environments." },
-  ];
-
-  const differentiators = [
-    { title: "Execution-First Ecosystem", body: "Practical capability, collaborative execution, and deployable outputs." },
-    { title: "AI-Native Infrastructure", body: "Intelligent workflows, AI productivity, automation systems, and modern operational environments." },
-    { title: "Residency-Based Learning", body: "Production-oriented residency systems simulate real execution ecosystems." },
-    { title: "Squad-Based Collaboration", body: "Interdisciplinary teams with structured execution systems." },
-    { title: "Future-Ready Pathways", body: "Domains aligned with AI, intelligent systems, cloud infrastructure, engineering modernization, and innovation ecosystems." },
-    { title: "Portfolio-Driven Validation", body: "Visible proof-of-work replaces purely certificate-driven validation systems." },
-  ];
-
   return (
-    <div className="relative flex flex-col bg-background text-foreground">
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-[18%] top-[12%] h-225 w-225 rounded-full bg-[radial-gradient(closest-side,hsl(var(--ring)/0.22),transparent_70%)]" />
-        <div className="absolute right-[10%] top-[28%] h-225 w-225 rounded-full bg-[radial-gradient(closest-side,hsl(var(--cyan-500)/0.14),transparent_70%)]" />
-      </div>
+    <MarketingShell>
+      {/* ─── HERO ─── */}
+      <section className="relative py-20 sm:py-32 overflow-hidden">
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute -top-32 left-1/4 h-[500px] w-[500px] rounded-full opacity-20"
+            style={{ background: "radial-gradient(closest-side, hsl(var(--brand-600)), transparent)" }} />
+          <div className="absolute top-10 right-0 h-[400px] w-[400px] rounded-full opacity-10"
+            style={{ background: "radial-gradient(closest-side, hsl(var(--cyan-500)), transparent)" }} />
+        </div>
 
-      {/* 1 Hero */}
-      <section className="py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-3xl"
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-4xl"
           >
-            <p className="text-sm font-semibold tracking-wide text-foreground/70">ABOUT SOPHRION</p>
-            <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-bold tracking-[0.15em] text-[hsl(var(--brand-400))] uppercase backdrop-blur-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-[hsl(var(--brand-400))] animate-pulse" />
+              Why Sophrion Exists
+            </div>
+
+            <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
               <span className="bg-linear-to-l from-[hsl(var(--brand-600))] to-[hsl(var(--cyan-500))] bg-clip-text text-transparent">
-                Redefining Career Acceleration For The AI Era
+                The future does not need more information. It needs people who can learn, adapt, collaborate and create.
               </span>
             </h1>
-            <p className="mt-5 text-lg leading-relaxed text-foreground/70">
-              Sophrion is an AI-native career acceleration and innovation ecosystem designed to bridge the growing gap
-              between academic learning and real-world execution through production-oriented systems, collaborative workflows,
-              and future-ready learning environments.
+            <p className="mt-8 text-lg leading-relaxed text-foreground/65 sm:text-xl max-w-2xl">
+              Sophrion was created to build the environment between academic learning and real-world capability.
             </p>
-            <p className="mt-4 text-sm text-foreground/55">
-              Built for students, institutions, innovation ecosystems, and the intelligent economy of the future.
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ─── THE PROBLEM ─── */}
+      <section className="border-t border-white/[0.06] py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <MarketingSectionHeader
+            eyebrow="The Problem"
+            title="The Industry–Academia Execution Gap"
+          />
+          <div className="mt-12">
+            <TwoColumnCompare
+              leftTitle="Academic education provides:"
+              leftItems={["Knowledge", "Curriculum", "Examination", "Certification"]}
+              rightTitle="Real-world environments require:"
+              rightItems={["Observation", "Problem Discovery", "Learning", "Application", "Execution", "Feedback", "Iteration", "Delivery"]}
+            />
+          </div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mt-10 max-w-3xl text-lg leading-relaxed text-foreground/65 border-l-2 border-[hsl(var(--brand-500))/0.5] pl-5"
+          >
+            The challenge is not simply access to knowledge. Students need repeated opportunities to apply knowledge under uncertainty, work with people, make decisions, receive feedback and improve.
+          </motion.p>
+        </div>
+      </section>
+
+      {/* ─── LEARNING IS NOT A STRAIGHT LINE ─── */}
+      <section className="border-t border-white/[0.06] py-16 sm:py-24 overflow-hidden">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <MarketingSectionHeader
+            eyebrow="Core Belief"
+            title="Learning Is Not a Straight Line."
+            align="center"
+          />
+          <p className="mt-5 max-w-2xl mx-auto text-center text-lg text-foreground/60 leading-relaxed">
+            A learner's development is shaped by experiences, people, problems, projects, failures, feedback and reflection — not always in a fixed order.
+          </p>
+
+          <div className="relative mt-16 flex flex-col items-center">
+            <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="h-[260px] w-[260px] rounded-full border border-white/[0.05]" />
+            </div>
+            <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="h-[460px] w-[460px] rounded-full border border-white/[0.04]" />
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="relative z-10 mb-10"
+            >
+              <div className="flex h-28 w-28 items-center justify-center rounded-full border-2 border-[hsl(var(--brand-500))] bg-background shadow-[0_0_60px_hsl(var(--brand-500)/0.5),inset_0_0_20px_hsl(var(--brand-600)/0.12)]">
+                <span className="text-xs font-black tracking-[0.2em] text-[hsl(var(--brand-400))] uppercase">Learner</span>
+              </div>
+            </motion.div>
+
+            <div className="relative z-10 flex flex-wrap justify-center gap-3 max-w-3xl">
+              {NETWORK_NODES.map((node, i) => (
+                <motion.div
+                  key={node}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                  className="rounded-full border border-white/10 bg-white/[0.04] px-5 py-2 text-sm font-medium text-foreground/70 backdrop-blur-md hover:border-[hsl(var(--brand-500))/0.35] hover:text-foreground transition-colors cursor-default"
+                >
+                  {node}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── WHAT WE BELIEVE ─── */}
+      <section className="border-t border-white/[0.06] py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <MarketingSectionHeader
+            eyebrow="Philosophy"
+            title="What We Believe"
+            subtitle="The philosophies that drive the Sophrion ecosystem."
+          />
+          <FeatureGrid className="mt-12" items={PHILOSOPHY} columns={3} />
+        </div>
+      </section>
+
+      {/* ─── WHAT SOPHRION IS ─── */}
+      <section className="border-t border-white/[0.06] py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <MarketingSectionHeader
+            eyebrow="The Ecosystem"
+            title="Sophrion Is an Ecosystem."
+            align="center"
+          />
+          <p className="mt-5 max-w-2xl mx-auto text-center text-lg text-foreground/60 leading-relaxed">
+            Sophrion is an Industry-Integrated Active Learning Ecosystem that connects learners with people, problems, knowledge, projects, communities, industry and feedback.
+          </p>
+
+          <div className="mt-14 flex flex-wrap justify-center items-center gap-3 max-w-3xl mx-auto">
+            {ECOSYSTEM_CHAIN.map((step, i, arr) => (
+              <React.Fragment key={step}>
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  className={cn(
+                    "flex items-center justify-center rounded-xl border px-5 py-3 text-sm font-bold tracking-wide backdrop-blur-md transition-all",
+                    i === 0
+                      ? "border-[hsl(var(--brand-500))] bg-[hsl(var(--brand-600))/0.12] text-[hsl(var(--brand-300))] shadow-[0_0_20px_-6px_hsl(var(--brand-500)/0.4)]"
+                      : "border-white/10 bg-white/[0.04] text-foreground/75 hover:border-white/20"
+                  )}
+                >
+                  {step}
+                </motion.div>
+                {i < arr.length - 1 && (
+                  <span className="text-foreground/20 text-lg hidden sm:block">↔</span>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── WHAT SOPHRION IS NOT ─── */}
+      <section className="border-t border-white/[0.06] py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <MarketingSectionHeader
+            eyebrow="Clarity"
+            title="Sophrion Is Not Another Training Program."
+          />
+          <div className="mt-12">
+            <TwoColumnCompare
+              leftTitle="Not"
+              leftItems={[
+                "A coaching institute",
+                "A certificate-first program",
+                "A workshop-only provider",
+                "A placement-training company",
+                "A fixed curriculum where every learner follows the same path",
+              ]}
+              rightTitle="Instead"
+              rightItems={[
+                "An active learning ecosystem",
+                "A project environment",
+                "A mentor & expert network",
+                "An industry-connected experience layer",
+                "A system for continuous development and evidence",
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ─── ECOSYSTEM LAYER ─── */}
+      <section className="border-t border-white/[0.06] py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <MarketingSectionHeader
+            eyebrow="Our Role"
+            title="The Ecosystem Layer Around Learning"
+            align="center"
+          />
+          <p className="mt-5 max-w-2xl mx-auto text-center text-lg text-foreground/60 leading-relaxed">
+            Institutions already have students, faculty, curriculum, infrastructure and academic governance. Sophrion adds an external ecosystem layer.
+          </p>
+          <div className="mt-12">
+            <TwoColumnCompare
+              leftTitle="Institution"
+              leftItems={["Students", "Faculty", "Curriculum", "Infrastructure", "Academic governance"]}
+              rightTitle="Sophrion"
+              rightItems={["Cohort leadership", "Mentors", "Experts", "Industry", "Projects", "Assessment", "Opportunities"]}
+            />
+          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-8 rounded-2xl border border-[hsl(var(--cyan-500))/0.15] bg-gradient-to-r from-[hsl(var(--brand-600))/0.05] to-[hsl(var(--cyan-500))/0.05] p-6 text-center"
+          >
+            <p className="text-xs font-bold tracking-widest text-foreground/40 uppercase mb-2">Together</p>
+            <h3 className="text-xl font-bold bg-gradient-to-l from-[hsl(var(--brand-400))] to-[hsl(var(--cyan-400))] bg-clip-text text-transparent sm:text-2xl">
+              Industry-Integrated Active Learning Ecosystem
+            </h3>
+          </motion.div>
+          <div className="mt-8 flex justify-center">
+            <MarketingCtaLink href={MARKETING.institutions}>Explore Institutional Partnerships</MarketingCtaLink>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── FOUNDER QUOTE ─── */}
+      <section className="border-t border-white/[0.06] py-16 sm:py-24">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.025] p-10 sm:p-14 backdrop-blur-md"
+          >
+            <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--brand-500))] to-transparent" />
+            <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full opacity-20"
+              style={{ background: "radial-gradient(closest-side, hsl(var(--brand-600)), transparent)" }} />
+
+            <div className="text-5xl font-black text-[hsl(var(--brand-500))/0.25] leading-none mb-4">"</div>
+            <p className="text-xl leading-relaxed text-foreground/85 italic sm:text-2xl font-medium max-w-2xl">
+              Students do not become future-ready by consuming more content alone. They develop capability by participating in meaningful experiences, working with people, solving problems, building things, receiving feedback and reflecting on what they learn.
             </p>
-            <div className="mt-7 flex flex-wrap items-center gap-3">
-              <Link
-                href={MARKETING.ecosystem}
-                className="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-95"
-                style={{
-                  background: "linear-gradient(90deg, hsl(var(--brand-600)), hsl(var(--cyan-500)))",
-                }}
-              >
-                Explore Ecosystem
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href={MARKETING.institutions}
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/3 px-4 py-2.5 text-sm font-semibold text-foreground/85 backdrop-blur-sm transition hover:bg-white/5"
-              >
-                Partner With Sophrion
-              </Link>
+            <div className="mt-8 flex items-center gap-4 border-t border-white/10 pt-6">
+              <div className="h-10 w-10 rounded-full border border-[hsl(var(--brand-500))/0.4] bg-[hsl(var(--brand-600))/0.15] flex items-center justify-center">
+                <span className="text-xs font-bold text-[hsl(var(--brand-400))]">SM</span>
+              </div>
+              <div>
+                <p className="font-bold text-foreground">Srikanth Molugu</p>
+                <p className="text-sm font-semibold text-foreground/50 uppercase tracking-widest">Founder & CEO</p>
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* 2 Why exists */}
-      <section className="border-t border-white/10 py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <MarketingSectionHeader
-            eyebrow="OUR PURPOSE"
-            title="Why Sophrion Exists"
-            subtitle="Modern education systems were built for a different era. While industries rapidly evolve through artificial intelligence, automation, intelligent infrastructure, and digital transformation, most students still graduate through systems heavily centered around theoretical learning, outdated workflows, and certificate-driven validation."
-          />
-          <div className="mt-8 max-w-3xl space-y-4 text-foreground/75">
-            <p>This creates a growing disconnect between education and employability, learning and execution, and talent availability versus workforce readiness.</p>
-            <p>
-              Sophrion was created to bridge this gap through an execution-first ecosystem designed for the future workforce.
-              The ecosystem transforms students from passive learners into execution-ready contributors through AI-native
-              workflows, collaborative production systems, startup-style execution culture, and deployable proof-of-work environments.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 3 Structural problem */}
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <MarketingSectionHeader
-            eyebrow="THE CHALLENGE"
-            title="The Workforce Is Changing Faster Than Traditional Learning Systems"
-            subtitle="Modern industries increasingly require professionals capable of operating inside collaborative, AI-assisted, execution-driven environments. However, many traditional systems still rely heavily on theoretical instruction, isolated learning, outdated workflows, and limited real-world exposure."
-          />
-          <FeatureGrid className="mt-12" items={problemGrid} columns={3} />
-        </div>
-      </section>
-
-      {/* 4 Vision */}
-      <section className="border-t border-white/10 py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <MarketingSectionHeader
-            eyebrow="OUR VISION"
-            title="Building Future-Ready Execution Ecosystems"
-          />
-          <div className="mt-8 max-w-3xl space-y-4 text-foreground/75">
-            <p>Sophrion envisions a future where students graduate with visible proof-of-work instead of only certificates, institutions function as innovation ecosystems instead of static learning environments, and industries gain access to execution-ready talent trained through real production systems.</p>
-            <p>
-              The ecosystem combines AI-native learning systems, startup-style execution culture, interdisciplinary collaboration,
-              production-oriented residency environments, and deployable project ecosystems into unified career acceleration infrastructure.
-              Sophrion is designed not as a conventional edtech platform, but as a scalable ecosystem for intelligent workforce development and future-ready talent transformation.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 5 Philosophy */}
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <MarketingSectionHeader
-            eyebrow="OUR PHILOSOPHY"
-            title="Learn By Building. Grow Through Execution."
-            subtitle="Sophrion replaces passive learning with production-oriented execution systems where students actively participate in building, deploying, collaborating, and contributing inside structured environments."
-            align="center"
-          />
-          <FeatureGrid className="mt-12" items={philosophy} columns={3} />
-        </div>
-      </section>
-
-      {/* 6 Differentiators */}
-      <section className="border-t border-white/10 py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <MarketingSectionHeader
-            eyebrow="WHY SOPHRION"
-            title="More Than A Traditional Learning Platform"
-            align="center"
-          />
-          <FeatureGrid className="mt-12" items={differentiators} columns={3} />
-        </div>
-      </section>
-
-      {/* 7 Founder */}
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -14 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <p className="text-sm font-semibold tracking-wide text-foreground/70">FOUNDER & VISION ARCHITECT</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Team Sophrion</h2>
-              <p className="mt-5 leading-relaxed text-foreground/75">
-                Our team is an entrepreneur and ecosystem builder focused on creating future-ready systems at the intersection of education, artificial intelligence, innovation, and execution-driven workforce development.
-              </p>
-              <p className="mt-4 leading-relaxed text-foreground/75">
-                As the team of Sophrion, we are building an AI-native ecosystem designed to help students transition from passive learning into real execution environments through production systems, collaborative workflows, and future-oriented career acceleration pathways.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* 8 Long-term vision */}
-      <section className="border-t border-white/10 py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <MarketingSectionHeader eyebrow="THE FUTURE" title="Building Infrastructure For The Intelligent Economy" />
-          <div className="mt-8 max-w-3xl space-y-4 text-foreground/75">
-            <p>
-              Sophrion is designed to evolve into a scalable ecosystem powering AI-native workforce development, intelligent learning systems,
-              innovation ecosystems, execution-oriented career acceleration, and future-ready talent infrastructure.
-            </p>
-            <p>
-              The long-term mission is to help build a generation of intelligent builders, adaptive engineers, AI-native professionals,
-              execution-focused innovators, and future-ready contributors capable of thriving in rapidly evolving technological ecosystems.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 9 Final CTA */}
-      <section className="py-16 sm:pb-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl border border-white/10 bg-white/3 p-6 backdrop-blur sm:p-10">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-              <div className="max-w-2xl">
-                <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Build Beyond Traditional Education</h2>
-                <p className="mt-2 text-sm leading-relaxed text-foreground/70">
-                  Join an AI-native execution ecosystem designed for the future workforce, intelligent systems, and innovation-driven careers.
-                </p>
-                <p className="mt-4 text-xs text-foreground/55">
-                  Sophrion combines learning, execution, AI-native workflows, production systems, and innovation culture into a unified future-ready ecosystem.
-                </p>
-              </div>
-              <div className="flex flex-wrap items-center gap-3">
-                <Link
-                  href={MARKETING.ecosystem}
-                  className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-95"
-                  style={{ background: "linear-gradient(90deg, hsl(var(--brand-600)), hsl(var(--cyan-500)))" }}
-                >
-                  Explore Ecosystem
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href={MARKETING.institutions}
-                  className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/3 px-4 py-2.5 text-sm font-semibold text-foreground/85 backdrop-blur-sm transition hover:bg-white/5"
-                >
-                  Partner With Sophrion
-                </Link>
-              </div>
+      {/* ─── VISION ─── */}
+      <section className="border-t border-white/[0.06] py-16 sm:pb-28">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-bold tracking-[0.15em] text-[hsl(var(--brand-400))] uppercase">
+              Future Within
             </div>
-          </div>
+            <p className="text-lg leading-relaxed text-foreground/70 sm:text-xl max-w-2xl mx-auto">
+              A learning environment where students are not restricted by one classroom, one department, one curriculum or one mentor.
+            </p>
+            <p className="mt-10 text-2xl font-bold bg-gradient-to-r from-[hsl(var(--brand-400))] to-[hsl(var(--cyan-400))] bg-clip-text text-transparent sm:text-3xl">
+              Students should not only prepare for the future. They should learn how to operate in it.
+            </p>
+            <div className="mt-12 flex flex-wrap justify-center gap-4">
+              <MarketingCtaLink href={MARKETING.institutions}>Explore Institutional Partnerships</MarketingCtaLink>
+              <MarketingCtaLink href={MARKETING.ecosystem} primary={false}>Explore the Ecosystem</MarketingCtaLink>
+            </div>
+          </motion.div>
         </div>
       </section>
-    </div>
+    </MarketingShell>
   );
 }

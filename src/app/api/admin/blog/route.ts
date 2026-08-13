@@ -82,7 +82,13 @@ export async function GET(req: Request) {
 
   const { data, error } = await query;
 
-  if (error) return json(false, { error: error.message }, 500);
+  if (error) {
+    // If the table doesn't exist yet, return empty list gracefully to avoid 500 console errors
+    if (error.code === "42P01") {
+      return json(true, { data: [] });
+    }
+    return json(false, { error: error.message }, 500);
+  }
   return json(true, { data });
 }
 

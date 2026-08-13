@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import PathwaysPage from "@/components/marketing/pages/PathwaysPage";
 
 export const metadata: Metadata = {
-  title: "Pathways",
+  title: "Pathways — Explore Domains. Build Your Own Path.",
   description:
-    "Future-ready pathways across AI systems, data intelligence, creative AI, cloud & cyber, and smart engineering — production-oriented learning environments.",
+    "Sophrion pathways are exploration environments across AI systems, data intelligence, creative technology, cloud & cyber, and smart engineering.",
 };
 
 export default function Page() {

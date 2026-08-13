@@ -144,19 +144,19 @@ export default function EditBlogPostPage({
         />
 
         <Input
-          label="Excerpt"
+          label="Subtitle"
           value={excerpt}
           onChange={(e) => setExcerpt(e.target.value)}
         />
 
         <Input
-          label="Cover URL"
+          label="Image URL"
           value={coverUrl}
           onChange={(e) => setCoverUrl(e.target.value)}
         />
 
         <label className="grid gap-2">
-          <span className="text-sm font-medium text-foreground">Content</span>
+          <span className="text-sm font-medium text-foreground">Description</span>
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}

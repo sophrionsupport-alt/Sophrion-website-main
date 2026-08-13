@@ -100,11 +100,11 @@ export default function SiteHeader({ className }: Props) {
             />
 
             <div className="min-w-0 leading-tight">
-              <div className="truncate text-sm font-semibold text-foreground">
-                {isAdminRoute ? "Sophrion Admin" : "Sophrion"}
+              <div className="truncate text-sm font-bold tracking-wide text-foreground">
+                {isAdminRoute ? "Sophrion Admin" : "SOPHRION"}
               </div>
-              <div className="truncate text-xs text-foreground/60">
-                {isAdminRoute ? "Operations Console" : "Future-Ready Execution Ecosystem"}
+              <div className="truncate text-[10px] font-semibold tracking-[0.12em] text-[hsl(var(--brand-400))] uppercase">
+                {isAdminRoute ? "Operations Console" : "Future Within"}
               </div>
             </div>
           </Link>
