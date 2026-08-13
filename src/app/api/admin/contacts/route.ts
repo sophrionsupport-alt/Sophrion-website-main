@@ -21,6 +21,8 @@ function escapeIlike(value: string) {
     .replaceAll("_", "\\_");
 }
 
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+
 export async function GET(req: Request) {
   const auth = await requireAdmin();
 
@@ -28,6 +30,7 @@ export async function GET(req: Request) {
     return fail(auth.error, auth.status);
   }
 
+  const admin = createSupabaseAdminClient();
   const { searchParams } = new URL(req.url);
 
   const qRaw = (searchParams.get("q") ?? "").trim();
@@ -48,7 +51,7 @@ export async function GET(req: Request) {
     ? Math.max(parsedOffset, 0)
     : 0;
 
-  let query = auth.supabase
+  let query = admin
     .from("contact_messages")
     .select(
       `
@@ -56,7 +59,9 @@ export async function GET(req: Request) {
       name,
       email,
       phone,
+      subject,
       message,
+      source,
       created_at,
       archived,
       archived_at

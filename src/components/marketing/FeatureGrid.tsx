@@ -8,26 +8,62 @@ export type FeatureItem = {
   title: string;
   body: string;
   icon?: React.ReactNode;
+  accent?: "purple" | "cyan" | "blue" | "indigo" | "emerald";
 };
 
-const GLOW_VARIANTS = [
-  "glow-purple",
-  "glow-cyan",
-  "glow-blue",
-  "glow-indigo",
-] as const;
+const ACCENT_CONFIG = {
+  purple: {
+    border: "hover:border-[hsl(var(--brand-500))/0.4]",
+    dot: "bg-[hsl(var(--brand-400))]",
+    glow: "hover:shadow-[0_0_30px_-8px_hsl(var(--brand-500)/0.3)]",
+    bar: "bg-gradient-to-r from-[hsl(var(--brand-500))] to-[hsl(var(--brand-400))]",
+    text: "text-[hsl(var(--brand-300))]",
+  },
+  cyan: {
+    border: "hover:border-[hsl(var(--cyan-500))/0.4]",
+    dot: "bg-[hsl(var(--cyan-400))]",
+    glow: "hover:shadow-[0_0_30px_-8px_hsl(var(--cyan-500)/0.25)]",
+    bar: "bg-gradient-to-r from-[hsl(var(--cyan-500))] to-[hsl(var(--cyan-400))]",
+    text: "text-[hsl(var(--cyan-300))]",
+  },
+  blue: {
+    border: "hover:border-blue-500/30",
+    dot: "bg-blue-400",
+    glow: "hover:shadow-[0_0_30px_-8px_rgba(59,130,246,0.25)]",
+    bar: "bg-gradient-to-r from-blue-500 to-blue-400",
+    text: "text-blue-300",
+  },
+  indigo: {
+    border: "hover:border-indigo-500/30",
+    dot: "bg-indigo-400",
+    glow: "hover:shadow-[0_0_30px_-8px_rgba(99,102,241,0.25)]",
+    bar: "bg-gradient-to-r from-indigo-500 to-indigo-400",
+    text: "text-indigo-300",
+  },
+  emerald: {
+    border: "hover:border-emerald-500/30",
+    dot: "bg-emerald-400",
+    glow: "hover:shadow-[0_0_30px_-8px_rgba(16,185,129,0.2)]",
+    bar: "bg-gradient-to-r from-emerald-500 to-emerald-400",
+    text: "text-emerald-300",
+  },
+} as const;
 
-function TiltCard({
-  children,
-  className,
-  glowClass,
+const ACCENT_CYCLE = ["purple", "cyan", "blue", "indigo", "emerald"] as const;
+
+function FeatureCard({
+  item,
+  accent,
+  index,
 }: {
-  children: React.ReactNode;
-  className?: string;
-  glowClass: string;
+  item: FeatureItem;
+  accent: keyof typeof ACCENT_CONFIG;
+  index: number;
 }) {
+  const cfg = ACCENT_CONFIG[accent];
   const cardRef = React.useRef<HTMLDivElement>(null);
-  const [tiltStyle, setTiltStyle] = React.useState<React.CSSProperties>({});
+  const [tilt, setTilt] = React.useState<React.CSSProperties>({});
+  const [hovered, setHovered] = React.useState(false);
 
   const handleMouseMove = React.useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -35,53 +71,59 @@ function TiltCard({
       const rect = cardRef.current.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-
-      const rotateX = ((y - centerY) / centerY) * -3;
-      const rotateY = ((x - centerX) / centerX) * 3;
-
-      setTiltStyle({
-        transform: `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`,
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      setTilt({
+        transform: `perspective(900px) rotateX(${((y - cy) / cy) * -3}deg) rotateY(${((x - cx) / cx) * 3}deg) translateY(-3px)`,
       });
     },
     []
   );
 
-  const handleMouseLeave = React.useCallback(() => {
-    setTiltStyle({
-      transform:
-        "perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)",
-    });
-  }, []);
-
   return (
-    <div
+    <motion.div
       ref={cardRef}
-      className={cn(
-        "relative rounded-2xl border border-white/[0.08] p-5",
-        "bg-white/[0.03] backdrop-blur-lg",
-        "transition-all duration-300 ease-out will-change-transform",
-        "hover:border-white/[0.14]",
-        "shimmer-border",
-        glowClass,
-        className
-      )}
-      style={tiltStyle}
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      style={tilt}
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      onMouseLeave={() => { setTilt({ transform: "perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0px)" }); setHovered(false); }}
+      onMouseEnter={() => setHovered(true)}
+      className={cn(
+        "group relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.025] p-6 backdrop-blur-md",
+        "transition-all duration-300 will-change-transform",
+        cfg.border,
+        cfg.glow
+      )}
     >
-      {/* Ambient hover glow */}
+      {/* Top accent bar */}
+      <div className={cn("absolute inset-x-0 top-0 h-[2px] opacity-0 transition-opacity duration-300 group-hover:opacity-100", cfg.bar)} />
+      
+      {/* Ambient corner glow */}
       <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 hover-parent-glow"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 0%, hsl(var(--glow-purple) / 0.06), transparent 60%)",
-        }}
+        aria-hidden
+        className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{ background: `radial-gradient(closest-side, hsl(var(--brand-500) / 0.12), transparent)` }}
       />
-      <div className="relative z-10">{children}</div>
-    </div>
+
+      {item.icon && (
+        <div className={cn("mb-4 w-fit rounded-xl border border-white/10 bg-white/5 p-2.5 transition-colors duration-300", `group-hover:border-current group-hover:${cfg.text}`)}>
+          {item.icon}
+        </div>
+      )}
+
+      <div className="flex items-start gap-3 mb-3">
+        <span className={cn("mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full transition-all duration-300", hovered ? cfg.dot : "bg-foreground/20")} />
+        <h3 className="text-[15px] font-semibold text-foreground leading-snug">
+          {item.title}
+        </h3>
+      </div>
+      <p className="text-sm leading-relaxed text-foreground/60 pl-[18px]">
+        {item.body}
+      </p>
+    </motion.div>
   );
 }
 
@@ -102,27 +144,14 @@ export default function FeatureGrid({
         : "md:grid-cols-2 lg:grid-cols-3";
 
   return (
-    <div className={cn("grid gap-5", col, className)}>
+    <div className={cn("grid gap-4", col, className)}>
       {items.map((item, i) => (
-        <motion.div
+        <FeatureCard
           key={item.title}
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.45, delay: i * 0.05 }}
-        >
-          <TiltCard glowClass={GLOW_VARIANTS[i % 4]}>
-            {item.icon ? (
-              <div className="mb-3 text-foreground/90">{item.icon}</div>
-            ) : null}
-            <h3 className="text-base font-semibold text-foreground">
-              {item.title}
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-foreground/70">
-              {item.body}
-            </p>
-          </TiltCard>
-        </motion.div>
+          item={item}
+          accent={item.accent ?? ACCENT_CYCLE[i % ACCENT_CYCLE.length]}
+          index={i}
+        />
       ))}
     </div>
   );

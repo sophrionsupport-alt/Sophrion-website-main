@@ -38,6 +38,28 @@ const CareerRoleInsertSchema = z.object({
   sort_order: z.number().int().min(0).max(1_000_000),
 });
 
+export async function GET(req: Request) {
+  try {
+    const auth = await requireAdmin();
+    if (!auth.ok) {
+      return json(false, { error: auth.error }, auth.status);
+    }
+
+    const supabase = createSupabaseAdminClient();
+    const { count, error } = await supabase
+      .from("career_roles")
+      .select("id", { count: "exact" });
+
+    if (error) {
+      return json(false, { error: error.message }, 500);
+    }
+
+    return json(true, { data: { count: count ?? 0 } });
+  } catch (e) {
+    return json(false, { error: "Something went wrong" }, 500);
+  }
+}
+
 export async function POST(req: Request) {
   try {
     const auth = await requireAdmin();

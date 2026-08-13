@@ -2,8 +2,8 @@ import type { ReactNode } from "react";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
-import SiteHeader from "@/components/layout/SiteHeader";
-import SiteFooter from "@/components/layout/SiteFooter";
+import AdminSidebar from "@/components/admin/AdminSidebar";
+import AdminHeader from "@/components/admin/AdminHeader";
 
 export default async function AdminLayout({
   children,
@@ -46,16 +46,16 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <SiteHeader />
-
-      <main className="min-h-[calc(100vh-140px)]">
-        <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          {children}
-        </div>
-      </main>
-
-      <SiteFooter />
+    <div className="flex min-h-screen bg-background text-foreground">
+      <AdminSidebar />
+      <div className="flex min-w-0 flex-1 flex-col lg:pl-64">
+        <AdminHeader />
+        <main className="flex-1">
+          <div className="mx-auto w-full max-w-screen-2xl px-4 py-8 sm:px-6 lg:px-8">
+            {children}
+          </div>
+        </main>
+      </div>
     </div>
   );
 }

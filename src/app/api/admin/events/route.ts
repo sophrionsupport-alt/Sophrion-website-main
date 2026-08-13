@@ -108,3 +108,51 @@ export async function GET(req: Request) {
     offset,
   });
 }
+
+export async function POST(req: Request) {
+  const auth = await requireAdmin();
+
+  if (!auth.ok) {
+    return fail(auth.error, auth.status);
+  }
+
+  let body: Record<string, unknown> = {};
+  try {
+    body = await req.json();
+  } catch {
+    return fail("Invalid JSON body.", 400);
+  }
+
+  const title = String(body?.title ?? "").trim();
+  const slugRaw = String(body?.slug ?? "").trim();
+  
+  if (!title) {
+    return fail("Title is required.", 400);
+  }
+
+  // Generate a basic slug if one isn't provided
+  const slug = slugRaw || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  if (!slug) {
+    return fail("Valid slug could not be generated.", 400);
+  }
+
+  const supabase = createSupabaseAdminClient();
+  const { data, error } = await supabase
+    .from("events")
+    .insert({
+      title,
+      slug,
+      is_published: false,
+      registration_open: false,
+      event_type: "workshop", // default
+      registration_type: "individual", // default
+    })
+    .select("id")
+    .single();
+
+  if (error) {
+    return fail(error.message, 500);
+  }
+
+  return ok({ id: data.id }, "Event created successfully.");
+}

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth/requireAdmin";
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
 function json(
   ok: boolean,
@@ -34,7 +35,8 @@ export async function PATCH(
 
   const archived = Boolean(body.archived);
 
-  const { data, error } = await auth.supabase
+  const admin = createSupabaseAdminClient();
+  const { data, error } = await admin
     .from("contact_messages")
     .update({
       archived,
@@ -60,4 +62,33 @@ export async function PATCH(
   }
 
   return json(true, { data });
+}
+
+export async function DELETE(
+  _req: Request,
+  ctx: { params: Promise<{ id: string }> }
+) {
+  const auth = await requireAdmin();
+
+  if (!auth.ok) {
+    return json(false, { error: auth.error }, auth.status);
+  }
+
+  const { id } = await ctx.params;
+
+  if (!id) {
+    return json(false, { error: "Contact message id is required." }, 400);
+  }
+
+  const admin = createSupabaseAdminClient();
+  const { error } = await admin
+    .from("contact_messages")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    return json(false, { error: error.message }, 500);
+  }
+
+  return json(true, { message: "Contact message deleted successfully." });
 }

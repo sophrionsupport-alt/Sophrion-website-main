@@ -6,9 +6,9 @@ import AnimatedBackground from "@/components/ui/AnimatedBackground";
 
 const SITE_NAME = "Sophrion";
 const SITE_URL = "https://sophrion.in";
-const DEFAULT_TITLE = "Sophrion - Future Within";
+const DEFAULT_TITLE = "Sophrion — Future Within | Industry-Integrated Active Learning Ecosystem";
 const DEFAULT_DESCRIPTION =
-  "Sophrion is an Institutional Readiness Intelligence System that helps colleges and students align outcomes with industry expectations through structured readiness pathways, measurable reporting, and scalable campus-industry bridge infrastructure.";
+  "Sophrion builds industry-integrated active learning experiences that connect students with mentors, experts, projects, communities and industry to develop future-ready capability.";
 
 export const viewport: Viewport = {
   width: "device-width",

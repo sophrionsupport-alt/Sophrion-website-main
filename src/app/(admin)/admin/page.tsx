@@ -311,7 +311,7 @@ export default function AdminHomePage() {
   }, [loadStats]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-10">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="space-y-1">
           <h1 className="text-2xl font-semibold tracking-tight text-foreground">
@@ -337,7 +337,7 @@ export default function AdminHomePage() {
         </button>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
         {statItems.map((item) => (
           <StatCard
             key={item.key}
@@ -348,47 +348,6 @@ export default function AdminHomePage() {
             icon={item.icon}
           />
         ))}
-      </div>
-
-      <div className="grid gap-3 lg:grid-cols-2">
-        <QuickLinkCard
-          title="Volunteer scanner access"
-          description="Create temporary codes and manage event-scoped scanning access."
-          href="/admin/events"
-          icon={UserCheck}
-        />
-
-        <QuickLinkCard
-          title="Ticket operations"
-          description="Use registrations and event flows to manage approvals, issuance, and check-in readiness."
-          href="/admin/registrations"
-          icon={CalendarDays}
-        />
-      </div>
-
-      <div
-        className={cn(
-          "rounded-2xl border border-white/10 bg-card/90 p-5 backdrop-blur-sm",
-          "shadow-[0_0_0_1px_hsl(var(--border)/0.35)]"
-        )}
-      >
-        <div className="mb-4">
-          <h2 className="text-sm font-semibold text-foreground">All sections</h2>
-          <p className="mt-1 text-xs text-foreground/55">
-            Keep the dashboard lean. Do the real work inside each section.
-          </p>
-        </div>
-
-        <div className="grid gap-3 lg:grid-cols-2">
-          {sectionLinks.map((item) => (
-            <SectionLink
-              key={item.href + item.title}
-              title={item.title}
-              description={item.description}
-              href={item.href}
-            />
-          ))}
-        </div>
       </div>
     </div>
   );

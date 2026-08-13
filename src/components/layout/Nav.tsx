@@ -12,12 +12,11 @@ import { marketingCtaShimmer } from "@/components/marketing/MarketingCtaLink";
 type NavLink = { label: string; href: string };
 
 const publicLinks: NavLink[] = [
-  { label: "About", href: MARKETING.about },
+  { label: "Home", href: MARKETING.home },
+  { label: "Why Sophrion", href: MARKETING.about },
   { label: "Ecosystem", href: MARKETING.ecosystem },
+  { label: "Experiences", href: MARKETING.experiences },
   { label: "Pathways", href: MARKETING.pathways },
-  { label: "Residency", href: MARKETING.residency },
-  { label: "Institutions", href: MARKETING.institutions },
-  { label: "Contact", href: MARKETING.contact },
 ];
 
 const adminLinks: NavLink[] = [
@@ -246,17 +245,17 @@ export default function Nav({
         
         <div className="flex shrink-0 items-center justify-end gap-2 xl:gap-3">
           <Link
-            href={MARKETING.pathways}
+            href={MARKETING.institutions}
             className={cn(
               "hidden shrink-0 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-semibold xl:px-3.5 xl:py-2 xl:text-sm sm:inline-flex",
               "text-foreground/85 backdrop-blur-sm transition-all duration-300",
               "hover:bg-white/[0.06] hover:border-white/[0.15] hover:scale-[1.02]"
             )}
           >
-            Explore Pathways
+            For Institutions
           </Link>
           <Link
-            href={MARKETING.join}
+            href={MARKETING.institutionalPilot}
             className={cn(
               "group relative shrink-0 overflow-hidden rounded-xl px-3.5 py-1.5 text-xs font-semibold xl:px-4 xl:py-2 xl:text-sm",
               "text-white transition-all duration-300",
@@ -268,7 +267,32 @@ export default function Nav({
                 "linear-gradient(90deg, hsl(var(--brand-600)), hsl(var(--cyan-500)))",
             }}
           >
-            <span className="relative z-10">Join Ecosystem</span>
+            <span className="relative z-10">Pilot</span>
+          </Link>
+          <Link
+            href={MARKETING.contact}
+            className={cn(
+              "relative shrink-0 rounded-lg px-2 py-1.5 text-[13px] font-medium transition-all duration-300 xl:px-3 xl:text-sm",
+              isActive(pathname, MARKETING.contact)
+                ? [
+                    "text-white",
+                    "bg-white/[0.08]",
+                    "shadow-[0_0_12px_-2px_hsl(var(--brand-600)/0.4),inset_0_1px_0_0_rgba(255,255,255,0.06)]",
+                  ]
+                : "text-foreground/72 hover:bg-white/[0.06] hover:text-foreground"
+            )}
+          >
+            Contact
+            {isActive(pathname, MARKETING.contact) && (
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-1 -bottom-px h-px"
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent, hsl(var(--brand-600) / 0.6), hsl(var(--cyan-500) / 0.5), transparent)",
+                }}
+              />
+            )}
           </Link>
         </div>
       </div>
@@ -316,13 +340,6 @@ export default function Nav({
             </button>
           </div>
           <nav className="relative flex flex-1 flex-col gap-1 overflow-y-auto px-4 py-6">
-            <Link
-              href={MARKETING.home}
-              onClick={() => setOpen(false)}
-              className="rounded-xl px-4 py-4 text-lg font-medium text-foreground/90 transition-all duration-300 hover:bg-white/[0.06]"
-            >
-              Home
-            </Link>
             {publicLinks.map((item) => (
               <Link
                 key={item.href}
@@ -338,10 +355,22 @@ export default function Nav({
                 {item.label}
               </Link>
             ))}
+            <Link
+              href={MARKETING.institutions}
+              onClick={() => setOpen(false)}
+              className={cn(
+                "rounded-xl px-4 py-4 text-lg font-medium transition-all duration-300 hover:bg-white/[0.06]",
+                isActive(pathname, MARKETING.institutions)
+                  ? "bg-white/[0.08] text-white shadow-[0_0_12px_-4px_hsl(var(--brand-600)/0.3)]"
+                  : "text-foreground/85"
+              )}
+            >
+              For Institutions
+            </Link>
           </nav>
           <div className="relative border-t border-white/10 p-4 space-y-3">
             <Link
-              href={MARKETING.join}
+              href={MARKETING.institutionalPilot}
               onClick={() => setOpen(false)}
               className="relative flex w-full items-center justify-center overflow-hidden rounded-xl py-3 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.01]"
               style={{
@@ -349,14 +378,14 @@ export default function Nav({
                   "linear-gradient(90deg, hsl(var(--brand-600)), hsl(var(--cyan-500)))",
               }}
             >
-              Join Ecosystem
+              Institutional Pilot
             </Link>
             <Link
-              href={`${MARKETING.contact}?topic=partnership`}
+              href={MARKETING.contact}
               onClick={() => setOpen(false)}
               className="flex w-full items-center justify-center rounded-xl border border-white/10 py-3 text-sm font-semibold text-foreground/85 transition-all duration-300 hover:bg-white/[0.04]"
             >
-              Partner With Sophrion
+              Contact
             </Link>
           </div>
         </div>

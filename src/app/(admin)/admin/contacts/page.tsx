@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { Download, Trash2 } from "lucide-react";
 import FiltersBar, { type FiltersState } from "@/components/admin/FiltersBar";
 import AdminTable, { type AdminRow } from "@/components/admin/AdminTable";
 import Modal from "@/components/ui/Modal";
@@ -11,7 +12,9 @@ type ContactRecord = {
   name: string;
   email: string;
   phone: string | null;
+  subject?: string | null;
   message: string;
+  source?: string | null;
   created_at: string;
   archived: boolean;
   archived_at: string | null;
@@ -43,13 +46,6 @@ function fmtDate(s?: string | null) {
   return d.toLocaleString();
 }
 
-/**
- * Reusing FiltersBar:
- * - all      => all
- * - pending  => inbox
- * - approved => archived
- * - rejected => treated as all
- */
 function mapStatus(s: FiltersState["status"]): "all" | "inbox" | "archived" {
   if (s === "pending") return "inbox";
   if (s === "approved") return "archived";
@@ -69,6 +65,7 @@ export default function ContactsPage() {
 
   const [open, setOpen] = React.useState(false);
   const [active, setActive] = React.useState<ContactRecord | null>(null);
+  const [deletingId, setDeletingId] = React.useState<string | null>(null);
 
   const load = React.useCallback(async () => {
     setLoading(true);
@@ -90,13 +87,13 @@ export default function ContactsPage() {
       const payload = (await res.json().catch(() => null)) as ApiResp<ContactRecord> | null;
 
       if (!res.ok || !payload || !payload.ok) {
-      const message =
-        payload && "error" in payload && typeof payload.error === "string"
-          ? payload.error
-          : "Failed to load contacts.";
+        const message =
+          payload && "error" in payload && typeof payload.error === "string"
+            ? payload.error
+            : "Failed to load contacts.";
 
-      throw new Error(message);
-    }
+        throw new Error(message);
+      }
 
       const list = Array.isArray(payload.data)
         ? payload.data
@@ -107,7 +104,7 @@ export default function ContactsPage() {
       const mapped: AdminRow[] = list.map((c) => ({
         id: c.id,
         primary: c.name || "Unknown",
-        secondary: `${c.email}${c.phone ? ` • ${c.phone}` : ""}`,
+        secondary: `${c.email}${c.phone ? ` • ${c.phone}` : ""}${c.subject ? ` (${c.subject})` : ""}`,
         status: c.archived ? "approved" : "pending",
         meta: fmtDate(c.created_at),
         actions: [
@@ -126,6 +123,13 @@ export default function ContactsPage() {
               await toggleArchive(c.id, !c.archived);
             },
           },
+          {
+            label: "Delete",
+            intent: "danger",
+            onClick: async () => {
+              await deleteContact(c.id);
+            },
+          },
         ],
       }));
 
@@ -137,7 +141,6 @@ export default function ContactsPage() {
     } finally {
       setLoading(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- toggleArchive is defined below and calls load(); including it would cycle deps
   }, [filters]);
 
   async function toggleArchive(id: string, archived: boolean) {
@@ -175,17 +178,64 @@ export default function ContactsPage() {
     }
   }
 
+  async function deleteContact(id: string) {
+    if (!confirm("Are you sure you want to permanently delete this contact submission?")) {
+      return;
+    }
+
+    setDeletingId(id);
+    try {
+      const res = await fetch(`/api/admin/contacts/${id}`, {
+        method: "DELETE",
+      });
+
+      const payload = (await res.json().catch(() => null)) as ApiResp | null;
+
+      if (!res.ok || !payload || !payload.ok) {
+        const message =
+          payload && "error" in payload && typeof payload.error === "string"
+            ? payload.error
+            : "Delete failed.";
+
+        throw new Error(message);
+      }
+
+      if (active?.id === id) {
+        setOpen(false);
+        setActive(null);
+      }
+
+      await load();
+    } catch (e) {
+      console.error(e);
+      alert(e instanceof Error ? e.message : "Failed to delete contact.");
+    } finally {
+      setDeletingId(null);
+    }
+  }
+
   React.useEffect(() => {
     load();
   }, [load]);
 
   return (
     <div className="grid gap-6">
-      <div className="grid gap-2">
-        <h1 className="text-xl font-semibold text-foreground">Contact Messages</h1>
-        <p className="text-sm text-foreground/60">
-          Review inbound messages. Archive items once handled.
-        </p>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="grid gap-1">
+          <h1 className="text-xl font-semibold text-foreground">Contact Messages</h1>
+          <p className="text-sm text-foreground/60">
+            Review inbound user contact form submissions stored in the database.
+          </p>
+        </div>
+
+        <a
+          href="/api/admin/contacts/export"
+          download
+          className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-foreground transition hover:border-white/20 hover:bg-white/10"
+        >
+          <Download className="h-4 w-4" />
+          Export CSV
+        </a>
       </div>
 
       <FiltersBar
@@ -218,6 +268,14 @@ export default function ContactsPage() {
                 {active.email}
                 {active.phone ? ` • ${active.phone}` : ""}
               </div>
+              {active.subject ? (
+                <div className="mt-1 text-xs font-semibold text-cyan-400">
+                  Subject: {active.subject}
+                </div>
+              ) : null}
+              {active.source ? (
+                <div className="text-xs text-foreground/50">Source: {active.source}</div>
+              ) : null}
               <div className="text-xs text-foreground/50">{fmtDate(active.created_at)}</div>
             </div>
 
@@ -227,13 +285,24 @@ export default function ContactsPage() {
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-2">
-              <Button onClick={() => toggleArchive(active.id, !active.archived)}>
-                {active.archived ? "Unarchive" : "Archive"}
-              </Button>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex flex-wrap gap-2">
+                <Button onClick={() => toggleArchive(active.id, !active.archived)}>
+                  {active.archived ? "Unarchive" : "Archive"}
+                </Button>
 
-              <Button variant="secondary" onClick={() => setOpen(false)}>
-                Close
+                <Button variant="secondary" onClick={() => setOpen(false)}>
+                  Close
+                </Button>
+              </div>
+
+              <Button
+                variant="danger"
+                disabled={deletingId === active.id}
+                onClick={() => deleteContact(active.id)}
+              >
+                <Trash2 className="mr-1.5 inline h-4 w-4" />
+                Delete Submission
               </Button>
             </div>
           </div>
