@@ -21,6 +21,7 @@ import {
 import MarketingShell from "@/components/marketing/MarketingShell";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
 import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
+import EvidenceFlowDiagram from "@/components/marketing/EvidenceFlowDiagram";
 import {
   READINESS_DIMENSIONS,
   OBSERVATION_DIMENSIONS,
@@ -59,7 +60,13 @@ export default function EvidencePage() {
             </div>
 
             <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              <span className="bg-linear-to-l from-[hsl(var(--brand-600))] to-[hsl(var(--cyan-500))] bg-clip-text text-transparent">
+              <span
+                style={{
+                  background: "linear-gradient(to right, #c084fc, #22d3ee)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
                 Build Evidence. Not Claims.
               </span>
             </h1>
@@ -83,7 +90,7 @@ export default function EvidencePage() {
       </section>
 
       {/* ─── 2. THE MEASUREMENT PHILOSOPHY ─── */}
-      <section className="border-t border-white/[0.06] py-16 sm:py-24">
+      <section className="border-t border-white/[0.06] py-16 sm:py-24 relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <MarketingSectionHeader
             eyebrow="Pedagogical Stance"
@@ -92,30 +99,7 @@ export default function EvidencePage() {
             align="center"
           />
 
-          <div className="mt-14 flex flex-wrap justify-center items-center gap-2 max-w-5xl mx-auto text-xs sm:text-sm font-bold text-foreground/85">
-            {[
-              "PARTICIPATION",
-              "ENGAGEMENT",
-              "CAPABILITY",
-              "APPLICATION",
-              "EVIDENCE",
-              "OUTCOME"
-            ].map((step, i, arr) => (
-              <React.Fragment key={step}>
-                <span className={cn(
-                  "rounded-xl border px-4 py-2.5 shadow-sm backdrop-blur-md",
-                  i === 0 || i === arr.length - 1
-                    ? "border-[hsl(var(--brand-500))] bg-[hsl(var(--brand-600))/0.15] text-[hsl(var(--brand-200))]"
-                    : "border-white/[0.08] bg-white/[0.03]"
-                )}>
-                  {step}
-                </span>
-                {i < arr.length - 1 && (
-                  <span className="text-[hsl(var(--cyan-400))] font-bold hidden sm:inline">↓</span>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
+          <EvidenceFlowDiagram />
         </div>
       </section>
 
@@ -443,7 +427,14 @@ export default function EvidencePage() {
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-5xl">
               Start With a Measurable Experience.
             </h2>
-            <p className="mt-3 text-2xl font-bold bg-linear-to-l from-[hsl(var(--brand-600))] to-[hsl(var(--cyan-500))] bg-clip-text text-transparent sm:text-4xl">
+            <p
+              className="mt-3 text-2xl font-bold sm:text-4xl"
+              style={{
+                background: "linear-gradient(to right, #c084fc, #22d3ee)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
               Evidence-Based Active Learning for Your Institution.
             </p>
             <p className="mt-6 text-base text-foreground/65 max-w-2xl mx-auto leading-relaxed">

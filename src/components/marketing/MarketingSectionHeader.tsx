@@ -30,7 +30,8 @@ export default function MarketingSectionHeader({
     >
       {eyebrow ? (
         <div className={cn("mb-4 inline-flex", align === "center" && "justify-center w-full")}>
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-xs font-bold tracking-[0.15em] text-[hsl(var(--brand-400))] uppercase backdrop-blur-sm">
+          {/* Consistent eyebrow pill — uppercase, letter-spaced, muted accent */}
+          <span className="section-eyebrow inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-[11px] font-bold tracking-[0.18em] text-[hsl(var(--brand-400))] uppercase backdrop-blur-sm">
             <span className="h-1 w-1 rounded-full bg-[hsl(var(--brand-400))] animate-pulse" />
             {eyebrow}
           </span>
@@ -38,7 +39,8 @@ export default function MarketingSectionHeader({
       ) : null}
       <h2
         className={cn(
-          "text-3xl font-bold tracking-tight sm:text-4xl leading-[1.1]",
+          /* Consistent H2 scale across all sections */
+          "text-3xl font-bold tracking-[-0.025em] sm:text-4xl lg:text-5xl leading-[1.1]",
           align === "center" && "mx-auto"
         )}
       >

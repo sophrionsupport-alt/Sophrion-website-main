@@ -7,6 +7,7 @@ import MarketingShell from "@/components/marketing/MarketingShell";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
 import FeatureGrid from "@/components/marketing/FeatureGrid";
 import JoinForm from "@/components/forms/JoinForm";
+import EvidenceFlowDiagram from "@/components/marketing/EvidenceFlowDiagram";
 import { MARKETING } from "@/lib/marketing/links";
 
 export default function JoinMarketing() {
@@ -91,10 +92,10 @@ export default function JoinMarketing() {
         </div>
       </section>
 
-      <section className="py-16">
+      <section className="border-t border-white/10 py-16 sm:py-24 relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <MarketingSectionHeader eyebrow="WHY SOPHRION" title="Build Capability That Goes Beyond Certificates" />
-          <FeatureGrid className="mt-10" items={why} columns={3} />
+          <MarketingSectionHeader eyebrow="HOW IT WORKS" title="Build Evidence. Not Claims." subtitle="Document your growth, projects, and readiness across five auditable execution stages." align="center" />
+          <EvidenceFlowDiagram />
         </div>
       </section>
 

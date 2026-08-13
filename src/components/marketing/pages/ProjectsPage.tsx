@@ -24,6 +24,7 @@ import {
 import MarketingShell from "@/components/marketing/MarketingShell";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
 import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
+import EvidenceFlowDiagram from "@/components/marketing/EvidenceFlowDiagram";
 import { SHOWCASE_PROJECTS, type ShowcaseProject, type TeamContribution } from "@/lib/marketing/projectsData";
 import { MARKETING } from "@/lib/marketing/links";
 import { cn } from "@/lib/utils/cn";
@@ -309,7 +310,9 @@ export default function ProjectsPage() {
             align="center"
           />
 
-          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <EvidenceFlowDiagram />
+
+          <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { title: "Problem Solving", desc: "Formulating hypotheses, clarifying constraints, and architecting solutions under ambiguity." },
               { title: "Research & Synthesis", desc: "Reviewing technical documentation, literature benchmarks, and prior engineering art." },

@@ -6,6 +6,7 @@ import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
 import MarketingShell from "@/components/marketing/MarketingShell";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
 import FeatureGrid from "@/components/marketing/FeatureGrid";
+import EvidenceFlowDiagram from "@/components/marketing/EvidenceFlowDiagram";
 import { MARKETING } from "@/lib/marketing/links";
 import { cn } from "@/lib/utils/cn";
 
@@ -487,10 +488,11 @@ export default function InstitutionalPilotPage() {
       </section>
 
       {/* 9 ASSESSMENT */}
-      <section className="border-t border-white/[0.06] py-16 sm:py-24">
+      <section className="border-t border-white/[0.06] py-16 sm:py-24 relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <MarketingSectionHeader eyebrow="Evaluation" title={pilotContent.assessment.heading} align="center" />
-          <div className="mt-12 text-center max-w-4xl mx-auto">
+          <MarketingSectionHeader eyebrow="Evaluation & Evidence" title={pilotContent.assessment.heading} align="center" />
+          <EvidenceFlowDiagram />
+          <div className="mt-16 text-center max-w-4xl mx-auto">
             <p className="text-base font-medium text-foreground/70 mb-6">
               Assessment evidence is gathered through multiple dimensions:
             </p>

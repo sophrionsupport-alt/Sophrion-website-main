@@ -244,7 +244,14 @@ export default function Page() {
             className="mt-8 rounded-2xl border border-[hsl(var(--cyan-500))/0.15] bg-gradient-to-r from-[hsl(var(--brand-600))/0.05] to-[hsl(var(--cyan-500))/0.05] p-6 text-center"
           >
             <p className="text-xs font-bold tracking-widest text-foreground/40 uppercase mb-2">Together</p>
-            <h3 className="text-xl font-bold bg-gradient-to-l from-[hsl(var(--brand-400))] to-[hsl(var(--cyan-400))] bg-clip-text text-transparent sm:text-2xl">
+            <h3
+              className="text-xl font-bold sm:text-2xl"
+              style={{
+                background: "linear-gradient(to right, #c084fc, #22d3ee)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
               Industry-Integrated Active Learning Ecosystem
             </h3>
           </motion.div>
@@ -294,7 +301,14 @@ export default function Page() {
             <p className="text-lg leading-relaxed text-foreground/70 sm:text-xl max-w-2xl mx-auto">
               A learning environment where students are not restricted by one classroom, one department, one curriculum or one mentor.
             </p>
-            <p className="mt-10 text-2xl font-bold bg-gradient-to-r from-[hsl(var(--brand-400))] to-[hsl(var(--cyan-400))] bg-clip-text text-transparent sm:text-3xl">
+            <p
+              className="mt-10 text-2xl font-bold sm:text-3xl"
+              style={{
+                background: "linear-gradient(to right, #c084fc, #22d3ee)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
               Students should not only prepare for the future. They should learn how to operate in it.
             </p>
             <div className="mt-12 flex flex-wrap justify-center gap-4">

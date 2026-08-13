@@ -6,6 +6,7 @@ import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
 import MarketingShell from "@/components/marketing/MarketingShell";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
 import TwoColumnCompare from "@/components/marketing/TwoColumnCompare";
+import EcosystemDiagram from "@/components/marketing/EcosystemDiagram";
 import { MARKETING } from "@/lib/marketing/links";
 import { cn } from "@/lib/utils/cn";
 
@@ -144,43 +145,11 @@ export default function EcosystemPage() {
       </section>
 
       {/* 2 Core Ecosystem Visual */}
-      <section className="border-t border-white/[0.06] py-16 sm:py-24">
+      <section className="border-t border-white/[0.06] py-16 sm:py-24 relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <MarketingSectionHeader eyebrow="Interconnected Network" title="Learner at the Center" align="center" />
-          <div className="relative mx-auto flex flex-col items-center justify-center gap-8 py-16">
-            <div className="absolute left-1/2 top-1/2 z-0 h-[300px] w-[300px] sm:h-[600px] sm:w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.04]" />
-            <div className="absolute left-1/2 top-1/2 z-0 h-[450px] w-[450px] sm:h-[800px] sm:w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.03]" />
-            
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="z-10 mb-8"
-            >
-              <div className="flex h-32 w-32 items-center justify-center rounded-full border-2 border-[hsl(var(--brand-500))] bg-background shadow-[0_0_50px_hsl(var(--brand-500)/0.4),inset_0_0_20px_hsl(var(--brand-600)/0.1)]">
-                 <span className="font-black tracking-[0.2em] text-[hsl(var(--brand-400))] text-xs">LEARNER</span>
-              </div>
-            </motion.div>
-
-            <div className="z-10 flex flex-wrap justify-center gap-4 max-w-5xl">
-              {ecosystemNodes.map((node, i) => (
-                <motion.div
-                  key={node.name}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                  className="rounded-2xl border border-white/[0.07] bg-white/[0.025] px-6 py-4 backdrop-blur-md flex flex-col items-center text-center max-w-xs hover:border-[hsl(var(--brand-500))/0.3] transition-all"
-                >
-                  <span className="font-bold text-foreground text-sm mb-1.5 tracking-wide">{node.name}</span>
-                  <span className="text-xs text-foreground/60 leading-relaxed">{node.sub}</span>
-                </motion.div>
-              ))}
-            </div>
-            
-            <p className="z-10 mt-12 text-xs font-bold text-foreground/50 uppercase tracking-widest text-center">
-              These elements are interconnected rather than sequential.
-            </p>
+          <div className="mt-8">
+            <EcosystemDiagram />
           </div>
         </div>
       </section>
@@ -357,10 +326,17 @@ export default function EcosystemPage() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-8 rounded-2xl border border-[hsl(var(--cyan-500))/0.15] bg-gradient-to-r from-[hsl(var(--brand-600))/0.05] to-[hsl(var(--cyan-500))/0.05] p-6 text-center"
+            className="mt-8 rounded-2xl border border-[hsl(var(--cyan-500))/0.15] bg-white/[0.025] p-6 text-center"
           >
             <p className="text-xs font-bold tracking-widest text-foreground/40 uppercase mb-2">Together</p>
-            <h3 className="text-xl font-bold bg-gradient-to-l from-[hsl(var(--brand-400))] to-[hsl(var(--cyan-400))] bg-clip-text text-transparent sm:text-2xl">
+            <h3
+              className="text-xl font-bold sm:text-2xl"
+              style={{
+                background: "linear-gradient(to right, #c084fc, #22d3ee)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
               Industry-Integrated Active Learning Ecosystem
             </h3>
           </motion.div>
@@ -380,7 +356,14 @@ export default function EcosystemPage() {
             <p className="text-base leading-relaxed text-foreground/65 sm:text-lg mb-8 max-w-2xl mx-auto">
               A learner should not be restricted by one classroom, one department, one discipline, one mentor or one curriculum. Sophrion connects these environments so learning can continue through new experiences, people, problems and opportunities.
             </p>
-            <p className="mt-4 text-2xl font-bold bg-gradient-to-r from-[hsl(var(--brand-400))] to-[hsl(var(--cyan-400))] bg-clip-text text-transparent sm:text-3xl">
+            <p
+              className="mt-4 text-2xl font-bold sm:text-3xl"
+              style={{
+                background: "linear-gradient(to right, #c084fc, #22d3ee)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
               Students don't just learn about the future. They begin learning how to operate in it.
             </p>
             <div className="mt-12 flex flex-wrap justify-center gap-3">

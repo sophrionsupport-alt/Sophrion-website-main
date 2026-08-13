@@ -7,6 +7,8 @@ import MarketingShell from "@/components/marketing/MarketingShell";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
 import FeatureGrid from "@/components/marketing/FeatureGrid";
 import TwoColumnCompare from "@/components/marketing/TwoColumnCompare";
+import JourneyTimeline from "@/components/marketing/JourneyTimeline";
+import EvidenceFlowDiagram from "@/components/marketing/EvidenceFlowDiagram";
 import { MARKETING } from "@/lib/marketing/links";
 import { cn } from "@/lib/utils/cn";
 
@@ -36,13 +38,13 @@ const PARTNERSHIP_COLUMNS = [
 ];
 
 const STUDENT_JOURNEY = [
-  { title: "Discover", body: "Explore interests, problems and opportunities." },
-  { title: "Learn", body: "Acquire the knowledge required." },
-  { title: "Collaborate", body: "Work with peers, mentors and experts." },
-  { title: "Build", body: "Create projects, prototypes or solutions." },
-  { title: "Feedback", body: "Receive mentor, expert and industry perspectives." },
-  { title: "Iterate", body: "Improve through evidence and feedback." },
-  { title: "Showcase", body: "Demonstrate what students built and learned." },
+  { number: "01", title: "Discover", body: "Explore interests, problems and opportunities." },
+  { number: "02", title: "Learn", body: "Acquire the knowledge required." },
+  { number: "03", title: "Collaborate", body: "Work with peers, mentors and experts." },
+  { number: "04", title: "Build", body: "Create projects, prototypes or solutions." },
+  { number: "05", title: "Feedback", body: "Receive mentor, expert and industry perspectives." },
+  { number: "06", title: "Iterate", body: "Improve through evidence and feedback." },
+  { number: "07", title: "Showcase", body: "Demonstrate what students built and learned." },
 ];
 
 const ASSESSMENT_METHODS = [
@@ -180,10 +182,17 @@ export default function InstitutionsPage() {
               initial={{ opacity: 0, scale: 0.97 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="relative overflow-hidden rounded-2xl border border-[hsl(var(--brand-500))/0.2] bg-gradient-to-r from-[hsl(var(--brand-600))/0.08] to-[hsl(var(--cyan-500))/0.05] p-8 text-center shadow-[0_0_50px_-15px_hsl(var(--brand-500)/0.3)]"
+              className="relative overflow-hidden rounded-2xl border border-[hsl(var(--brand-500))/0.2] bg-linear-to-r from-[hsl(var(--brand-600))/0.08] to-[hsl(var(--cyan-500))/0.05] p-8 text-center shadow-[0_0_50px_-15px_hsl(var(--brand-500)/0.3)]"
             >
-              <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--brand-500))] to-transparent" />
-              <h3 className="text-xl font-black tracking-wider text-transparent bg-gradient-to-r from-[hsl(var(--brand-300))] to-[hsl(var(--cyan-400))] bg-clip-text sm:text-2xl uppercase">
+              <div className="absolute inset-x-0 top-0 h-[2px] bg-linear-to-r from-transparent via-[hsl(var(--brand-500))] to-transparent" />
+              <h3
+                className="text-xl font-black tracking-wider sm:text-2xl uppercase"
+                style={{
+                  background: "linear-gradient(to right, #c084fc, #22d3ee)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
                 Industry-Integrated Active Learning Ecosystem
               </h3>
             </motion.div>
@@ -238,35 +247,9 @@ export default function InstitutionsPage() {
             title="From Discovery to Demonstrated Capability"
             align="center"
           />
-          <div className="mt-12 flex flex-col items-center gap-2">
-            {STUDENT_JOURNEY.map((step, i, arr) => (
-              <React.Fragment key={step.title}>
-                <motion.div
-                  initial={{ opacity: 0, x: i % 2 === 0 ? -12 : 12 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                  className="group flex w-full max-w-xl items-center justify-between gap-4 rounded-xl border border-white/[0.07] bg-white/[0.025] px-6 py-4 backdrop-blur-md hover:border-[hsl(var(--brand-500))/0.3] transition-all duration-300"
-                >
-                  <div className="flex items-center gap-4">
-                    <span className="text-xs font-black text-foreground/[0.12] w-6 shrink-0">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <p className="text-sm font-bold tracking-wider text-[hsl(var(--brand-400))] uppercase">{step.title}</p>
-                      <p className="text-sm text-foreground/60 mt-0.5">{step.body}</p>
-                    </div>
-                  </div>
-                  <span className="h-2 w-2 rounded-full bg-white/10 shrink-0 group-hover:bg-[hsl(var(--brand-400))] transition-colors" />
-                </motion.div>
-                {i < arr.length - 1 && (
-                  <div className="h-4 w-px bg-gradient-to-b from-white/15 to-transparent" />
-                )}
-              </React.Fragment>
-            ))}
-            <div className="mt-8">
-              <MarketingCtaLink href="/institutional-pilot">See the Pilot Structure</MarketingCtaLink>
-            </div>
+          <JourneyTimeline steps={STUDENT_JOURNEY} />
+          <div className="mt-12 flex justify-center">
+            <MarketingCtaLink href="/institutional-pilot">See the Pilot Structure</MarketingCtaLink>
           </div>
         </div>
       </section>
