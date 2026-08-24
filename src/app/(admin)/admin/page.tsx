@@ -8,9 +8,7 @@ import {
   MessageSquare,
   Mail,
   Newspaper,
-  ArrowRight,
   RefreshCw,
-  UserCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
@@ -88,55 +86,6 @@ const statItems = [
   },
 ];
 
-const sectionLinks = [
-  {
-    title: "Events",
-    description: "Create, edit, publish, and manage event visibility.",
-    href: "/admin/events",
-  },
-  {
-    title: "Registrations",
-    description: "Review submissions, approvals, exports, and ticket lifecycle.",
-    href: "/admin/registrations",
-  },
-  {
-    title: "Volunteer scanner access",
-    description:
-      "Open an event and issue temporary scanner access codes for volunteers.",
-    href: "/admin/events",
-  },
-  {
-    title: "Contacts",
-    description: "Check messages from students, colleges, and visitors.",
-    href: "/admin/contacts",
-  },
-  {
-    title: "Newsletter",
-    description: "Manage subscribers and audience communication.",
-    href: "/admin/newsletter",
-  },
-  {
-    title: "Blog",
-    description: "Handle drafts and published posts.",
-    href: "/admin/blog",
-  },
-  {
-    title: "Careers",
-    description: "Create and manage job roles.",
-    href: "/admin/careers",
-  },
-  {
-    title: "Career applications",
-    description: "Review candidates and manage hiring pipeline.",
-    href: "/admin/career-applications",
-  },
-  {
-    title: "College requests",
-    description: "Review institutional interest and follow up.",
-    href: "/admin/college-requests",
-  },
-];
-
 function StatCard({
   title,
   value,
@@ -181,73 +130,7 @@ function StatCard({
   );
 }
 
-function QuickLinkCard({
-  title,
-  description,
-  href,
-  icon: Icon,
-}: {
-  title: string;
-  description: string;
-  href: string;
-  icon: React.ComponentType<{ className?: string }>;
-}) {
-  return (
-    <Link
-      href={href}
-      className={cn(
-        "group rounded-2xl border border-white/10 bg-card/90 p-4 transition backdrop-blur-sm",
-        "hover:border-white/15 hover:bg-white/5",
-        "shadow-[0_0_0_1px_hsl(var(--border)/0.35)]"
-      )}
-    >
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <div className="text-sm font-medium text-foreground">{title}</div>
-          <div className="mt-1 text-xs text-foreground/55">{description}</div>
-        </div>
 
-        <div
-          className={cn(
-            "grid h-10 w-10 shrink-0 place-items-center rounded-xl border text-foreground/75",
-            "border-white/10 bg-white/3",
-            "transition group-hover:border-white/15 group-hover:text-cyan-400"
-          )}
-        >
-          <Icon className="h-4.5 w-4.5" />
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-function SectionLink({
-  title,
-  description,
-  href,
-}: {
-  title: string;
-  description: string;
-  href: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className={cn(
-        "group flex items-center justify-between rounded-2xl border px-4 py-3 transition",
-        "border-white/10 bg-white/3 backdrop-blur-sm",
-        "hover:border-white/15 hover:bg-white/5"
-      )}
-    >
-      <div className="min-w-0">
-        <div className="text-sm font-medium text-foreground">{title}</div>
-        <div className="mt-0.5 text-xs text-foreground/55">{description}</div>
-      </div>
-
-      <ArrowRight className="h-4 w-4 shrink-0 text-foreground/35 transition group-hover:text-[hsl(var(--cyan-400))]" />
-    </Link>
-  );
-}
 
 export default function AdminHomePage() {
   const [stats, setStats] = React.useState<StatsState>({

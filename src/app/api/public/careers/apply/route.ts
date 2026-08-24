@@ -171,10 +171,7 @@ function buildAdminNotificationEmail(input: {
 
 export async function POST(req: Request) {
   try {
-    console.log("[careers/apply] POST hit");
-
     const body = await req.json();
-    console.log("[careers/apply] raw body:", body);
 
     const parsed = CareerApplySchema.safeParse(body);
 
@@ -188,7 +185,6 @@ export async function POST(req: Request) {
     }
 
     const payload = parsed.data;
-    console.log("[careers/apply] parsed payload:", payload);
 
     const supabase = supabaseAdmin();
 
@@ -196,8 +192,6 @@ export async function POST(req: Request) {
     let roleTitleSnapshot: string | null = payload.role_title_snapshot ?? null;
 
     if (roleId) {
-      console.log("[careers/apply] validating role:", roleId);
-
       const { data: role, error: roleError } = await supabase
         .from("career_roles")
         .select("id,title,is_published")
@@ -215,7 +209,6 @@ export async function POST(req: Request) {
       }
 
       roleTitleSnapshot = role.title;
-      console.log("[careers/apply] role validated:", roleTitleSnapshot);
     }
 
     const insertPayload = {
@@ -234,8 +227,6 @@ export async function POST(req: Request) {
       source: payload.source || "careers_site",
     };
 
-    console.log("[careers/apply] insert payload:", insertPayload);
-
     const { data, error } = await supabase
       .from("career_applications")
       .insert(insertPayload)
@@ -247,27 +238,18 @@ export async function POST(req: Request) {
       return json(false, { error: "Failed to submit application" }, 500);
     }
 
-    console.log("[careers/apply] insert success:", data);
-
     try {
       const applicantMail = buildCareerAcknowledgementEmail({
         fullName: payload.full_name,
         roleTitle: roleTitleSnapshot,
       });
 
-      console.log("[careers/apply] sending applicant email to:", payload.email);
-
-      const applicantMailResult = await sendEmail({
+      await sendEmail({
         to: payload.email,
         subject: applicantMail.subject,
         html: applicantMail.html,
         text: applicantMail.text,
       });
-
-      console.log(
-        "[careers/apply] applicant email success:",
-        applicantMailResult
-      );
     } catch (mailError) {
       console.error("[careers/apply] applicant email failed:", mailError);
     }
@@ -277,8 +259,6 @@ export async function POST(req: Request) {
         process.env.CAREERS_ADMIN_EMAIL?.split(",")
           .map((email) => email.trim())
           .filter(Boolean) ?? [];
-
-      console.log("[careers/apply] admin email targets:", adminEmails);
 
       if (adminEmails.length > 0) {
         const adminMail = buildAdminNotificationEmail({
@@ -291,18 +271,12 @@ export async function POST(req: Request) {
           linkedin: payload.linkedin_url,
         });
 
-        const adminMailResult = await sendEmail({
+        await sendEmail({
           to: adminEmails,
           subject: adminMail.subject,
           html: adminMail.html,
           text: adminMail.text,
         });
-
-        console.log("[careers/apply] admin email success:", adminMailResult);
-      } else {
-        console.log(
-          "[careers/apply] admin email skipped: CAREERS_ADMIN_EMAIL not set"
-        );
       }
     } catch (adminMailError) {
       console.error(

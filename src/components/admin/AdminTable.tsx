@@ -1,7 +1,10 @@
 "use client";
 
+// Flexible data table component for admin management screens with checkbox selection and status badges.
+
 import * as React from "react";
 
+// Supported row status identifiers mapping to badge styles
 export type AdminRowStatus =
   | "pending"
   | "approved"
@@ -12,6 +15,7 @@ export type AdminRowStatus =
   | "team"
   | "unsubscribed";
 
+// Generic row schema for admin table records
 export type AdminRow = {
   id: string;
   primary: string;
@@ -33,6 +37,7 @@ type Props = {
   renderActions?: (row: AdminRow) => React.ReactNode;
 };
 
+// Main AdminTable component supporting multi-select checkboxes and custom action renderers
 export default function AdminTable({
   rows,
   selectedIds,

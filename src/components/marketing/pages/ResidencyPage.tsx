@@ -6,23 +6,15 @@ import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
 import MarketingShell from "@/components/marketing/MarketingShell";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
 import FeatureGrid, { FeatureItem } from "@/components/marketing/FeatureGrid";
-import PhaseTimeline from "@/components/marketing/PhaseTimeline";
 import { MARKETING } from "@/lib/marketing/links";
 import { cn } from "@/lib/utils/cn";
 import {
-  Layers,
-  Sparkles,
   Users,
   Target,
   RefreshCw,
-  Cpu,
   GraduationCap,
   Building2,
   Briefcase,
-  CheckCircle2,
-  ArrowRight,
-  GitBranch,
-  ShieldCheck,
   Zap
 } from "lucide-react";
 
@@ -431,7 +423,7 @@ export default function ResidencyPage() {
               <div className="rounded-3xl border border-[hsl(var(--cyan-500))/0.2] bg-[hsl(var(--cyan-500))/0.04] p-8 sm:p-10 backdrop-blur-md relative overflow-hidden">
                 <p className="text-xs font-black uppercase tracking-widest text-[hsl(var(--cyan-400))] mb-4">Core Statement</p>
                 <blockquote className="text-xl font-bold text-foreground italic leading-relaxed sm:text-2xl">
-                  "Learn what the project requires, when the project requires it."
+                  &quot;Learn what the project requires, when the project requires it.&quot;
                 </blockquote>
                 <p className="mt-6 text-xs text-foreground/60 leading-relaxed">
                   Knowledge retention multiplies when learners encounter an authentic roadblock, research the solution under mentor guidance, and immediately integrate it into live systems.

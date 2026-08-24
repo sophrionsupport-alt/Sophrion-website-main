@@ -1,3 +1,5 @@
+// Utility function for conditionally merging CSS class names into a clean space-separated string.
+
 type ClassValue =
   | string
   | number
@@ -7,6 +9,7 @@ type ClassValue =
   | Record<string, boolean>
   | ClassValue[];
 
+// Recursively parses strings, arrays, and conditional boolean maps into a single class string
 export function cn(...values: ClassValue[]) {
   const out: string[] = [];
 

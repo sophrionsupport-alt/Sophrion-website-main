@@ -92,16 +92,6 @@ function ExperienceFlow({ flow }: { flow: string[] }) {
 }
 
 export default function EcosystemPage() {
-  const ecosystemNodes = [
-    { name: "EXPERIENCES", sub: "Workshops · Challenges · Hackathons · Projects · Residency" },
-    { name: "PEOPLE", sub: "Mentors · Experts · Faculty · Industry · Peers" },
-    { name: "PROBLEMS", sub: "Real-world · Institutional · Industry · Social · Research" },
-    { name: "KNOWLEDGE", sub: "Pathways · Resources · Tools · AI · Community knowledge" },
-    { name: "PROJECTS", sub: "Build · Prototype · Research · Experiment · Solve" },
-    { name: "FEEDBACK", sub: "Mentors · Experts · Industry · Faculty · Reflection" },
-    { name: "OPPORTUNITIES", sub: "Projects · Internships · Research · Entrepreneurship · Further learning" }
-  ];
-
   return (
     <MarketingShell>
       {/* 1 Hero */}
@@ -364,7 +354,7 @@ export default function EcosystemPage() {
                 WebkitTextFillColor: "transparent",
               }}
             >
-              Students don't just learn about the future. They begin learning how to operate in it.
+              Students don&apos;t just learn about the future. They begin learning how to operate in it.
             </p>
             <div className="mt-12 flex flex-wrap justify-center gap-3">
               <MarketingCtaLink href={MARKETING.institutions}>For Institutions</MarketingCtaLink>

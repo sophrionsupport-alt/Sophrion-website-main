@@ -1,16 +1,20 @@
 "use client";
 
+// Vertical timeline component displaying sequential program phases with modal deep-dive triggers.
+
 import * as React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils/cn";
 import { Download, Plus, X } from "lucide-react";
 
+// Phase step schema containing title, summary body, and optional expandable JSX component
 export type PhaseStep = {
   title: string;
   body: string;
   renderExpanded?: () => React.ReactNode;
 };
 
+// Subtle ambient card glow class variations
 const GLOW_VARIANTS = [
   "glow-purple",
   "glow-cyan",
@@ -18,6 +22,7 @@ const GLOW_VARIANTS = [
   "glow-indigo",
 ] as const;
 
+// Renders interactive timeline list and full-screen detail modal on phase card click
 export default function PhaseTimeline({
   steps,
   className,

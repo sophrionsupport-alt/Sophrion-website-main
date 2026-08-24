@@ -1,8 +1,11 @@
 "use client";
 
+// Interactive SVG diagram rendering the learner node surrounded by radial ecosystem orbit nodes.
+
 import * as React from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
 
+// Orbit node labels representing ecosystem dimensions
 const ORBIT_NODES = [
   "Experiences",
   "People",
@@ -17,6 +20,7 @@ const ORBIT_NODES = [
 
 type OrbitNode = (typeof ORBIT_NODES)[number];
 
+// Trigonometric helper calculating (x,y) cartesian coordinates for radial node positioning
 function getOrbitPositions(
   count: number,
   radius: number,
@@ -29,6 +33,7 @@ function getOrbitPositions(
   });
 }
 
+// Renders SVG ecosystem diagram with hover interactions and animated connector lines
 export default function EcosystemDiagram() {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-80px" });

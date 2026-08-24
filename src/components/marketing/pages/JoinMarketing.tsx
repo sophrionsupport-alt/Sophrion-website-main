@@ -35,15 +35,6 @@ export default function JoinMarketing() {
     { title: "Smart Engineering", body: "IoT systems, robotics workflows, automation environments, and intelligent infrastructure systems." },
   ];
 
-  const why = [
-    { title: "Practical Experience", body: "Work on real systems instead of isolated theoretical assignments." },
-    { title: "Public Proof-Of-Work", body: "Visible portfolios, deployments, repositories, and collaborative project systems." },
-    { title: "AI Readiness", body: "Familiarity with intelligent workflows and AI-native operational systems." },
-    { title: "Collaboration & Communication", body: "Teamwork, execution confidence, and professional communication capability." },
-    { title: "Startup-Style Exposure", body: "Sprint systems, collaborative workflows, and production-oriented execution culture." },
-    { title: "Future Adaptability", body: "Prepare for rapidly evolving workforce ecosystems and intelligent operational environments." },
-  ];
-
   return (
     <MarketingShell>
       <section className="py-16 sm:py-24">

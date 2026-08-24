@@ -75,11 +75,6 @@ export async function sendTicketEmail(input: SendTicketEmailInput) {
   /* ----------------------------------------------------- */
 
   if (ticketRow.emailed_at) {
-    console.log(
-      "[TicketEmail] already emailed, skipping:",
-      ticketRow.ticket_code
-    );
-
     return {
       ok: true,
       skipped: true,
@@ -204,9 +199,6 @@ export async function sendTicketEmail(input: SendTicketEmailInput) {
     ticketCode: ticketRow.ticket_code,
     ticketUrl,
   });
-
-  console.log("[TicketEmail] primary:", recipientEmail);
-  console.log("[TicketEmail] backup:", backupEmail);
 
   /* ----------------------------------------------------- */
   /* SEND PRIMARY EMAIL                                    */

@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, Plus } from "lucide-react";
 import SignOutButton from "@/components/auth/SignOutButton";
-import { cn } from "@/lib/utils/cn";
 
 export default function AdminHeader() {
   const [mobileOpen, setMobileOpen] = React.useState(false);

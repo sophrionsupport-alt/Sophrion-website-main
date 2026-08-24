@@ -2,22 +2,6 @@
 
 import * as React from "react";
 import { motion } from "motion/react";
-import Link from "next/link";
-import {
-  Layers,
-  Sparkles,
-  CheckCircle2,
-  ArrowRight,
-  ShieldCheck,
-  FileCheck2,
-  BarChart3,
-  Search,
-  Eye,
-  GitBranch,
-  FileText,
-  Workflow,
-  AlertCircle
-} from "lucide-react";
 import MarketingShell from "@/components/marketing/MarketingShell";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
 import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
@@ -29,7 +13,6 @@ import {
   INSTITUTIONAL_OUTPUTS
 } from "@/lib/marketing/evidenceData";
 import { MARKETING } from "@/lib/marketing/links";
-import { cn } from "@/lib/utils/cn";
 
 export default function EvidencePage() {
   return (

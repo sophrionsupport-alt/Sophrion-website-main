@@ -1,9 +1,12 @@
 "use client";
 
+// Reusable animated header component for marketing sections featuring eyebrow badges, title, and subtitle.
+
 import * as React from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils/cn";
 
+// Renders left or center aligned animated section header with scroll-triggered fade-in
 export default function MarketingSectionHeader({
   eyebrow,
   title,

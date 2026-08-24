@@ -132,15 +132,6 @@ export async function sendEmail({
     track_opens: true,
   };
 
-  console.log("[MAIL] provider: zeptomail");
-  console.log("[MAIL] url:", `${host}/v1.1/email`);
-  console.log("[MAIL] from:", fromAddress.address);
-  console.log("[MAIL] subject:", subject);
-  console.log(
-    "[MAIL] to:",
-    recipients.map((r) => r.address).join(", ")
-  );
-
   const response = await fetch(`${host}/v1.1/email`, {
     method: "POST",
     headers: {
@@ -153,9 +144,6 @@ export async function sendEmail({
   });
 
   const raw = await response.text();
-
-  console.log("[MAIL] status:", response.status);
-  console.log("[MAIL] raw response:", raw || "<empty>");
 
   if (!response.ok) {
     throw new Error(

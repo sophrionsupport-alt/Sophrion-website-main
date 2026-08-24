@@ -1,11 +1,14 @@
 "use client";
 
+// Search, status filter, and sorting control bar for admin data tables.
+
 import * as React from "react";
 
 function cn(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
 }
 
+// Filter state interface tracking query string, approval status, and date sorting order
 export type FiltersState = {
   q: string;
   status: "all" | "pending" | "approved" | "rejected";
@@ -18,6 +21,7 @@ const DEFAULT_FILTERS: FiltersState = {
   sort: "newest",
 };
 
+// Renders input controls allowing administrators to filter and sort table data
 export default function FiltersBar({
   value,
   onChange,

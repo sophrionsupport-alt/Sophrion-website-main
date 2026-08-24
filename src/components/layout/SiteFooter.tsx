@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import NewsletterForm from "@/components/forms/NewsletterForm";
-import { MARKETING, PATHWAY_ANCHORS } from "@/lib/marketing/links";
+import { MARKETING } from "@/lib/marketing/links";
 import { cn } from "@/lib/utils/cn";
 
 type Props = {

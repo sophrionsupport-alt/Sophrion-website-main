@@ -12,7 +12,7 @@ function json(
   return NextResponse.json({ ok, ...init }, { status });
 }
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
     const auth = await requireAdmin();
     if (!auth.ok) {
@@ -29,7 +29,7 @@ export async function GET(req: Request) {
     }
 
     return json(true, { data: { count: count ?? 0 } });
-  } catch (e) {
+  } catch {
     return json(false, { error: "Something went wrong" }, 500);
   }
 }

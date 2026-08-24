@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { Suspense } from "react";
-import Link from "next/link";
 import { motion } from "motion/react";
 import {
   Mail,
@@ -14,7 +13,6 @@ import {
   Briefcase,
   ArrowRight,
   ShieldCheck,
-  CheckCircle2,
   Linkedin,
   Instagram
 } from "lucide-react";
@@ -102,7 +100,7 @@ export default function ContactPage() {
 
             <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
               <span className="bg-linear-to-l from-[hsl(var(--brand-600))] to-[hsl(var(--cyan-500))] bg-clip-text text-transparent">
-                Let's Build the Next Learning Environment Together.
+                Let&apos;s Build the Next Learning Environment Together.
               </span>
             </h1>
 
@@ -307,7 +305,7 @@ export default function ContactPage() {
               { title: "Transparent Commercials", desc: "Flat, self-contained pilot pricing with zero hidden commitments." },
               { title: "Continuous Assessment", desc: "Evidence-based readiness tracking across multiple observable rubrics." },
               { title: "Institutional Reporting", desc: "Comprehensive post-pilot outcomes report for academic governance." }
-            ].map((p, i) => (
+            ].map((p) => (
               <div
                 key={p.title}
                 className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-5 backdrop-blur-md text-center"

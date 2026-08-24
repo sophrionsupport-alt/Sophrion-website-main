@@ -5,9 +5,8 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { ChevronDown, Search, ArrowRight, HelpCircle } from "lucide-react";
 import MarketingShell from "@/components/marketing/MarketingShell";
-import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
 import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
-import { ALL_FAQS, FAQ_CATEGORIES, type FaqItem } from "@/lib/marketing/allFaqs";
+import { ALL_FAQS, FAQ_CATEGORIES } from "@/lib/marketing/allFaqs";
 import { MARKETING } from "@/lib/marketing/links";
 import { cn } from "@/lib/utils/cn";
 

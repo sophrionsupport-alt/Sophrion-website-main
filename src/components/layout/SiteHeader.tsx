@@ -1,5 +1,7 @@
 "use client";
 
+// Main sticky navigation header featuring glassmorphism background and responsive scroll detection.
+
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,11 +13,13 @@ type Props = {
   className?: string;
 };
 
+// Renders the sticky brand header switching titles between public site and admin routes
 export default function SiteHeader({ className }: Props) {
   const pathname = usePathname();
   const isAdminRoute = pathname.startsWith("/admin");
   const [scrolled, setScrolled] = React.useState(false);
 
+  // Track window scroll threshold to activate dynamic backdrop blur and border styles
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();

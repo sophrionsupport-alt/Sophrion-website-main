@@ -1,11 +1,14 @@
 "use client";
 
+// Interactive multi-category inquiry form supporting honeypot protection, Zod schema validation, and institutional metadata enrichment.
+
 import * as React from "react";
 import { useSearchParams } from "next/navigation";
 import { InquirySchema, type InquiryType } from "@/lib/validators/inquiry";
 import { cn } from "@/lib/utils/cn";
 import { CheckCircle2 } from "lucide-react";
 
+// --- Form State & Configuration ---
 type FormState = {
   name: string;
   email: string;
@@ -16,7 +19,7 @@ type FormState = {
   studentCount?: string;
   preferredEngagement?: string;
   message: string;
-  company: string; // honeypot
+  company: string; // Honeypot field to trap automated spam bots
 };
 
 const TYPE_OPTIONS: { value: InquiryType; label: string }[] = [
@@ -39,6 +42,7 @@ function errMsg(json: unknown) {
   return o?.error || o?.message || "Submission failed. Please try again.";
 }
 
+// --- Component Implementation ---
 export default function InquiryForm({
   selectedType,
   onTypeChange,
@@ -99,6 +103,7 @@ export default function InquiryForm({
     });
   }
 
+  // --- Form Submission Handler ---
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setResult(null);

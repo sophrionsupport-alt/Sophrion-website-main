@@ -1,5 +1,7 @@
 "use client";
 
+// Primary landing page view assembling hero section, core ethos, learning journey, ecosystem diagram, evidence pipeline, and institutional pilot offer.
+
 import * as React from "react";
 import { motion } from "motion/react";
 import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
@@ -13,6 +15,7 @@ import EvidenceFlowDiagram from "@/components/marketing/EvidenceFlowDiagram";
 import { MARKETING } from "@/lib/marketing/links";
 import { cn } from "@/lib/utils/cn";
 
+// --- Static Data & Feature Configurations ---
 const JOURNEY_STEPS = [
   { number: "01", title: "DISCOVER", body: "Explore interests, problems and opportunities." },
   { number: "02", title: "LEARN", body: "Acquire the knowledge required for the problem." },
@@ -28,13 +31,10 @@ const PILOT_FEATURES = [
   "Continuous Assessment", "Final Showcase", "Institutional Impact Report",
 ];
 
-const EVIDENCE_STEPS = [
-  "PARTICIPATION", "PROJECT EVIDENCE", "ASSESSMENT", "INDUSTRY READINESS", "INSTITUTIONAL IMPACT",
-];
-
 /* ── Section alternating background ── */
 const SECTION_ALT = "bg-[#0e0e14]/60";
 
+// Main Home marketing page component
 export default function HomeMarketing() {
   const trainingCards = [
     { title: "LEARN", body: "Build knowledge when it becomes necessary." },
@@ -380,7 +380,7 @@ export default function HomeMarketing() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-5xl leading-[1.1]">
-              Students Shouldn't Just Prepare for the Future.
+              Students Shouldn&apos;t Just Prepare for the Future.
             </h2>
             <p
               className="mt-4 text-2xl font-semibold sm:text-4xl"

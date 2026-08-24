@@ -31,13 +31,6 @@ export async function sendMail(input: SendMailInput) {
     throw new Error("At least one recipient is required.");
   }
 
-  console.log("[sendMail] forwarding to shared transport");
-  console.log(
-    "[sendMail] to:",
-    to.map((item) => item.address).join(", ")
-  );
-  console.log("[sendMail] subject:", input.subject);
-
   return sendEmail({
     to: to.map((item) => item.address),
     subject: input.subject,

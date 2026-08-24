@@ -1,5 +1,7 @@
 "use client";
 
+// Accessible dialog modal component with backdrop blur, scroll locking, and ESC key listener.
+
 import * as React from "react";
 
 function cn(...classes: Array<string | false | null | undefined>) {
@@ -16,6 +18,7 @@ type ModalProps = {
   bodyClassName?: string;
 };
 
+// Renders an overlay dialog locking body scroll and attaching keyboard escape handlers when open
 export default function Modal({
   open,
   onClose,
@@ -25,6 +28,7 @@ export default function Modal({
   className,
   bodyClassName,
 }: ModalProps) {
+  // Lock body scrolling while modal is active
   React.useEffect(() => {
     if (!open) return;
 
@@ -36,6 +40,7 @@ export default function Modal({
     };
   }, [open]);
 
+  // Listen for Escape key press to trigger onClose callback
   React.useEffect(() => {
     if (!open) return;
 

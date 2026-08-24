@@ -1,10 +1,13 @@
 "use client";
 
+// Two-column side-by-side comparison component highlighting traditional institutional vs Sophrion ecosystem models.
+
 import * as React from "react";
 import { motion } from "motion/react";
 import { Check, ArrowRight, Building2, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
+// Renders comparative list cards for institutional baseline and Sophrion ecosystem additions
 export default function TwoColumnCompare({
   leftTitle,
   leftItems,

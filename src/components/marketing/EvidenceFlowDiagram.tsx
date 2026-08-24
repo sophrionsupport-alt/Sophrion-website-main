@@ -1,5 +1,7 @@
 "use client";
 
+// Interactive multi-stage diagram component visualizing Sophrion's 5-step evidence generation lifecycle.
+
 import * as React from "react";
 import { motion, useReducedMotion } from "motion/react";
 import {
@@ -8,12 +10,10 @@ import {
   ShieldCheck,
   TrendingUp,
   Building2,
-  CheckCircle2,
-  Sparkles,
-  ArrowRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
+// Step definition schema for evidence pipeline stages
 export type EvidenceStep = {
   id: string;
   step: string;
@@ -29,6 +29,7 @@ export type EvidenceStep = {
   };
 };
 
+// --- Pipeline Node Data ---
 const EVIDENCE_FLOW_DATA: EvidenceStep[] = [
   {
     id: "participation",
@@ -120,7 +121,7 @@ export default function EvidenceFlowDiagram() {
 
         {/* Minimal Steps Flow */}
         <div className="flex md:grid md:grid-cols-5 gap-2.5 relative z-10 min-w-[650px] md:min-w-0">
-          {EVIDENCE_FLOW_DATA.map((stepItem, index) => {
+          {EVIDENCE_FLOW_DATA.map((stepItem) => {
             const isActive = stepItem.id === activeStepId;
             const IconComponent = stepItem.icon;
 
@@ -215,7 +216,7 @@ export default function EvidenceFlowDiagram() {
               style={{ background: activeStep.accentColor }}
             />
             <span className="font-mono text-xs font-semibold tracking-wider text-foreground/50 uppercase">
-              NODE {activeStep.step} // {activeStep.title}
+              NODE {activeStep.step} {"//"} {activeStep.title}
             </span>
           </div>
 

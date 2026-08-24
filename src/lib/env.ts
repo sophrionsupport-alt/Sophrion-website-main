@@ -1,9 +1,8 @@
-// src/lib/env.ts
+// Validates public and server-only environment variables using Zod schemas and exposes structured application configuration.
+
 import { z } from "zod";
 
-/**
- * Helpers
- */
+// --- Type Parser Helpers ---
 function toBool(v: unknown, fallback = false) {
   if (typeof v !== "string") return fallback;
   const s = v.trim().toLowerCase();
@@ -28,10 +27,7 @@ function toCsv(v: unknown) {
 
 const isServer = typeof window === "undefined";
 
-/**
- * Public (browser-safe) env
- * Only NEXT_PUBLIC_* keys should live here.
- */
+// --- Public Environment Schema & Export (Browser-Safe) ---
 const PublicEnvSchema = z.object({
   NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(20),
@@ -48,10 +44,7 @@ export const publicEnv = PublicEnvSchema.parse({
   NEXT_PUBLIC_TURNSTILE_ENABLED: process.env.NEXT_PUBLIC_TURNSTILE_ENABLED,
 });
 
-/**
- * Server-only env (secrets)
- * Never import this into Client Components.
- */
+// --- Server-Only Environment Schema & Export (Secrets) ---
 const ServerEnvSchema = z.object({
   // Branding/domain (server-safe; not secrets)
   SITE_NAME: z.string().min(1),
@@ -178,10 +171,8 @@ export const serverEnv = (isServer
     })
   : null) as z.infer<typeof ServerEnvSchema> | null;
 
-/**
- * publicConfig: safe, structured config you can import anywhere (client/server).
- * Do NOT put secrets here.
- */
+// --- Public Client Configuration ---
+// Safe, structured config for client/server components without secrets
 export const publicConfig = {
   supabase: {
     url: publicEnv.NEXT_PUBLIC_SUPABASE_URL,
@@ -193,10 +184,8 @@ export const publicConfig = {
   },
 } as const;
 
-/**
- * appConfig: server-only structured config (includes non-public fields).
- * IMPORTANT: Do not import this in Client Components.
- */
+// --- Server Application Configuration ---
+// Server-only configuration getter containing system defaults and secrets
 export function getAppConfig() {
   if (!serverEnv) {
     throw new Error(

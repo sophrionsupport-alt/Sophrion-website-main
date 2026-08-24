@@ -2,12 +2,10 @@
 
 import * as React from "react";
 import { motion } from "motion/react";
-import Link from "next/link";
 import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
 import MarketingShell from "@/components/marketing/MarketingShell";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
-import FeatureGrid, { FeatureItem } from "@/components/marketing/FeatureGrid";
-import { MARKETING, PATHWAY_ANCHORS } from "@/lib/marketing/links";
+import { MARKETING } from "@/lib/marketing/links";
 import { cn } from "@/lib/utils/cn";
 import {
   Brain,
@@ -17,7 +15,6 @@ import {
   Cpu,
   ArrowRight,
   Sparkles,
-  Layers,
   Compass,
   CheckCircle2,
   GitMerge,

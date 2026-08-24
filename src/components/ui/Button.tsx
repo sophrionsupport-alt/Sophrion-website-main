@@ -1,9 +1,12 @@
+// Reusable core Button component supporting primary, secondary, ghost, and danger visual variants.
+
 import * as React from "react";
 
 function cn(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
 }
 
+// Button props extending standard HTML button attributes with custom styling and loading flags
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "primary" | "secondary" | "ghost" | "danger";
   size?: "sm" | "md" | "lg";
@@ -12,6 +15,7 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   iconOnly?: boolean;
 };
 
+// --- Base & Variant Style Configurations ---
 const base =
   "inline-flex items-center justify-center gap-2 rounded-xl font-medium " +
   "transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] " +
@@ -48,6 +52,7 @@ const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
     "active:brightness-95 active:scale-[0.98]",
 };
 
+// --- Loading Spinner Subcomponent ---
 function Spinner({ className }: { className?: string }) {
   return (
     <span
@@ -60,6 +65,7 @@ function Spinner({ className }: { className?: string }) {
   );
 }
 
+// ForwardRef Button implementation with automatic disabled and loading states
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
     className,

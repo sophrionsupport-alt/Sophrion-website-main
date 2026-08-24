@@ -5,7 +5,6 @@ import { motion } from "motion/react";
 import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
 import MarketingShell from "@/components/marketing/MarketingShell";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
-import FeatureGrid, { FeatureItem } from "@/components/marketing/FeatureGrid";
 import { MARKETING } from "@/lib/marketing/links";
 import { cn } from "@/lib/utils/cn";
 import {
@@ -15,7 +14,6 @@ import {
   Briefcase,
   Layers,
   Sparkles,
-  ArrowRight,
   CheckCircle2,
   Users,
   Building2,
@@ -411,7 +409,7 @@ export default function ExperiencesPage() {
                 <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--cyan-500))] to-transparent" />
                 <p className="text-xs font-black uppercase tracking-widest text-[hsl(var(--cyan-400))] mb-4">Core Philosophy</p>
                 <blockquote className="text-lg font-semibold text-foreground/90 italic leading-relaxed sm:text-xl">
-                  "A challenge is valuable not only when a solution is produced, but when it changes how a learner understands a problem."
+                  &quot;A challenge is valuable not only when a solution is produced, but when it changes how a learner understands a problem.&quot;
                 </blockquote>
                 <p className="mt-6 text-xs text-foreground/50 uppercase tracking-wider font-bold">
                   Problem Framing · Constraint Management · Investigation

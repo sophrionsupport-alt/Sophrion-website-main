@@ -67,6 +67,80 @@ export default function ContactsPage() {
   const [active, setActive] = React.useState<ContactRecord | null>(null);
   const [deletingId, setDeletingId] = React.useState<string | null>(null);
 
+  const toggleArchive = React.useCallback(async (id: string, archived: boolean) => {
+    try {
+      const res = await fetch(`/api/admin/contacts/${id}`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ archived }),
+      });
+
+      const payload = (await res.json().catch(() => null)) as ApiResp | null;
+
+      if (!res.ok || !payload || !payload.ok) {
+        const message =
+          payload && "error" in payload && typeof payload.error === "string"
+            ? payload.error
+            : "Update failed.";
+
+        throw new Error(message);
+      }
+
+      setActive((prev) =>
+        prev && prev.id === id
+          ? {
+              ...prev,
+              archived,
+              archived_at: archived ? new Date().toISOString() : null,
+            }
+          : prev
+      );
+
+      setFilters((prev) => ({ ...prev }));
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
+
+  const deleteContact = React.useCallback(async (id: string) => {
+    if (!confirm("Are you sure you want to permanently delete this contact submission?")) {
+      return;
+    }
+
+    setDeletingId(id);
+    try {
+      const res = await fetch(`/api/admin/contacts/${id}`, {
+        method: "DELETE",
+      });
+
+      const payload = (await res.json().catch(() => null)) as ApiResp | null;
+
+      if (!res.ok || !payload || !payload.ok) {
+        const message =
+          payload && "error" in payload && typeof payload.error === "string"
+            ? payload.error
+            : "Delete failed.";
+
+        throw new Error(message);
+      }
+
+      setActive((prev) => {
+        if (prev?.id === id) {
+          setOpen(false);
+          return null;
+        }
+        return prev;
+      });
+
+      setFilters((prev) => ({ ...prev }));
+    } catch (e) {
+      console.error(e);
+      alert(e instanceof Error ? e.message : "Failed to delete contact.");
+    } finally {
+      setDeletingId(null);
+    }
+  }, []);
+
   const load = React.useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -141,78 +215,7 @@ export default function ContactsPage() {
     } finally {
       setLoading(false);
     }
-  }, [filters]);
-
-  async function toggleArchive(id: string, archived: boolean) {
-    try {
-      const res = await fetch(`/api/admin/contacts/${id}`, {
-        method: "PATCH",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ archived }),
-      });
-
-      const payload = (await res.json().catch(() => null)) as ApiResp | null;
-
-      if (!res.ok || !payload || !payload.ok) {
-        const message =
-          payload && "error" in payload && typeof payload.error === "string"
-            ? payload.error
-            : "Update failed.";
-
-        throw new Error(message);
-      }
-
-      setActive((prev) =>
-        prev && prev.id === id
-          ? {
-              ...prev,
-              archived,
-              archived_at: archived ? new Date().toISOString() : null,
-            }
-          : prev
-      );
-
-      await load();
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  async function deleteContact(id: string) {
-    if (!confirm("Are you sure you want to permanently delete this contact submission?")) {
-      return;
-    }
-
-    setDeletingId(id);
-    try {
-      const res = await fetch(`/api/admin/contacts/${id}`, {
-        method: "DELETE",
-      });
-
-      const payload = (await res.json().catch(() => null)) as ApiResp | null;
-
-      if (!res.ok || !payload || !payload.ok) {
-        const message =
-          payload && "error" in payload && typeof payload.error === "string"
-            ? payload.error
-            : "Delete failed.";
-
-        throw new Error(message);
-      }
-
-      if (active?.id === id) {
-        setOpen(false);
-        setActive(null);
-      }
-
-      await load();
-    } catch (e) {
-      console.error(e);
-      alert(e instanceof Error ? e.message : "Failed to delete contact.");
-    } finally {
-      setDeletingId(null);
-    }
-  }
+  }, [deleteContact, filters, toggleArchive]);
 
   React.useEffect(() => {
     load();

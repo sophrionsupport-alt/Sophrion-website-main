@@ -2,24 +2,9 @@
 
 import * as React from "react";
 import { motion } from "motion/react";
-import Link from "next/link";
 import {
   Users,
-  Compass,
-  Target,
-  Sparkles,
-  ArrowRight,
   ShieldCheck,
-  CheckCircle2,
-  Workflow,
-  MessageSquare,
-  Share2,
-  GitMerge,
-  HeartHandshake,
-  BookOpen,
-  HelpCircle,
-  Lightbulb,
-  Building2,
   GraduationCap,
   Briefcase
 } from "lucide-react";
@@ -65,7 +50,7 @@ export default function CommunityPage() {
 
             <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
               <span className="bg-linear-to-l from-[hsl(var(--brand-600))] to-[hsl(var(--cyan-500))] bg-clip-text text-transparent">
-                Learning Doesn't End in the Classroom.
+                Learning Doesn&apos;t End in the Classroom.
               </span>
             </h1>
 

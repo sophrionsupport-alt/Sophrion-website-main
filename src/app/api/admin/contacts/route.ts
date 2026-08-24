@@ -1,8 +1,12 @@
+// Admin API route for searching, filtering, and paginating contact message records.
+
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth/requireAdmin";
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
 
+// --- API Response Helpers ---
 type ApiOk<T = unknown> = { ok: true; data?: T; message?: string };
 type ApiFail = { ok: false; error: string };
 
@@ -14,6 +18,7 @@ function fail(error: string, status = 400): Response {
   return NextResponse.json({ ok: false, error } satisfies ApiFail, { status });
 }
 
+// Escapes special SQL wildcard characters in search queries to prevent unexpected wildcard matching
 function escapeIlike(value: string) {
   return value
     .replaceAll("\\", "\\\\")
@@ -21,8 +26,7 @@ function escapeIlike(value: string) {
     .replaceAll("_", "\\_");
 }
 
-import { createSupabaseAdminClient } from "@/lib/supabase/admin";
-
+// GET handler returning paginated, filtered contact messages for admin view
 export async function GET(req: Request) {
   const auth = await requireAdmin();
 

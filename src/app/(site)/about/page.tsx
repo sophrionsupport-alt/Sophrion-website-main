@@ -98,7 +98,7 @@ export default function Page() {
             align="center"
           />
           <p className="mt-5 max-w-2xl mx-auto text-center text-lg text-foreground/60 leading-relaxed">
-            A learner's development is shaped by experiences, people, problems, projects, failures, feedback and reflection — not always in a fixed order.
+            A learner&apos;s development is shaped by experiences, people, problems, projects, failures, feedback and reflection — not always in a fixed order.
           </p>
 
           <div className="relative mt-16 flex flex-col items-center">
@@ -274,7 +274,7 @@ export default function Page() {
             <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full opacity-20"
               style={{ background: "radial-gradient(closest-side, hsl(var(--brand-600)), transparent)" }} />
 
-            <div className="text-5xl font-black text-[hsl(var(--brand-500))/0.25] leading-none mb-4">"</div>
+            <div className="text-5xl font-black text-[hsl(var(--brand-500))/0.25] leading-none mb-4">&quot;</div>
             <p className="text-xl leading-relaxed text-foreground/85 italic sm:text-2xl font-medium max-w-2xl">
               Students do not become future-ready by consuming more content alone. They develop capability by participating in meaningful experiences, working with people, solving problems, building things, receiving feedback and reflecting on what they learn.
             </p>

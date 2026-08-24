@@ -2,30 +2,16 @@
 
 import * as React from "react";
 import { motion, AnimatePresence } from "motion/react";
-import Link from "next/link";
 import {
-  Layers,
-  Sparkles,
   ArrowRight,
-  Filter,
   CheckCircle2,
-  ExternalLink,
-  Code2,
-  FileText,
-  Workflow,
-  X,
-  Compass,
-  Target,
-  Users,
-  ShieldCheck,
-  Zap,
-  Brain
+  X
 } from "lucide-react";
 import MarketingShell from "@/components/marketing/MarketingShell";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
 import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
 import EvidenceFlowDiagram from "@/components/marketing/EvidenceFlowDiagram";
-import { SHOWCASE_PROJECTS, type ShowcaseProject, type TeamContribution } from "@/lib/marketing/projectsData";
+import { SHOWCASE_PROJECTS, type ShowcaseProject } from "@/lib/marketing/projectsData";
 import { MARKETING } from "@/lib/marketing/links";
 import { cn } from "@/lib/utils/cn";
 
@@ -94,7 +80,7 @@ export default function ProjectsPage() {
             </h1>
 
             <p className="mt-6 text-lg leading-relaxed text-foreground/75 sm:text-xl max-w-3xl">
-              Projects are where Sophrion's learning ecosystem becomes tangible—turning problems, knowledge, collaboration and feedback into evidence of what learners can do.
+              Projects are where Sophrion&apos;s learning ecosystem becomes tangible—turning problems, knowledge, collaboration and feedback into evidence of what learners can do.
             </p>
 
             <p className="mt-4 text-sm font-semibold text-[hsl(var(--cyan-300))] max-w-2xl">

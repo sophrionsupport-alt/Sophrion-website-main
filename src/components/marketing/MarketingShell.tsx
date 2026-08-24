@@ -1,8 +1,11 @@
 "use client";
 
+// Wrapper container for marketing pages providing ambient background gradient orbs and noise overlay.
+
 import * as React from "react";
 import { cn } from "@/lib/utils/cn";
 
+// Outer layout shell rendering fixed ambient glows and children content
 export default function MarketingShell({
   children,
   className,

@@ -38,7 +38,7 @@ const CareerRoleInsertSchema = z.object({
   sort_order: z.number().int().min(0).max(1_000_000),
 });
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
     const auth = await requireAdmin();
     if (!auth.ok) {
@@ -55,7 +55,7 @@ export async function GET(req: Request) {
     }
 
     return json(true, { data: { count: count ?? 0 } });
-  } catch (e) {
+  } catch {
     return json(false, { error: "Something went wrong" }, 500);
   }
 }

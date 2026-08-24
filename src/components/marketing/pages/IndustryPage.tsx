@@ -2,25 +2,7 @@
 
 import * as React from "react";
 import { motion } from "motion/react";
-import Link from "next/link";
-import {
-  Briefcase,
-  Compass,
-  Target,
-  Sparkles,
-  ArrowRight,
-  ShieldCheck,
-  CheckCircle2,
-  Workflow,
-  MessageSquare,
-  Share2,
-  GitMerge,
-  Building2,
-  Lightbulb,
-  FileCheck2,
-  Zap,
-  Layers
-} from "lucide-react";
+import { Sparkles, CheckCircle2 } from "lucide-react";
 import MarketingShell from "@/components/marketing/MarketingShell";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
 import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";

@@ -1,5 +1,7 @@
 "use client";
 
+// Responsive grid component rendering interactive feature cards with accent glows, 3D mouse tilt, and bento layout support.
+
 import * as React from "react";
 import { motion } from "motion/react";
 import {
@@ -17,6 +19,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
+// Feature item schema for card content and accent colors
 export type FeatureItem = {
   title: string;
   body: string;
@@ -25,6 +28,7 @@ export type FeatureItem = {
   badge?: string;
 };
 
+// --- Accent Style Configurations & Fallback Cycle ---
 const ACCENT_CONFIG = {
   purple: {
     border: "border-[hsl(var(--brand-500))/0.25] hover:border-[hsl(var(--brand-500))/0.5]",
@@ -94,12 +98,10 @@ function FeatureCard({
   item,
   accent,
   index,
-  variant = "default",
 }: {
   item: FeatureItem;
   accent: keyof typeof ACCENT_CONFIG;
   index: number;
-  variant?: "default" | "asymmetric";
 }) {
   const cfg = ACCENT_CONFIG[accent];
   const cardRef = React.useRef<HTMLDivElement>(null);
@@ -209,7 +211,6 @@ export default function FeatureGrid({
                 item={item}
                 accent={accent}
                 index={i}
-                variant="asymmetric"
               />
             </div>
           );
@@ -233,7 +234,6 @@ export default function FeatureGrid({
           item={item}
           accent={item.accent ?? ACCENT_CYCLE[i % ACCENT_CYCLE.length]}
           index={i}
-          variant={variant}
         />
       ))}
     </div>

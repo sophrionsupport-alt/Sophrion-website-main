@@ -1,5 +1,5 @@
+// Main site homepage route serving metadata, JSON-LD structured data schema, and rendering HomeMarketing view.
 
-// src/app/(site)/page.tsx
 import type { Metadata } from "next";
 import HomeMarketing from "@/components/marketing/pages/HomeMarketing";
 
@@ -10,6 +10,8 @@ const PAGE_TITLE = "Sophrion-Execution Ecosystem";
 
 const PAGE_DESCRIPTION =
   "Sophrion transforms students into execution-ready professionals through production-oriented learning, startup-style collaboration, AI-native workflows, and deployable proof-of-work systems.";
+
+// --- SEO Metadata Configuration ---
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
