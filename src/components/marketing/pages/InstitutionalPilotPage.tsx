@@ -2,6 +2,20 @@
 
 import * as React from "react";
 import { motion } from "motion/react";
+import {
+  Users,
+  GraduationCap,
+  BookOpen,
+  Star,
+  Briefcase,
+  School,
+  Globe,
+  CheckCircle2,
+  TrendingUp,
+  MessageSquare,
+  BarChart3,
+  FileText,
+} from "lucide-react";
 import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
 import MarketingShell from "@/components/marketing/MarketingShell";
 import MarketingSectionHeader from "@/components/marketing/MarketingSectionHeader";
@@ -417,31 +431,75 @@ export default function InstitutionalPilotPage() {
       {/* 7 PEOPLE ARCHITECTURE */}
       <section className="border-t border-white/[0.06] py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <MarketingSectionHeader eyebrow="Mentorship" title={pilotContent.people.heading} align="center" />
-          <div className="mt-12 flex flex-col items-center">
-            <div className="flex flex-wrap items-center justify-center gap-3 text-sm font-semibold sm:text-base">
-              {pilotContent.people.flow.map((role, i, arr) => (
-                <React.Fragment key={role}>
-                  <span className={cn(
-                    "rounded-full border px-5 py-3 shadow-sm",
-                    i === arr.length - 1 
-                      ? "bg-gradient-to-r from-[hsl(var(--brand-600))] to-[hsl(var(--cyan-500))] border-transparent text-white" 
-                      : "bg-white/[0.03] border-white/[0.08] text-foreground/80"
-                  )}>
-                    {role}
-                  </span>
-                  {i < arr.length - 1 && <span className="text-foreground/30 font-bold">↕</span>}
-                </React.Fragment>
-              ))}
-            </div>
-            <div className="mt-6 flex gap-3 text-xs font-bold uppercase tracking-widest text-[hsl(var(--cyan-400))]">
-              {pilotContent.people.layers.map(layer => (
-                <span key={layer} className="rounded border border-[hsl(var(--cyan-500))/0.2] bg-[hsl(var(--cyan-500))/0.05] px-4 py-2">+ {layer} Layer</span>
-              ))}
-            </div>
-            <p className="mt-10 text-center text-base text-foreground/65 max-w-2xl">
-              {pilotContent.people.copy}
-            </p>
+          <MarketingSectionHeader
+            eyebrow="Expertise Distribution"
+            title="Distributed Expertise, Not One Mentor for Everyone."
+            align="center"
+          />
+          <p className="mt-4 text-center text-base text-foreground/50 max-w-2xl mx-auto">
+            {pilotContent.people.copy}
+          </p>
+
+          {/* Tier cards */}
+          <div className="mt-14 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+            {[
+              { role: "Student", icon: GraduationCap, desc: "Active learner building real projects and evidence.", tier: 1 },
+              { role: "Junior Mentor", icon: Users, desc: "Close-proximity guide for team sprints and day-to-day execution.", tier: 2 },
+              { role: "Cohort Leader", icon: Star, desc: "Program orchestrator managing the full 4-week delivery.", tier: 3, highlight: true },
+              { role: "Domain Expert", icon: BookOpen, desc: "Specialized practitioner providing technical direction.", tier: 4 },
+              { role: "Industry Professional", icon: Briefcase, desc: "Real-world context provider offering industry perspective.", tier: 5 },
+            ].map((item, i) => (
+              <motion.div
+                key={item.role}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                className={cn(
+                  "relative flex flex-col items-center text-center p-6 rounded-xl border transition-colors duration-200",
+                  item.highlight
+                    ? "bg-white/[0.05] border-white/15"
+                    : "bg-white/[0.02] border-white/[0.06] hover:bg-white/[0.035]"
+                )}
+              >
+                {/* Highlight top line — brand only on the central card */}
+                {item.highlight && (
+                  <div className="absolute inset-x-0 top-0 h-px rounded-t-xl bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                )}
+
+                {/* Icon */}
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/[0.05] mb-4">
+                  <item.icon className={cn("h-4.5 w-4.5", item.highlight ? "text-white" : "text-foreground/50")} />
+                </div>
+
+                <span className="font-mono text-[9px] font-bold tracking-[0.18em] text-foreground/30 uppercase mb-1.5">
+                  Tier {item.tier}
+                </span>
+                <h3 className={cn("text-sm font-semibold mb-2", item.highlight ? "text-white" : "text-foreground/75")}>
+                  {item.role}
+                </h3>
+                <p className="text-[11px] text-foreground/40 leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Supplementary layers */}
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+            {[
+              { icon: School, label: "+ Faculty Layer", desc: "Institutional observers and co-evaluators" },
+              { icon: Globe, label: "+ Community Layer", desc: "Peer network, alumni, and open community" },
+            ].map((layer) => (
+              <div
+                key={layer.label}
+                className="flex items-center gap-3 rounded-lg border border-white/[0.06] bg-white/[0.02] px-5 py-3"
+              >
+                <layer.icon className="h-3.5 w-3.5 shrink-0 text-foreground/40" />
+                <div className="text-left">
+                  <p className="text-xs font-semibold text-foreground/70">{layer.label}</p>
+                  <p className="text-[11px] text-foreground/40">{layer.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -621,19 +679,50 @@ export default function InstitutionalPilotPage() {
       <section className="border-t border-white/[0.06] py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <MarketingSectionHeader eyebrow="Evaluation" title={pilotContent.success.heading} align="center" />
-          <div className="mt-12 flex flex-col items-center">
-             <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm font-bold text-foreground/90 bg-white/[0.025] rounded-2xl px-6 py-4 border border-white/[0.07]">
-               {pilotContent.success.flow.map((step, i, arr) => (
-                 <React.Fragment key={step}>
-                   <span>{step}</span>
-                   {i < arr.length - 1 && <span className="text-[hsl(var(--cyan-400))] px-1">↓</span>}
-                 </React.Fragment>
-               ))}
-             </div>
-             <p className="mt-8 max-w-3xl mx-auto text-center text-base text-foreground/70 leading-relaxed">
-               {pilotContent.success.copy}
-             </p>
+          <p className="mt-4 text-center text-base text-foreground/50 max-w-2xl mx-auto">
+            {pilotContent.success.copy}
+          </p>
+
+          {/* Success metric cards — monochrome */}
+          <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {[
+              { icon: Users,         metric: ">85%",      label: "Student Participation Rate",      desc: "Active engagement across all 4 weeks as the primary baseline indicator." },
+              { icon: CheckCircle2,  metric: "~10 Teams", label: "Project Completion Rate",         desc: "Teams completing the showcase as evidence of sustained execution capability." },
+              { icon: TrendingUp,    metric: "Δ Score",   label: "Industry Readiness Improvement", desc: "Measurable delta between baseline and final Industry Readiness Score per student." },
+              { icon: MessageSquare, metric: "Observed",  label: "Faculty Evaluation & Feedback",  desc: "Direct faculty observation logs and structured evaluation submitted post-pilot." },
+              { icon: FileText,      metric: "Delivered", label: "Institutional Impact Report",    desc: "Comprehensive data report submitted to institutional leadership on pilot outcomes." },
+              { icon: BarChart3,     metric: "Cohort",    label: "Aggregate Analytics",            desc: "Team-level and cohort-wide performance analytics against established benchmarks." },
+            ].map((item, i) => (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                className="group relative rounded-xl border border-white/[0.07] bg-white/[0.02] p-6 hover:bg-white/[0.035] hover:border-white/[0.12] transition-all duration-200"
+              >
+                <div className="flex items-start gap-4">
+                  {/* Icon */}
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/[0.05]">
+                    <item.icon className="h-4 w-4 text-foreground/50" />
+                  </div>
+
+                  <div className="flex-1 min-w-0">
+                    <p className="font-mono text-xl font-black text-foreground/90 leading-none mb-1.5">
+                      {item.metric}
+                    </p>
+                    <h3 className="text-sm font-semibold text-foreground/75 mb-1.5">{item.label}</h3>
+                    <p className="text-xs text-foreground/40 leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
+
+          {/* Bottom statement */}
+          <p className="mt-10 text-center text-sm text-foreground/45 max-w-2xl mx-auto">
+            Both Sophrion and the institution evaluate the pilot against observable, documented evidence — not subjective impressions.
+          </p>
         </div>
       </section>
 
