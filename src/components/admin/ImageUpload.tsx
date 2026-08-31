@@ -45,9 +45,10 @@ export default function ImageUpload({ label, value, onChange, className = "" }: 
         .getPublicUrl(filePath);
 
       onChange(data.publicUrl);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Upload error:", err);
-      setError(err.message || "Failed to upload image.");
+      const msg = err instanceof Error ? err.message : "Failed to upload image.";
+      setError(msg);
     } finally {
       setUploading(false);
       // Reset input value so the same file can be selected again if needed
@@ -61,6 +62,7 @@ export default function ImageUpload({ label, value, onChange, className = "" }: 
       
       {value ? (
         <div className="relative rounded-xl border border-border bg-background/40 p-2 w-full max-w-sm group overflow-hidden">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
             src={value} 
             alt={label} 

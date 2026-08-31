@@ -19,7 +19,7 @@ import EventCountdown from "@/components/events/EventCountdown";
 import { ReactNode } from "react";
 
 // (Keep existing helper functions for rendering content)
-type EventRecord = any; // simplified for this overwrite
+type EventRecord = Record<string, unknown>;
 
 function fmtDateTime(s?: string | null) {
   if (!s) return "To be announced";
@@ -94,7 +94,7 @@ function Schedule({ schedule }: { schedule: unknown }) {
                     {String(s.time ?? "")}
                   </div>
                   <h4 className="text-white font-semibold text-lg">{String(s.title ?? "")}</h4>
-                  {s.description && <p className="text-[var(--text-muted)] mt-2 text-sm">{String(s.description)}</p>}
+                  {s.description ? <p className="text-[var(--text-muted)] mt-2 text-sm">{String(s.description)}</p> : null}
                 </div>
               </div>
             ))}
@@ -123,7 +123,7 @@ function Speakers({ speakers }: { speakers: unknown }) {
           </div>
           <h4 className="text-lg font-bold text-white">{s.name}</h4>
           <p className="text-[var(--accent-primary)] text-sm mb-1">{s.designation}</p>
-          {s.company && <p className="text-[var(--text-muted)] text-sm">{s.company}</p>}
+          {s.company ? <p className="text-[var(--text-muted)] text-sm">{s.company}</p> : null}
         </div>
       ))}
     </div>
