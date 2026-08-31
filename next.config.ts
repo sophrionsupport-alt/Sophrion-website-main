@@ -12,6 +12,14 @@ const nextConfig: NextConfig = {
       { source: "/services", destination: "/ecosystem", permanent: false },
     ];
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "nkiqmzetqipgrhnwuiqt.supabase.co",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
