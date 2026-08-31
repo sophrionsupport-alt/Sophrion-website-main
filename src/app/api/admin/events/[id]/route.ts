@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { requireAdmin } from "@/lib/auth/requireAdmin";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 type EventType = "workshop" | "hackathon" | "hybrid";
 type RegistrationType = "individual" | "team" | "both";
@@ -115,6 +116,7 @@ const EVENT_SELECT = `
   start_at,
   end_at,
   banner_url,
+  hero_url,
   is_published,
   registration_open,
   event_type,
@@ -257,6 +259,10 @@ export async function PATCH(
 
   if (body.banner_url !== undefined) {
     updates.banner_url = parseNullableString(body.banner_url);
+  }
+
+  if (body.hero_url !== undefined) {
+    updates.hero_url = parseNullableString(body.hero_url);
   }
 
   if (body.is_published !== undefined) {

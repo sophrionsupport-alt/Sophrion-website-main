@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useParams, useRouter } from "next/navigation";
 import { toIST } from "@/lib/utils/dates";
+import ImageUpload from "@/components/admin/ImageUpload";
 
 type EventType = "workshop" | "hackathon" | "hybrid";
 type RegistrationType = "individual" | "team";
@@ -40,6 +41,7 @@ type EventRecord = {
   end_at: string | null;
 
   banner_url: string | null;
+  hero_url: string | null;
 
   is_published: boolean;
   registration_open: boolean;
@@ -93,6 +95,7 @@ type FormState = {
   end_at: string;
 
   banner_url: string;
+  hero_url: string;
 
   is_published: boolean;
   registration_open: boolean;
@@ -270,6 +273,7 @@ export default function AdminEventEditPage() {
     end_at: "",
 
     banner_url: "",
+    hero_url: "",
 
     is_published: false,
     registration_open: true,
@@ -406,6 +410,7 @@ export default function AdminEventEditPage() {
         end_at: toInputDateTime(e.end_at),
 
         banner_url: e.banner_url ?? "",
+        hero_url: e.hero_url ?? "",
 
         is_published: Boolean(e.is_published),
         registration_open: Boolean(e.registration_open),
@@ -483,6 +488,7 @@ export default function AdminEventEditPage() {
         end_at: toISOStringOrNull(form.end_at),
 
         banner_url: form.banner_url.trim() || null,
+        hero_url: form.hero_url.trim() || null,
 
         is_published: form.is_published,
         registration_open: form.registration_open,
@@ -554,6 +560,7 @@ export default function AdminEventEditPage() {
         end_at: toInputDateTime(next.end_at),
 
         banner_url: next.banner_url ?? "",
+        hero_url: next.hero_url ?? "",
 
         is_published: Boolean(next.is_published),
         registration_open: Boolean(next.registration_open),
@@ -846,15 +853,17 @@ export default function AdminEventEditPage() {
                   />
                 </label>
 
-                <label className="grid gap-1">
-                  <span className="text-xs text-foreground/60">Banner URL</span>
-                  <input
-                    className={inputClassName()}
-                    value={form.banner_url}
-                    onChange={(e) => patchForm({ banner_url: e.target.value })}
-                    placeholder="https://..."
-                  />
-                </label>
+                <ImageUpload
+                  label="Banner Image"
+                  value={form.banner_url}
+                  onChange={(url) => patchForm({ banner_url: url })}
+                />
+
+                <ImageUpload
+                  label="Hero Image"
+                  value={form.hero_url}
+                  onChange={(url) => patchForm({ hero_url: url })}
+                />
 
                 <label className="grid gap-1">
                   <span className="text-xs text-foreground/60">City</span>

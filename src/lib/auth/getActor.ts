@@ -20,6 +20,20 @@ export async function getActor(): Promise<Actor> {
     return { isAuthenticated: false, role: "viewer" };
   }
 
+  const seedEmails = (process.env.SEED_ADMIN_EMAILS ?? "")
+    .split(",")
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean);
+
+  if (user.email && seedEmails.includes(user.email.toLowerCase())) {
+    return {
+      isAuthenticated: true,
+      userId: user.id,
+      email: user.email,
+      role: "admin",
+    };
+  }
+
   const { data: profile, error: profileErr } = await supabase
     .from("profiles")
     .select("role")

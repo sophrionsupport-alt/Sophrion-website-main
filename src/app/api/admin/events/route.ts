@@ -3,6 +3,7 @@ import { requireAdmin } from "@/lib/auth/requireAdmin";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 type ApiOk<T = unknown> = { ok: true; data?: T; message?: string };
 type ApiFail = { ok: false; error: string };
@@ -65,6 +66,7 @@ export async function GET(req: Request) {
       city,
       state,
       banner_url,
+      hero_url,
 
       event_type,
       registration_type,
@@ -105,6 +107,7 @@ export async function GET(req: Request) {
   const { data, error, count } = await query;
 
   if (error) {
+    console.error("ADMIN EVENTS FETCH ERROR:", error);
     return fail(error.message, 500);
   }
 
