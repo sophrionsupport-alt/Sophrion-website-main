@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import FiltersBar, { type FiltersState } from "@/components/admin/FiltersBar";
 import AdminTable, { type AdminRow } from "@/components/admin/AdminTable";
 import Modal from "@/components/ui/Modal";
+import { X, Eye } from "lucide-react";
 
 type RegistrationKind = "team" | "individual";
 
@@ -25,6 +26,7 @@ year?: string | null;
 roll_number?: string | null;
 
 status: "pending" | "approved" | "rejected";
+is_volunteer?: boolean;
 
 type: RegistrationKind;
 team_size?: number | null;
@@ -45,6 +47,7 @@ q: "",
 status: "all",
 sort: "newest",
 });
+const [roleTab, setRoleTab] = React.useState<"all" | "students" | "volunteers">("all");
 
 const [rows, setRows] = React.useState<AdminRow[]>([]);
 const [raw, setRaw] = React.useState<Registration[]>([]);
@@ -53,8 +56,10 @@ const [loading, setLoading] = React.useState(true);
 const [exporting, setExporting] = React.useState(false);
 
 const [deleteId, setDeleteId] = React.useState<string | null>(null);
+const [viewId, setViewId] = React.useState<string | null>(null);
 
 const active = raw.find((r) => r.id === deleteId) ?? null;
+const viewActive = raw.find((r) => r.id === viewId) ?? null;
 
 function getRegistrationById(id: string) {
 return raw.find((r) => r.id === id) ?? null;
@@ -70,6 +75,7 @@ setLoading(true);
   if (filters.status !== "all") params.set("status", filters.status);
   if (filters.sort) params.set("sort", filters.sort);
   if (eventFilter) params.set("event_id", eventFilter);
+  if (roleTab !== "all") params.set("role", roleTab);
 
   const res = await fetch(`/api/admin/registrations?${params.toString()}`, {
     cache: "no-store",
@@ -128,7 +134,7 @@ setLoading(true);
 }
 
 
-}, [filters, eventFilter]);
+}, [filters, eventFilter, roleTab]);
 
 React.useEffect(() => {
 void loadRegistrations();
@@ -208,6 +214,7 @@ setExporting(true);
   if (filters.status !== "all") params.set("status", filters.status);
   if (filters.sort) params.set("sort", filters.sort);
   if (eventFilter) params.set("event_id", eventFilter);
+  if (roleTab !== "all") params.set("role", roleTab);
 
   const res = await fetch(
     `/api/admin/registrations/export?${params.toString()}`
@@ -241,15 +248,31 @@ Review and manage individual and team registrations. </p> </div>
       type="button"
       onClick={exportRegistrations}
       disabled={loading || exporting}
-      className="rounded-xl border border-border px-4 py-2 text-xs"
+      className="rounded-xl border border-border px-4 py-2 text-xs hover:bg-background/60"
     >
       {exporting ? "Exporting..." : "Export CSV"}
     </button>
   </div>
 
+  <div className="flex gap-2 border-b border-border pb-1 mb-4">
+    {(["all", "students", "volunteers"] as const).map((tab) => (
+      <button
+        key={tab}
+        onClick={() => setRoleTab(tab)}
+        className={`px-4 py-2 text-sm font-medium rounded-t-lg transition-colors ${
+          roleTab === tab
+            ? "bg-[var(--bg-surface)] text-[var(--accent-primary)] border-b-2 border-[var(--accent-primary)]"
+            : "text-[var(--text-muted)] hover:text-white hover:bg-white/5"
+        }`}
+      >
+        {tab.charAt(0).toUpperCase() + tab.slice(1)}
+      </button>
+    ))}
+  </div>
+
   <FiltersBar value={filters} onChange={setFilters} />
 
-  <div className="rounded-xl border border-border bg-card">
+  <div className="rounded-xl border border-border bg-card overflow-hidden">
     {loading ? (
       <div className="p-6 text-sm text-foreground/60">
         Loading registrations...
@@ -267,6 +290,13 @@ Review and manage individual and team registrations. </p> </div>
         }}
         renderActions={(row) => (
           <>
+            <button
+              className="rounded-lg border border-border bg-background/40 px-2 py-1 text-xs hover:bg-background/60 inline-flex items-center gap-1 text-white/80"
+              onClick={() => setViewId(row.id)}
+            >
+              <Eye className="w-3 h-3" /> View
+            </button>
+            
             {row.status === "pending" && (
               <>
                 <button
@@ -344,6 +374,143 @@ Review and manage individual and team registrations. </p> </div>
       </div>
     )}
   </Modal>
+
+  {/* Slide-out Drawer for Details */}
+  {viewActive && (
+    <div className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm transition-opacity">
+      <div 
+        className="w-full max-w-md bg-[var(--bg-primary)] h-full shadow-2xl border-l border-[var(--border-subtle)] overflow-y-auto animate-in slide-in-from-right duration-300"
+      >
+        <div className="sticky top-0 bg-[var(--bg-primary)]/90 backdrop-blur p-6 border-b border-[var(--border-subtle)] flex items-center justify-between z-10">
+          <h2 className="text-xl font-bold text-white">Registration Details</h2>
+          <button 
+            onClick={() => setViewId(null)}
+            className="p-2 hover:bg-white/10 rounded-full transition-colors text-[var(--text-muted)] hover:text-white"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+        
+        <div className="p-6 space-y-6">
+          <div className="space-y-4">
+             <div className="inline-flex px-3 py-1 rounded-full bg-[var(--accent-primary)]/10 text-[var(--accent-primary)] text-xs font-bold uppercase tracking-wider">
+                {viewActive.type === "team" ? "Team Registration" : "Individual"}
+             </div>
+             {viewActive.is_volunteer && (
+                <div className="inline-flex ml-2 px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs font-bold uppercase tracking-wider">
+                   Volunteer
+                </div>
+             )}
+          </div>
+
+          <div className="grid gap-4">
+            <div>
+              <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1">Name / Team</div>
+              <div className="text-lg font-semibold text-white">{viewActive.full_name}</div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+               <div>
+                 <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1">Status</div>
+                 <div className={`font-medium capitalize ${
+                    viewActive.status === 'approved' ? 'text-green-400' :
+                    viewActive.status === 'rejected' ? 'text-red-400' : 'text-yellow-400'
+                 }`}>
+                    {viewActive.status}
+                 </div>
+               </div>
+               <div>
+                 <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1">Event</div>
+                 <div className="font-medium text-white line-clamp-1">{viewActive.event_title || viewActive.events?.title || 'N/A'}</div>
+               </div>
+            </div>
+
+            <div className="h-px w-full bg-[var(--border-subtle)] my-2" />
+
+            <div>
+              <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1">Email</div>
+              <div className="text-sm text-white">{viewActive.email || viewActive.leader_email || 'N/A'}</div>
+            </div>
+            
+            <div>
+              <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1">Phone</div>
+              <div className="text-sm text-white">{viewActive.phone || viewActive.leader_phone || 'N/A'}</div>
+            </div>
+
+            <div>
+              <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1">College</div>
+              <div className="text-sm text-white">{viewActive.college || 'N/A'}</div>
+            </div>
+
+            {viewActive.type === 'individual' && (
+               <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1">Year</div>
+                    <div className="text-sm text-white">{viewActive.year || 'N/A'}</div>
+                  </div>
+                  <div>
+                    <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1">Roll Number</div>
+                    <div className="text-sm text-white">{viewActive.roll_number || 'N/A'}</div>
+                  </div>
+               </div>
+            )}
+
+            {viewActive.type === 'team' && (
+               <div>
+                 <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1">Team Details</div>
+                 <div className="text-sm text-white">Leader: {viewActive.leader_name}</div>
+                 <div className="text-sm text-white">Size: {viewActive.team_size} members</div>
+               </div>
+            )}
+            
+            <div>
+              <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1">Registered At</div>
+              <div className="text-sm text-white">{new Date(viewActive.created_at).toLocaleString()}</div>
+            </div>
+
+          </div>
+          
+          <div className="pt-8 flex flex-col gap-3">
+             {viewActive.status === "pending" && (
+               <div className="flex gap-3">
+                  <button
+                    className="flex-1 rounded-xl bg-green-500/10 hover:bg-green-500/20 text-green-400 font-semibold py-3 transition-colors border border-green-500/20"
+                    onClick={() => updateStatus(viewActive.id, "approved")}
+                  >
+                    Approve
+                  </button>
+                  <button
+                    className="flex-1 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 font-semibold py-3 transition-colors border border-red-500/20"
+                    onClick={() => updateStatus(viewActive.id, "rejected")}
+                  >
+                    Reject
+                  </button>
+               </div>
+             )}
+             
+             {viewActive.status === "approved" && (
+                <button
+                  className="w-full rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 font-semibold py-3 transition-colors border border-red-500/20"
+                  onClick={() => updateStatus(viewActive.id, "rejected")}
+                >
+                  Revoke & Reject
+                </button>
+             )}
+             
+             {viewActive.status === "rejected" && (
+                <button
+                  className="w-full rounded-xl bg-green-500/10 hover:bg-green-500/20 text-green-400 font-semibold py-3 transition-colors border border-green-500/20"
+                  onClick={() => updateStatus(viewActive.id, "approved")}
+                >
+                  Approve Registration
+                </button>
+             )}
+          </div>
+        </div>
+      </div>
+      <div className="flex-1" onClick={() => setViewId(null)}></div>
+    </div>
+  )}
 </div>
 
 

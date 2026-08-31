@@ -1,0 +1,91 @@
+/* 
+  Design tokens for Sophrion Events System
+  Matches brand guidelines and Figma specs
+*/
+:root {
+  /* Base */
+  --bg-primary: #0a0a1f;        /* page background, deep navy/near-black */
+  --bg-surface: #13132b;        /* card / panel background */
+  --border-subtle: #26264a;
+
+  /* Text */
+  --text-heading: #22d3ee;      /* cyan headings e.g. "Featured Event" */
+  --text-body: #e2e8f0;         /* near-white body copy */
+  --text-muted: #94a3b8;        /* secondary/meta text */
+
+  /* Action */
+  --accent-primary: #7c3aed;    /* primary CTA — "View Event", search bar */
+  --accent-secondary: #c026d3;  /* secondary CTA — "View Details", "Register" */
+  --accent-tag: #ea7317;        /* category tag pills — "AI", "Web3" */
+
+  /* Form states */
+  --state-success: #22c55e;
+  --state-error: #ef4444;
+  --state-disabled: #3f3f5a;
+}
+
+/* Button Utility Classes */
+.btn-primary {
+  background-color: var(--accent-primary);
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  background-color: var(--state-disabled);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: var(--accent-secondary);
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-secondary:disabled {
+  background-color: var(--state-disabled);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.btn-loading {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+}
+
+.btn-loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: 2px solid transparent;
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: button-loading-spinner 1s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}

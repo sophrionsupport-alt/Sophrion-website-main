@@ -19,6 +19,7 @@ export const MARKETING = {
   privacy: "/privacy",
   terms: "/terms",
   blog: "/blog",
+  events: "/events",
   institutionsBrochure: "/api/public/institutions/brochure",
 } as const;
 

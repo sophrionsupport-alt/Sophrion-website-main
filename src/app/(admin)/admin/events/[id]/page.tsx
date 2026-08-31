@@ -67,6 +67,13 @@ type EventRecord = {
 
   created_at?: string | null;
   updated_at?: string | null;
+
+  capacity?: number | null;
+  participant_capacity?: number | null;
+  volunteer_capacity?: number | null;
+  volunteers_enabled?: boolean | null;
+  is_featured?: boolean | null;
+  status?: string | null;
 };
 
 type FormState = {
@@ -105,6 +112,13 @@ type FormState = {
   prize_pool: string;
   winner_prize: string;
   runner_prize: string;
+  
+  capacity: string;
+  participant_capacity: string;
+  volunteer_capacity: string;
+  volunteers_enabled: boolean;
+  is_featured: boolean;
+  status: string;
 };
 
 function toInputDateTime(value: string | null) {
@@ -275,6 +289,13 @@ export default function AdminEventEditPage() {
     prize_pool: "",
     winner_prize: "",
     runner_prize: "",
+    
+    capacity: "",
+    participant_capacity: "",
+    volunteer_capacity: "",
+    volunteers_enabled: false,
+    is_featured: false,
+    status: "draft",
   });
 
   const [schedule, setSchedule] = React.useState<ScheduleItem[]>([
@@ -405,6 +426,13 @@ export default function AdminEventEditPage() {
         prize_pool: e.prize_pool ?? "",
         winner_prize: e.winner_prize ?? "",
         runner_prize: e.runner_prize ?? "",
+
+        capacity: e.capacity == null ? "" : String(e.capacity),
+        participant_capacity: e.participant_capacity == null ? "" : String(e.participant_capacity),
+        volunteer_capacity: e.volunteer_capacity == null ? "" : String(e.volunteer_capacity),
+        volunteers_enabled: Boolean(e.volunteers_enabled),
+        is_featured: Boolean(e.is_featured),
+        status: e.status ?? "draft",
       });
 
       setSchedule(toScheduleItems(e.schedule_json));
@@ -484,6 +512,13 @@ export default function AdminEventEditPage() {
 
         benefits_json: cleanBenefits.length ? cleanBenefits : null,
         sample_roles_json: isTeamEvent && cleanRoles.length ? cleanRoles : null,
+
+        capacity: form.capacity.trim() ? Number(form.capacity) : null,
+        participant_capacity: form.participant_capacity.trim() ? Number(form.participant_capacity) : null,
+        volunteer_capacity: form.volunteer_capacity.trim() ? Number(form.volunteer_capacity) : null,
+        volunteers_enabled: form.volunteers_enabled,
+        is_featured: form.is_featured,
+        status: form.status.trim() || null,
       };
 
       const res = await fetch(`/api/admin/events/${encodeURIComponent(id)}`, {
@@ -543,6 +578,13 @@ export default function AdminEventEditPage() {
         prize_pool: next.prize_pool ?? "",
         winner_prize: next.winner_prize ?? "",
         runner_prize: next.runner_prize ?? "",
+
+        capacity: next.capacity == null ? "" : String(next.capacity),
+        participant_capacity: next.participant_capacity == null ? "" : String(next.participant_capacity),
+        volunteer_capacity: next.volunteer_capacity == null ? "" : String(next.volunteer_capacity),
+        volunteers_enabled: Boolean(next.volunteers_enabled),
+        is_featured: Boolean(next.is_featured),
+        status: next.status ?? "draft",
       });
 
       setSchedule(toScheduleItems(next.schedule_json));
@@ -880,6 +922,66 @@ export default function AdminEventEditPage() {
                     }
                   />
                   Registration open
+                </label>
+                
+                <label className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-foreground">
+                  <input
+                    type="checkbox"
+                    checked={form.is_featured}
+                    onChange={(e) =>
+                      patchForm({ is_featured: e.target.checked })
+                    }
+                  />
+                  Featured event
+                </label>
+                
+                <label className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-foreground">
+                  <input
+                    type="checkbox"
+                    checked={form.volunteers_enabled}
+                    onChange={(e) =>
+                      patchForm({ volunteers_enabled: e.target.checked })
+                    }
+                  />
+                  Requires Volunteers
+                </label>
+              </div>
+              
+              <div className="grid gap-4 md:grid-cols-3 mt-4">
+                 <label className="grid gap-1">
+                  <span className="text-xs text-foreground/60">Total Capacity</span>
+                  <input
+                    type="number"
+                    min={0}
+                    step={1}
+                    className={inputClassName()}
+                    value={form.capacity}
+                    onChange={(e) => patchForm({ capacity: e.target.value })}
+                  />
+                </label>
+                
+                 <label className="grid gap-1">
+                  <span className="text-xs text-foreground/60">Participant Capacity (Optional)</span>
+                  <input
+                    type="number"
+                    min={0}
+                    step={1}
+                    className={inputClassName()}
+                    value={form.participant_capacity}
+                    onChange={(e) => patchForm({ participant_capacity: e.target.value })}
+                  />
+                </label>
+
+                 <label className="grid gap-1">
+                  <span className="text-xs text-foreground/60">Volunteer Capacity (Optional)</span>
+                  <input
+                    type="number"
+                    min={0}
+                    step={1}
+                    className={inputClassName()}
+                    value={form.volunteer_capacity}
+                    onChange={(e) => patchForm({ volunteer_capacity: e.target.value })}
+                  />
                 </label>
               </div>
             </section>

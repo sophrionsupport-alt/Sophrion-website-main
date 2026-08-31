@@ -76,6 +76,13 @@ export async function GET(req: Request) {
 
       is_published,
       registration_open,
+      
+      capacity,
+      participant_capacity,
+      volunteer_capacity,
+      volunteers_enabled,
+      is_featured,
+      status,
 
       created_at,
       updated_at

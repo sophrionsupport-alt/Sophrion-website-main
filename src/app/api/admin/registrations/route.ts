@@ -23,6 +23,7 @@ type IndividualRow = {
   source?: string | null;
   ip?: string | null;
   user_agent?: string | null;
+  is_volunteer: boolean;
   created_at: string;
   updated_at?: string | null;
 };
@@ -81,6 +82,7 @@ export async function GET(req: Request) {
     | RegistrationStatus
     | "";
   const eventId = (searchParams.get("event_id") ?? "").trim();
+  const role = (searchParams.get("role") ?? "all").trim().toLowerCase();
 
   const sort = (searchParams.get("sort") ?? "newest").trim().toLowerCase();
   const ascending = sort === "oldest";
@@ -112,6 +114,7 @@ export async function GET(req: Request) {
       source,
       ip,
       user_agent,
+      is_volunteer,
       created_at,
       updated_at
       `
@@ -129,6 +132,12 @@ export async function GET(req: Request) {
 
   if (eventId) {
     individualQuery = individualQuery.eq("event_id", eventId);
+  }
+
+  if (role === "students") {
+    individualQuery = individualQuery.eq("is_volunteer", false);
+  } else if (role === "volunteers") {
+    individualQuery = individualQuery.eq("is_volunteer", true);
   }
 
   let teamQuery = admin
@@ -160,6 +169,11 @@ export async function GET(req: Request) {
 
   if (eventId) {
     teamQuery = teamQuery.eq("event_id", eventId);
+  }
+  
+  if (role === "volunteers") {
+    // Teams are never volunteers
+    teamQuery = teamQuery.eq("id", "invalid_id_to_return_empty"); 
   }
 
   const [
@@ -240,6 +254,7 @@ export async function GET(req: Request) {
     year: row.year,
     roll_number: row.roll_number,
     status: row.status,
+    is_volunteer: Boolean(row.is_volunteer),
     type: "individual" as RegistrationKind,
     team_size: null,
     leader_name: null,
@@ -260,6 +275,7 @@ export async function GET(req: Request) {
     year: null,
     roll_number: null,
     status: row.status,
+    is_volunteer: false,
     type: "team" as RegistrationKind,
     team_size: teamCountsMap.get(row.id) ?? 0,
     leader_name: row.leader_name,

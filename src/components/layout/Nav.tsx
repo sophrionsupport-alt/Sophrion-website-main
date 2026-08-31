@@ -245,6 +245,16 @@ export default function Nav({
         
         <div className="flex shrink-0 items-center justify-end gap-2 xl:gap-3">
           <Link
+            href={MARKETING.events}
+            className={cn(
+              "hidden shrink-0 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-semibold xl:px-3.5 xl:py-2 xl:text-sm sm:inline-flex",
+              "text-foreground/85 backdrop-blur-sm transition-all duration-300",
+              "hover:bg-white/[0.06] hover:border-white/[0.15] hover:scale-[1.02]"
+            )}
+          >
+            Events
+          </Link>
+          <Link
             href={MARKETING.institutions}
             className={cn(
               "hidden shrink-0 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-semibold xl:px-3.5 xl:py-2 xl:text-sm sm:inline-flex",
@@ -366,6 +376,18 @@ export default function Nav({
               )}
             >
               For Institutions
+            </Link>
+            <Link
+              href={MARKETING.events}
+              onClick={() => setOpen(false)}
+              className={cn(
+                "rounded-xl px-4 py-4 text-lg font-medium transition-all duration-300 hover:bg-white/[0.06]",
+                isActive(pathname, MARKETING.events)
+                  ? "bg-white/[0.08] text-white shadow-[0_0_12px_-4px_hsl(var(--brand-600)/0.3)]"
+                  : "text-foreground/85"
+              )}
+            >
+              Events
             </Link>
           </nav>
           <div className="relative border-t border-white/10 p-4 space-y-3">

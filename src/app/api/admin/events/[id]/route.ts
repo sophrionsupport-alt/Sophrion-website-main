@@ -134,6 +134,12 @@ const EVENT_SELECT = `
   runner_prize,
   benefits_json,
   sample_roles_json,
+  capacity,
+  participant_capacity,
+  volunteer_capacity,
+  volunteers_enabled,
+  is_featured,
+  status,
   created_at,
   updated_at
 `;
@@ -367,6 +373,39 @@ export async function PATCH(
       return json(false, { error: "sample_roles_json must be valid JSON." }, 400);
     }
     updates.sample_roles_json = parsed;
+  }
+
+  if (body.capacity !== undefined) {
+    updates.capacity = parseNullableInt(body.capacity) || 0;
+  }
+
+  if (body.participant_capacity !== undefined) {
+    updates.participant_capacity = parseNullableInt(body.participant_capacity);
+  }
+
+  if (body.volunteer_capacity !== undefined) {
+    updates.volunteer_capacity = parseNullableInt(body.volunteer_capacity);
+  }
+
+  if (body.volunteers_enabled !== undefined) {
+    if (typeof body.volunteers_enabled !== "boolean") {
+      return json(false, { error: "volunteers_enabled must be boolean." }, 400);
+    }
+    updates.volunteers_enabled = body.volunteers_enabled;
+  }
+
+  if (body.is_featured !== undefined) {
+    if (typeof body.is_featured !== "boolean") {
+      return json(false, { error: "is_featured must be boolean." }, 400);
+    }
+    updates.is_featured = body.is_featured;
+  }
+
+  if (body.status !== undefined) {
+    const status = parseNullableString(body.status);
+    if (status === "draft" || status === "active" || status === "archived") {
+      updates.status = status;
+    }
   }
 
   updates.updated_at = new Date().toISOString();
